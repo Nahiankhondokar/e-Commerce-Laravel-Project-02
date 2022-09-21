@@ -35,17 +35,21 @@ class MainAdminController extends Controller
      *  admin profile Update
      */
     public function AdminProfileUpdate($id, Request $request){
+
+
+        // validation
+        $this -> validate($request, [
+            'image'      => 'mimes:jpeg, jpg, png'
+        ]);
        
         // user photo
         if($request -> hasFile('image')){
             $img = $request -> file('image');
             $unique = md5(time() . rand()) . '.' . $img -> getClientOriginalExtension();
-            $img -> move(public_path('media/backend'), $unique);
+            $img -> move(public_path('media/backend/admin'), $unique);
 
             // image delete
-            if(file_exists('media/backend/' . $request -> old_image)){
-                unlink('media/backend/'. $request -> old_image);
-            }
+            @unlink('media/backend/admin/'. $request -> old_image);
 
         }else {
             $unique = $request -> old_image;

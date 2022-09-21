@@ -25,6 +25,10 @@
   <link rel="stylesheet" href="{{ asset('backend/assets/plugins/daterangepicker/daterangepicker.css') }}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('backend/assets/plugins/summernote/summernote-bs4.min.css') }}">
+
+  {{-- Toster css file --}}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+  
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -86,5 +90,38 @@
 <script src="{{ asset('backend/assets/dist/js/demo.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('backend/assets/dist/js/pages/dashboard.js') }}"></script>
+
+
+{{-- // custom js file --}}
+<script src="{{asset('backend/assets/js/custom.js')}}"></script>
+
+{{-- Toster js file --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+  {{-- // Toster --}}
+  <script>
+    
+    @if (Session::has('message'))
+    let type = "{{ Session::get('alert-type', 'info') }}"
+    switch(type){
+        case 'info':
+        toastr.info("{{ Session::get('message') }}");
+        break;
+        case 'success':
+        toastr.success("{{ Session::get('message') }}");
+        break;
+        case 'warning':
+        toastr.warning("{{ Session::get('message') }}");
+        break;
+        case 'error':
+        toastr.error("{{ Session::get('message') }}");
+        break;  
+    }
+        
+  @endif
+
+</script>
+
+
 </body>
 </html>
