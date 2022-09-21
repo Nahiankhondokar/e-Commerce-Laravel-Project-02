@@ -17,7 +17,7 @@
                             </div>
                             @endif
                 
-                            <form method="POST" action="{{ isset($guard) ? url($guard . '/login')  :  route('login') }}">
+                            <form method="POST" action="{{ route('login') }}">
                                 @csrf
                                 
                                 <div class="form-group icon_parent">
