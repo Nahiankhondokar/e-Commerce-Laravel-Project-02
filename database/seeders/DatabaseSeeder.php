@@ -16,9 +16,8 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\Admin::factory()->create();
 
-        $this->call([
-            AdminSeeder::class,
-        ]);
+        // $this->call([AdminSeeder::class]);
+        $this->call([SectionSeeder::class]);
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
