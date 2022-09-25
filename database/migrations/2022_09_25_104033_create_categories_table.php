@@ -21,11 +21,11 @@ return new class extends Migration
             $table->string('category_image') -> nullable();
             $table->float('category_discount') -> nullable();
             $table->string('description') -> nullable();
-            $table->string('ulr') -> nullable();
+            $table->string('url') -> nullable();
             $table->string('meta_title') -> nullable();
             $table->string('meta_description') -> nullable();
             $table->string('meta_keyword') -> nullable();
-            $table->tinyInteger('sttatus') -> nullable();
+            $table->tinyInteger('status') -> nullable();
             $table->timestamps();
         });
     }

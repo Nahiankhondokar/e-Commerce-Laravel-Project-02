@@ -1,5 +1,10 @@
 (function($){
     $(document).ready(function(){
+
+
+      // Data Table js file
+      $("#section").DataTable();
+
   
       // img preview system
       $('#inputTag').change(function(e){
@@ -11,11 +16,10 @@
           reader.readAsDataURL(e.target.files[0]);
       });
   
-      // Data Table js file
-      $("#section").DataTable();
 
 
-      // sectin status update script
+
+      // section status update script
       $(document).on('click', '.sectionActiveInactive', function(){
         let text = $(this).text();
         let section_id = $(this).attr('section_id');
@@ -26,15 +30,39 @@
           data : {text, section_id},
           success : function (data){
             if(data == 'active'){
-              $('#section-'+section_id).html('<a class="sectionActiveInactive text-success" section_id="{{ $item -> id }}" href="javascript:void(0)">Active</a>');
+              $('#section-'+section_id).html('<a class="badge badge-success"  href="javascript:void(0)">Active</a>');
+              $('#active-btn'+section_id).hide();
             }else {
-              $('#section-'+section_id).html('<a class="sectionActiveInactive text-danger" section_id="{{ $item -> id }}" href="javascript:void(0)">Inactive</a>')
+              $('#section-'+section_id).html('<a class="badge badge-danger" href="javascript:void(0)">Inactive</a>')
+              $('#inactive-btn'+section_id).hide();
             }
           }
         });
 
       });
 
+
+      // category status update script
+      $(document).on('click', '.categoryActiveInactive', function(){
+        let text = $(this).text();
+        let category_id = $(this).attr('category_id');
+
+        $.ajax({
+          url : '/admin/category/active-inactive',
+          type : 'get',
+          data : {text, category_id},
+          success : function (data){
+            if(data == 'active'){
+              $('#category-'+category_id).html('<a class="badge badge-success"  href="javascript:void(0)">Active</a>');
+              $('#cat_active-btn'+category_id).hide();
+            }else {
+              $('#category-'+category_id).html('<a class="badge badge-danger" href="javascript:void(0)">Inactive</a>')
+              $('#cat_inactive-btn'+category_id).hide();
+            }
+          }
+        });
+
+      });
   
     //   // sweet alert show befor delete
     //   $(document).on('click', '#delete', function(e){

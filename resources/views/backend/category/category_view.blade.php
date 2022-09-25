@@ -9,12 +9,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Sections</h1>
+            <h1>Category</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Sections</li>
+              <li class="breadcrumb-item active">Category</li>
             </ol>
           </div>
         </div>
@@ -37,35 +37,30 @@
                   <tr>
                     <th>SR</th>
                     <th>Name</th>
+                    <th>URL</th>
                     <th>Status</th>
                   </tr>
                   </thead>
                   <tbody>
                   @foreach($allData as $item)
                     <tr>
-                      <td>{{$item -> id }}</td>
-                      <td>{{ $item -> name }}</td>
+                      <td>{{ $item -> id }}</td>
+                      <td>{{ $item -> category_name }}</td>
+                      <td>{{ $item -> url }}</td>
                       <td>
                         @if($item -> status == 1)
-                        <div class="sectionActiveInactive" id="section-{{$item -> id}}" section_id="{{ $item -> id }}">
-                          <a id="active-btn-{{$item -> id}}" class="badge badge-success" href="javascript:void(0)">Active</a>
+                        <div class="categoryActiveInactive" id="category-{{$item -> id}}" category_id="{{ $item -> id }}">
+                          <a id="cat_active-btn-{{$item -> id}}" class="badge badge-success" href="javascript:void(0)">Active</a>
                         </div>
                         @else 
-                        <div class="sectionActiveInactive" id="section-{{$item -> id}}" section_id="{{ $item -> id }}">
-                          <a id="inactive-btn-{{$item -> id}}" class="badge badge-danger"  href="javascript:void(0)">Inactive</a>
+                        <div class="categoryActiveInactive" id="category-{{$item -> id}}" category_id="{{ $item -> id }}">
+                          <a id="cat_inactive-btn-{{$item -> id}}" class="badge badge-danger"  href="javascript:void(0)">Inactive</a>
                         </div>
                         @endif
                       </td>
                     </tr>
                   @endforeach
                   </tbody>
-                  <tfoot>
-                  <tr>
-                    <th>SR</th>
-                    <th>Name</th>
-                    <th>Status</th>
-                  </tr>
-                  </tfoot>
                 </table>
               </div>
               <!-- /.card-body -->

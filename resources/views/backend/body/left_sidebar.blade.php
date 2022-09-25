@@ -63,7 +63,7 @@
         </li>
 
         <li class="nav-item ">
-          <a href="#" class="nav-link {{ ($prefix == '/admin/section') ? 'active' : '' }}">
+          <a href="#" class="nav-link {{ ($prefix == '/admin') ? 'active' : '' }}">
             <i class="nav-icon fas fa-chart-pie"></i>
             <p>
               Catalogues
@@ -78,9 +78,9 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="pages/charts/flot.html" class="nav-link">
+              <a href="{{ route('category.view') }}" class="nav-link {{ ($route == 'category.view') ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Flot</p>
+                <p>Categories</p>
               </a>
             </li>
             <li class="nav-item">

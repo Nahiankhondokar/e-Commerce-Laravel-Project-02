@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\MainAdminController;
 use App\Http\Controllers\Backend\SectionController;
 use App\Http\Controllers\Frontend\MainUserController;
@@ -79,14 +80,17 @@ Route::group(['prefix'  => 'admin'], function(){
     Route::post('/password/update', [MainAdminController::class, "PasswordUpdate"]) -> name('admin.pass.update');
 
 
-});
-
-
-Route::group(['prefix'  => 'admin/section'], function(){
-
     // admin section routes
-    Route::get('/', [SectionController::class, "SectionView"]) -> name('section.view');
-    Route::get('/active-inactive', [SectionController::class, "SectionActiveInactive"]);
+    Route::get('/section', [SectionController::class, "SectionView"]) -> name('section.view');
+    Route::get('/section/active-inactive', [SectionController::class, "SectionActiveInactive"]);
+
+    
+
+    // Categroy all routes
+    Route::get('/category', [CategoryController::class, "CategoryView"]) -> name('category.view');
+    Route::get('/category/active-inactive', [CategoryController::class, "CategoryActiveInactive"]);
+
 
 
 });
+
