@@ -11,6 +11,30 @@
           reader.readAsDataURL(e.target.files[0]);
       });
   
+      // Data Table js file
+      $("#section").DataTable();
+
+
+      // sectin status update script
+      $(document).on('click', '.sectionActiveInactive', function(){
+        let text = $(this).text();
+        let section_id = $(this).attr('section_id');
+
+        $.ajax({
+          url : '/admin/section/active-inactive',
+          type : 'get',
+          data : {text, section_id},
+          success : function (data){
+            if(data == 'active'){
+              $('#section-'+section_id).html('<a class="sectionActiveInactive text-success" section_id="{{ $item -> id }}" href="javascript:void(0)">Active</a>');
+            }else {
+              $('#section-'+section_id).html('<a class="sectionActiveInactive text-danger" section_id="{{ $item -> id }}" href="javascript:void(0)">Inactive</a>')
+            }
+          }
+        });
+
+      });
+
   
     //   // sweet alert show befor delete
     //   $(document).on('click', '#delete', function(e){

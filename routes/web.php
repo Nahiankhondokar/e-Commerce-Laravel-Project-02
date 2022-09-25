@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\MainAdminController;
-use App\Http\Controllers\MainUserController;
+use App\Http\Controllers\Backend\MainAdminController;
+use App\Http\Controllers\Backend\SectionController;
+use App\Http\Controllers\Frontend\MainUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -68,11 +69,24 @@ Route::get('/admin/logout', [AdminController::class, "destroy"]) -> name('admin.
 
 Route::group(['prefix'  => 'admin'], function(){
 
+
+    // admin profile
     Route::get('/profile', [MainAdminController::class, "AdminProfile"]) -> name('admin.profile');
     Route::get('/profile/edit', [MainAdminController::class, "AdminProfileEdit"]) -> name('admin.profile.edit');
     Route::post('/profile/update/{id}', [MainAdminController::class, "AdminProfileUpdate"]) -> name('admin.profile.update');
 
     Route::get('/password/change', [MainAdminController::class, "PasswordChangeView"]) -> name('admin.pass.view');
     Route::post('/password/update', [MainAdminController::class, "PasswordUpdate"]) -> name('admin.pass.update');
+
+
+});
+
+
+Route::group(['prefix'  => 'admin/section'], function(){
+
+    // admin section routes
+    Route::get('/', [SectionController::class, "SectionView"]) -> name('section.view');
+    Route::get('/active-inactive', [SectionController::class, "SectionActiveInactive"]);
+
 
 });

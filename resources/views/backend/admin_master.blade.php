@@ -26,6 +26,11 @@
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('backend/assets/plugins/summernote/summernote-bs4.min.css') }}">
 
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{{ asset('backend/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('backend/assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('backend/assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+
   {{-- Toster css file --}}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
   
@@ -90,6 +95,11 @@
 <script src="{{ asset('backend/assets/dist/js/demo.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('backend/assets/dist/js/pages/dashboard.js') }}"></script>
+
+<!-- DataTables  & Plugins -->
+<script src="{{ asset('backend/assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('backend/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('backend/assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
 
 
 {{-- // custom js file --}}
