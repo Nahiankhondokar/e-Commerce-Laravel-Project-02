@@ -46,9 +46,9 @@
                   </tr>
                   </thead>
                   <tbody>
-                  @foreach($allData as $item)
+                  @foreach($allData as $key => $item)
                     <tr>
-                      <td>{{ $item -> id }}</td>
+                      <td>{{ $key + 1 }}</td>
                       <td>{{ ucwords($item -> category_name) }}</td>
                       <td>{{ ucwords($item -> parentCategory -> category_name ?? 'Root') }}</td>
                       <td>{{ ucwords($item -> section -> name) }}</td>
