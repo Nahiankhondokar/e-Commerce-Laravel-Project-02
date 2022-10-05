@@ -24,7 +24,7 @@
 
 
 
-      // section status update script
+      // section status active inactive update script
       $(document).on('click', '.sectionActiveInactive', function(){
         let text = $(this).text();
         let section_id = $(this).attr('section_id');
@@ -47,13 +47,13 @@
       });
 
 
-      // category status update script
+      // category status active inactive update script
       $(document).on('click', '.categoryActiveInactive', function(){
         let text = $(this).text();
         let category_id = $(this).attr('category_id');
 
         $.ajax({
-          url : '/admin//active-inactive',
+          url : '/admin/active-inactive',
           type : 'get',
           data : {text, category_id},
           success : function (data){
@@ -63,6 +63,28 @@
             }else {
               $('#category-'+category_id).html('<a class="badge badge-danger" href="javascript:void(0)">Inactive</a>')
               $('#cat_inactive-btn'+category_id).hide();
+            }
+          }
+        });
+
+      });
+
+      // product status active inactive update script
+      $(document).on('click', '.productActiveInactive', function(){
+        let text = $(this).text();
+        let product_id = $(this).attr('product_id');
+
+        $.ajax({
+          url : '/admin/product/active-inactive',
+          type : 'get',
+          data : {product_id},
+          success : function (data){
+            if(data == 'active'){
+              $('#product-'+product_id).html('<a class="badge badge-success"  href="javascript:void(0)">Active</a>');
+              $('#product_active-btn'+product_id).hide();
+            }else {
+              $('#product-'+product_id).html('<a class="badge badge-danger" href="javascript:void(0)">Inactive</a>')
+              $('#product_inactive-btn'+product_id).hide();
             }
           }
         });

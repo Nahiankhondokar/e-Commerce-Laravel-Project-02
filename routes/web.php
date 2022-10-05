@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\MainAdminController;
+use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SectionController;
 use App\Http\Controllers\Frontend\MainUserController;
 use Illuminate\Support\Facades\Route;
@@ -100,6 +101,15 @@ Route::group(['prefix'  => 'admin'], function(){
     Route::post('/category/update/{id}', [CategoryController::class, "CategoryUpdate"]) -> name('category.update');
     Route::get('/category/delete/{id}', [CategoryController::class, "CategoryDelete"]) -> name('category.delete');
 
+
+
+    // Product all routes
+    Route::get('/product', [ProductController::class, "ProductView"]) -> name('product.view');
+    Route::get('/product/active-inactive', [ProductController::class, "ProductActiveInactive"]);
+
+
+
+    Route::get('/category/add', [CategoryController::class, "CategoryAddView"]) -> name('category.add.view');
 
 
 });
