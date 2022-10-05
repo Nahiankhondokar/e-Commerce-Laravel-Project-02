@@ -65,7 +65,8 @@
                         @endif
 
                         <td>
-                          <a href="{{ route('category.edit', $item -> id) }}" class="badge badge-warning">Edit</a>
+                          <a href="{{ route('category.edit', $item -> id) }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
+                          <a id="delete" href="{{ route('category.delete', $item -> id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                         </td>
                       </td>
                     </tr>

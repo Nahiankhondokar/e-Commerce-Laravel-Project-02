@@ -156,10 +156,27 @@ class CategoryController extends Controller
         $update -> update();
 
 
-            // msg
-            $notify = [
+        // msg
+        $notify = [
             'message'       => "Category Updated Succefully",
             'alert-type'    => "success"
+        ];
+
+        return redirect() -> route('category.view') -> with($notify);
+
+    }
+
+
+    // get category leve section wise
+    public function CategoryDelete ($id) {
+
+        $delete = Category::find($id);
+        $delete -> delete();
+
+        // msg
+        $notify = [
+            'message'       => "Category Deleted Succefully",
+            'alert-type'    => "error"
         ];
 
         return redirect() -> route('category.view') -> with($notify);

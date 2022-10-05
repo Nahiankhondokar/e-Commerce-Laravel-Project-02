@@ -110,6 +110,8 @@
 <script src="{{ asset('backend/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('backend/assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
 
+{{-- // sweet alert file --}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 {{-- // custom js file --}}
 <script src="{{asset('backend/assets/js/custom.js')}}"></script>

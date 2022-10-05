@@ -98,6 +98,7 @@ Route::group(['prefix'  => 'admin'], function(){
     Route::get('/category/edit/{id}', [CategoryController::class, "CategoryEdit"]) -> name('category.edit');
 
     Route::post('/category/update/{id}', [CategoryController::class, "CategoryUpdate"]) -> name('category.update');
+    Route::get('/category/delete/{id}', [CategoryController::class, "CategoryDelete"]) -> name('category.delete');
 
 
 
