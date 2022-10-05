@@ -39,7 +39,7 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            <form action="{{ route('category.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('category.update', $category -> id) }}" method="POST" enctype="multipart/form-data">
               @csrf
               <div class="row">
                 <div class="col-md-6">
@@ -84,14 +84,18 @@
                     <label for="exampleInputFile">Categroy Image</label>
                     <div class="input-group">
                       <div class="custom-file">
+
                         <input type="file" class="custom-file-input" id="exampleInputFile" name="category_image">
+
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                       </div>
                       <div class="input-group-append">
-                        <span class="input-group-text">Upload</span>
-                      </div>
+                        <span class="input-group-text" style="height : 38px">Upload</span>
+                      </div> &nbsp;
+                      <img style="width: 50px; heigth : 50px; border-radius : 50%" src="{{ URL::to('') }}/media/category/{{ $category -> category_image }}" alt="">
 
                       <input type="hidden" name="old_img" value="{{ $category -> category_image }}">
+
                     </div>
                   </div>
                   <!-- /.form-group -->

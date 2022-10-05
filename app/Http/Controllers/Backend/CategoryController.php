@@ -121,4 +121,49 @@ class CategoryController extends Controller
     }
 
 
+    // category update
+    public function CategoryUpdate($id, Request $request){
+        // dd($request -> all());
+
+        // img upload 
+        if($request -> hasFile('category_image')){
+
+            $img = $request -> file('category_image');
+            $unique = md5(time() . rand()) . '.' . $img -> getClientOriginalExtension();
+            $img -> move(public_path('media/category'), $unique);
+
+            @unlink('media/category/'. $request -> old_img);
+
+
+        }else {
+
+            $unique = $request -> old_img;
+
+        }
+
+        // category store
+        $update = Category::find($id);
+        $update -> category_name        = $request -> category_name;
+        $update -> parent_id            = $request -> parent_id;
+        $update -> section_id           = $request -> section_id;
+        $update -> category_image       = $unique;
+        $update -> category_discount    = $request -> category_discount;
+        $update -> description          = $request -> description;
+        $update -> url                  = $request -> url;
+        $update -> meta_title           = $request -> meta_title;
+        $update -> meta_description     = $request -> meta_description;
+        $update -> meta_keyword         = $request -> meta_keyword;
+        $update -> update();
+
+
+            // msg
+            $notify = [
+            'message'       => "Category Updated Succefully",
+            'alert-type'    => "success"
+        ];
+
+        return redirect() -> route('category.view') -> with($notify);
+
+    }
+
 }

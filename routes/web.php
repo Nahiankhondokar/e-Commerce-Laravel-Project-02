@@ -97,6 +97,8 @@ Route::group(['prefix'  => 'admin'], function(){
     Route::get('/get/edit/categroy/section/wise', [CategoryController::class, "GetEditCategorySectionWise"]);
     Route::get('/category/edit/{id}', [CategoryController::class, "CategoryEdit"]) -> name('category.edit');
 
+    Route::post('/category/update/{id}', [CategoryController::class, "CategoryUpdate"]) -> name('category.update');
+
 
 
 });
