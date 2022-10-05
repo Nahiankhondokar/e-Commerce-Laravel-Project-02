@@ -88,7 +88,14 @@ Route::group(['prefix'  => 'admin'], function(){
 
     // Categroy all routes
     Route::get('/category', [CategoryController::class, "CategoryView"]) -> name('category.view');
+    Route::get('/category/add', [CategoryController::class, "CategoryAddView"]) -> name('category.add.view');
     Route::get('/category/active-inactive', [CategoryController::class, "CategoryActiveInactive"]);
+
+    Route::get('/get/categroy/section/wise', [CategoryController::class, "GetCategorySectionWise"]);
+    Route::post('/categroy/store', [CategoryController::class, "CategoryStore"]) -> name('category.store');
+
+    Route::get('/get/edit/categroy/section/wise', [CategoryController::class, "GetEditCategorySectionWise"]);
+    Route::get('/category/edit/{id}', [CategoryController::class, "CategoryEdit"]) -> name('category.edit');
 
 
 

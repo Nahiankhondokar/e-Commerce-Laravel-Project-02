@@ -2,8 +2,14 @@
     $(document).ready(function(){
 
 
+      
+      //Initialize Select2 Elements
+      $('.select2').select2()
+      
       // Data Table js file
       $("#section").DataTable();
+      $("#category").DataTable();
+
 
   
       // img preview system
@@ -48,7 +54,7 @@
         let category_id = $(this).attr('category_id');
 
         $.ajax({
-          url : '/admin/category/active-inactive',
+          url : '/admin//active-inactive',
           type : 'get',
           data : {text, category_id},
           success : function (data){
@@ -63,6 +69,44 @@
         });
 
       });
+
+
+      // Category leve load automatically select on category section
+      $(document).on('change', '#categorySection', function(){
+
+        let section_id = $(this).val();
+        // alert(section_id);
+        
+        $.ajax({
+          url : '/admin/get/categroy/section/wise',
+          type : 'get',
+          data : {section_id},
+          success : function(data){
+            $('#appendCategoriesLavel').html(data);
+          }
+        });
+      });
+
+
+
+      
+      // Edit Category leve load automatically select on category section
+      $(document).on('change', '#editCategorySection', function(){
+
+        let section_id = $(this).val();
+        // alert(section_id);
+        
+        $.ajax({
+          url : '/admin/get/edit/categroy/section/wise',
+          type : 'get',
+          data : {section_id},
+          success : function(data){
+            $('#editAppendCategoriesLavel').html(data);
+          }
+        });
+      });
+
+
   
     //   // sweet alert show befor delete
     //   $(document).on('click', '#delete', function(e){

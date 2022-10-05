@@ -28,24 +28,30 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">All Sections</h3>
+                <h3 class="card-title">All Category</h3>
+                <a href="{{ route('category.add.view') }}" class="btn btn-info float-right">Add Category</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="section" class="table table-bordered table-striped">
+                <table id="category" class="table table-bordered table-striped">
                   <thead>
                   <tr>
                     <th>SR</th>
-                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Parent Category</th>
+                    <th>Section</th>
                     <th>URL</th>
                     <th>Status</th>
+                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
                   @foreach($allData as $item)
                     <tr>
                       <td>{{ $item -> id }}</td>
-                      <td>{{ $item -> category_name }}</td>
+                      <td>{{ ucwords($item -> category_name) }}</td>
+                      <td>{{ ucwords($item -> parentCategory -> category_name ?? 'Root') }}</td>
+                      <td>{{ ucwords($item -> section -> name) }}</td>
                       <td>{{ $item -> url }}</td>
                       <td>
                         @if($item -> status == 1)
@@ -57,6 +63,10 @@
                           <a id="cat_inactive-btn-{{$item -> id}}" class="badge badge-danger"  href="javascript:void(0)">Inactive</a>
                         </div>
                         @endif
+
+                        <td>
+                          <a href="{{ route('category.edit', $item -> id) }}" class="badge badge-warning">Edit</a>
+                        </td>
                       </td>
                     </tr>
                   @endforeach
