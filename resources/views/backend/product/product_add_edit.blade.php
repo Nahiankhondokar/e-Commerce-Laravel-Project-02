@@ -48,10 +48,6 @@
                     <input type="text" class="form-control" name="product_name" placeholder="product">
                   </div>
                   <!-- /.form-group -->
-                  {{-- <div id="appendCategoriesLavel">
-                    @include('backend.product.append_product_view')
-                   </div> --}}
-                  <!-- /.form-group -->
                   <div class="form-group">
                     <label>Product Price</label>
                     <input type="text" class="form-control" name="product_discount" placeholder="product Discount">
@@ -105,9 +101,15 @@
                     <label>Select Category</label>
                     <select id="productSection" class="form-control select2" style="width: 100%;" name="section_id">
                       <option value="" selected > -Select- </option>
-                      {{-- @foreach($sections as $item)
-                      <option value="{{ $item -> id }}">{{ ucwords($item -> name) }}</option>
-                      @endforeach --}}
+                      @foreach($section as $item)
+                      <optgroup label="{{ ucwords($item -> name) }}"></optgroup>
+                            @foreach($item['getCategory'] as $cat)
+                            <option value="{{ $cat -> id }}"> &nbsp; -- &nbsp; {{ ucwords($cat -> category_name) }}</option>
+                                @foreach($cat['subcategories'] as $subcat)
+                                    <option value="{{ $subcat -> id }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- &nbsp;{{ ucwords($subcat -> category_name) }}</option>
+                                @endforeach
+                            @endforeach
+                      @endforeach
                     </select>
                   </div>
                   <!-- /.form-group -->

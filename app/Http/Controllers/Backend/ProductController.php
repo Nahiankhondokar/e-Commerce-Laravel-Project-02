@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\CreateSection;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -52,6 +54,13 @@ class ProductController extends Controller
         }else {
             $allData['title'] = 'Add Product';
         }
+
+        // get all sesction
+        $allData['section'] = CreateSection::with('getCategory') -> get();
+        // $allData['section'] = Category::with(['getCategory', 'subcategories']) -> get();
+        // $data = json_decode(json_encode($section));
+        // echo "<pre>"; print_r($data);
+
 
         // filter Arrays
         $allData['fabricArr'] = ['Cotton', 'Colyster', 'Wool'];
