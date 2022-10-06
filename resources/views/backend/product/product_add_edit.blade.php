@@ -39,11 +39,11 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            <form action="{{ route('product.add.edit') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('product.add.edit', $edit_product -> id ?? '') }}" method="POST" enctype="multipart/form-data">
               @csrf
               <div class="row">
                 <div class="col-md-6">
-                  <div class="form-group">
+                  <div class="form-group">{{$edit_product -> id}}
                     <label>Product Name</label>
                     <input type="text" class="form-control" name="product_name" placeholder="product" @if(!empty(@$edit_product -> product_name)) value="{{ $edit_product -> product_name }}" @else value="{{ old('product_name') }}" @endif>
 
@@ -110,11 +110,11 @@
 
                   <div class="form-group">
                     <label>Product Discription </label><br>
-                    <textarea name="description" id="" style="width: 100%;" rows="2" placeholder="Description. . ." @if(!empty(@$edit_product -> description)) value="{{ $edit_product -> description }}" @else value="{{ old('description') }}" @endif></textarea>
+                    <textarea name="description" id="" style="width: 100%;" rows="2" placeholder="Description. . ." >@if(!empty(@$edit_product -> description)) {{ $edit_product -> description }} @else {{ old('description') }} @endif</textarea>
                   </div>
                   <div class="form-group">
                     <label>Meta Keywords</label><br>
-                    <textarea name="meta_keyword" id="" style="width: 100%;" rows="2" placeholder="Description. . ." @if(!empty(@$edit_product -> meta_keyword)) value="{{ $edit_product -> meta_keyword }}" @else value="{{ old('meta_keyword') }}" @endif></textarea>
+                    <textarea name="meta_keyword" id="" style="width: 100%;" rows="2" placeholder="Description. . ." >@if(!empty(@$edit_product -> meta_keyword)) {{ $edit_product -> meta_keyword }} @else {{ old('meta_keyword') }} @endif</textarea>
                   </div>
                 </div>
                 <!-- /.col -->
@@ -127,10 +127,10 @@
                       <optgroup label="{{ ucwords($item -> name) }}"></optgroup>
 
                             @foreach($item['getCategory'] as $cat)
-                            <option value="{{ $cat -> id }}" @if(!empty(@old('category_id')) && @old('category_id') == $cat -> id) selected @endif > &nbsp; -- &nbsp; {{ ucwords($cat -> category_name) }}</option>
+                            <option value="{{ $cat -> id }}" @if(!empty(@old('category_id')) && @old('category_id') == $cat -> id) selected @endif  @if($cat -> id == @$edit_product -> category_id) selected @endif> &nbsp; -- &nbsp; {{ ucwords($cat -> category_name) }}</option>
 
                                 @foreach($cat['subcategories'] as $subcat)
-                                    <option value="{{ $subcat -> id }}" @if(!empty(@old('category_id')) && @old('category_id') == $subcat -> id) selected @endif >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- &nbsp;{{ ucwords($subcat -> category_name) }}</option>
+                                    <option value="{{ $subcat -> id }}" @if(!empty(@old('category_id')) && @old('category_id') == $subcat -> id) selected @endif @if($subcat -> id == @$edit_product -> category_id) selected @endif >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -- &nbsp;{{ ucwords($subcat -> category_name) }}</option>
                                 @endforeach
 
                             @endforeach
@@ -151,6 +151,7 @@
                         <input type="file" class="custom-file-input" id="main_image" name="main_image">
                         <label class="custom-file-label" for="main_image">Choose file</label>
                       </div>
+                      <input type="hidden" name="old_img" @if(!empty(@$edit_product -> main_image)) value="{{ $edit_product -> main_image }}" @endif> <img src="{{URL::to('')}}/media/backend/product/large/{{ $edit_product -> main_image }}" alt="" style="width: 40px">
                       <div class="input-group-append">
                         <span class="input-group-text">Upload</span>
                       </div>
@@ -216,23 +217,23 @@
 
                   <div class="form-group">
                     <label>Product Wash</label>
-                    <textarea name="wash_care" id="" style="width: 100%;" rows="2" placeholder="product wash. . ." @if(!empty(@$edit_product -> wash_care)) value="{{ $edit_product -> wash_care }}" @else value="{{ old('wash_care') }}" @endif></textarea>
+                    <textarea name="wash_care" style="width: 100%;" rows="2" placeholder="product wash. . ." >@if(!empty(@$edit_product -> wash_care)) {{ $edit_product -> wash_care }} @else {{ old('wash_care') }} @endif </textarea>
                   </div>
                   
                   <div class="form-group">
                     <label>Meta Description</label><br>
-                    <textarea name="meta_desc" id="" style="width: 100%;" rows="2" placeholder="Description. . ." @if(!empty(@$edit_product -> meta_desc)) value="{{ $edit_product -> meta_desc }}" @else value="{{ old('meta_desc') }}" @endif></textarea>
+                    <textarea name="meta_desc" style="width: 100%;" rows="2" placeholder="Description. . ." value="hello">@if(!empty(@$edit_product -> meta_desc)) {{ $edit_product -> meta_desc }} @else {{ old('meta_desc') }} @endif</textarea>
                   </div>
 
                   <div class="form-group">
                     <label>Featured Item</label><br>
-                    <input type="checkbox" id="is_featured" name="is_featured" class="form-control-checkbox" value="1">
-                    <label for="is_featured" @if(!empty(@$edit_product -> is_featured == 1)) checked  @endif>Featured Product</label>
+                    <input type="checkbox" id="is_featured" name="is_featured" class="form-control-checkbox" value="Yes" @if(!empty(@$edit_product -> is_featured == 'Yes')) checked  @endif>
+                    <label for="is_featured">Featured Product</label>
                   </div>
                   
                 </div>
                 <!-- /.col -->
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">{{ ($edit_product) ? "Update" : "Submit" }}</button>
 
               </div>
               <!-- /.row -->

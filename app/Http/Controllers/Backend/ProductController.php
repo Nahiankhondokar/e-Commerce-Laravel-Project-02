@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\CreateSection;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Image;
 
 class ProductController extends Controller
 {
@@ -53,12 +54,17 @@ class ProductController extends Controller
         // indevidual title
         if($id){
             $allData['title'] = 'Edit Product';
+            $allData['edit_product'] = Product::find($id);
+            $product = Product::find($id);
+            $message = "Product Updated Successfully";
         }else {
             $allData['title'] = 'Add Product';
+            $allData['edit_product'] = '';
             $product = new Product();
+            $message = "Product Inserted Successfully";
         }
 
-
+        // Product add or update
         if($request -> isMethod('post')){
             // dd($request -> all());
 
@@ -81,8 +87,28 @@ class ProductController extends Controller
 
                 $img = $request -> file('main_image');
                 $unique = md5(time() . rand()) . '.' . $img -> getClientOriginalExtension();
-                $img -> move(public_path('media/backend/product'), $unique);
+                $img -> move(public_path('media/backend/product/large'), $unique);
+                // Image::make($unique)->save('media/backend/product/large'); // w:1080 h:1200
+                // Image::make($unique)->resize(520, 600)->save('media/backend/product/medium');
+                // Image::make($unique)->resize(260, 300)->save('media/backend/product/small');
 
+                @unlink('media/backend/product/large/'.$request -> old_img);
+
+            }else {
+                $unique = $request -> old_img;
+            }
+
+            // video upload 
+            if($request -> hasFile('product_video')){
+
+                $img = $request -> file('product_video');
+                $video_name = md5(time() . rand()) . '.' . $img -> getClientOriginalExtension();
+                $img -> move(public_path('media/backend/product/videos'), $video_name);
+
+                @unlink('media/backend/product/videos/'.$request -> old_video);
+
+            }else {
+                $video_name = $request -> old_video;
             }
 
             // product store
@@ -95,8 +121,8 @@ class ProductController extends Controller
             $product -> product_price   = $request -> product_price;
             $product -> product_discount = $request -> product_discount;
             $product -> product_weight  = $request -> product_weight;
-            $product -> product_video   = $request -> product_video ?? '';
-            $product -> main_image      = $unique;
+            $product -> product_video   = $video_name ?? '';
+            $product -> main_image      = $unique ?? '';
             $product -> description     = $request -> description;
             $product -> wash_care       = $request -> wash_care;
             $product -> fabric          = $request -> fabric;
@@ -107,17 +133,17 @@ class ProductController extends Controller
             $product -> meta_title      = $request -> meta_title;
             $product -> meta_desc       = $request -> meta_desc;
             $product -> meta_keyword    = $request -> meta_keyword;
-            $product -> is_featured     = $request -> is_featured ?? 0;
-            $product -> is_featured     = 1;
+            $product -> is_featured     = $request -> is_featured ?? 'No';
+            $product -> status          = 1;
             $product -> save();
 
-        // msg
-        $notify = [
-            'message'       => "Product Inserted Succefully",
-            'alert-type'    => "success"
-        ];
+            // msg
+            $notify = [
+                'message'       => $message,
+                'alert-type'    => "success"
+            ];
 
-        return redirect() -> route('product.view') -> with($notify);
+            return redirect() -> route('product.view') -> with($notify);
 
 
         }
@@ -131,11 +157,13 @@ class ProductController extends Controller
 
 
         // filter Arrays
-        $allData['fabricArr'] = ['Cotton', 'Colyster', 'Wool'];
-        $allData['sleeveArr'] = ['Full Sleeve', 'Half Sleeve', 'Short Sleeve'];
-        $allData['patternArr'] = ['Cehcked', 'Plain', 'Solid', 'Printed'];
-        $allData['fitArr'] = ['Regular', 'Slim'];
+        $allData['fabricArr']   = ['Cotton', 'Colyster', 'Wool'];
+        $allData['sleeveArr']   = ['Full Sleeve', 'Half Sleeve', 'Short Sleeve'];
+        $allData['patternArr']  = ['Cehcked', 'Plain', 'Solid', 'Printed'];
+        $allData['fitArr']      = ['Regular', 'Slim'];
         $allData['ocassionArr'] = ['Casual', 'Formal'];
+
+
 
         return view('backend.product.product_add_edit', $allData);
 

@@ -142,7 +142,6 @@ class CategoryController extends Controller
 
             @unlink('media/category/'. $request -> old_img);
 
-
         }else {
 
             $unique = $request -> old_img;

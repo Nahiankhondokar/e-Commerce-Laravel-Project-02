@@ -42,6 +42,7 @@
                     <th>Color</th>
                     <th>Category</th>
                     <th>Section</th>
+                    <th>Photo</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
@@ -55,6 +56,24 @@
                       <td>{{ ucwords($item -> product_color) }}</td>
                       <td>{{ ucwords($item -> getCategory -> category_name) }}</td>
                       <td>{{ ucwords($item -> getSection -> name) }}</td>
+
+                      @php
+                          $image_path = "media/product/large/".$item -> main_image;
+                      @endphp
+
+                      <td>
+                        @if(!empty($item -> main_image))
+
+                          <img style="width: 40px" src="{{URL::to('')}}/media/backend/product/large/{{$item -> main_image}}" alt="">
+
+                        @elseif(empty(file_exists("{{ URL::to('') }}/media/backend/product/large/{{ $item -> main_image }}")))
+                          <img style="width: 40px" src="{{URL::to('')}}/media/no_image.jpg" alt="">
+                        @elseif(empty($item -> main_image))
+                          <img style="width: 40px" src="{{URL::to('')}}/media/no_image.jpg" alt="">
+                        @endif
+                      </td>
+
+                      
                       <td>
                         @if($item -> status == 1)
                         <div class="productActiveInactive" id="product-{{$item -> id}}" product_id="{{ $item -> id }}">
@@ -66,11 +85,13 @@
                         </div>
                         @endif
 
-                        <td>
-                          <a href="{{ route('category.edit', $item -> id) }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
-                          <a id="delete" href="{{ route('category.delete', $item -> id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                        </td>
                       </td>
+
+                      <td>
+                        <a href="{{ route('product.add.edit', $item -> id) }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
+                        <a id="delete" href="{{ route('category.delete', $item -> id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                      </td>
+
                     </tr>
                   @endforeach
                   </tbody>

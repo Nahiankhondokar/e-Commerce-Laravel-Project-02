@@ -35,7 +35,7 @@ return new class extends Migration
             $table->string('meta_title') -> nullable();
             $table->string('meta_desc') -> nullable();
             $table->string('meta_keyword') -> nullable();
-            $table->enum('is_featured', ['No', 'YES']);
+            $table->enum('is_featured', ['No', 'Yes']);
             $table->boolean('status') -> default(1);
             $table->timestamps();
         });
