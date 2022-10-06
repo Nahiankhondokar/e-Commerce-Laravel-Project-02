@@ -15,4 +15,9 @@
           @endforeach
         @endif
     </select>
+    @error('parent_id')
+      <span class="text-danger">
+          <strong>{{ $message }}</strong>
+      </span>
+    @enderror
 </div>

@@ -64,12 +64,20 @@ class CategoryController extends Controller
     public function CategoryStore(Request $request){
         // dd($request -> all());
 
+        // validation
+        $this -> validate($request, [
+            'category_name'      => 'required',
+            'section_id'       => 'required',
+            'parent_id'       => 'required',
+        ]);
+        
+
          // img upload 
          if($request -> hasFile('category_image')){
 
             $img = $request -> file('category_image');
             $unique = md5(time() . rand()) . '.' . $img -> getClientOriginalExtension();
-            $img -> move(public_path('media/category'), $unique);
+            $img -> move(public_path('media/backend/category'), $unique);
 
         }
 

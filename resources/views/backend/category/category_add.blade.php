@@ -46,6 +46,11 @@
                   <div class="form-group">
                     <label>Category Name</label>
                     <input type="text" class="form-control" name="category_name" placeholder="Category">
+                    @error('category_name')
+                      <span class="text-danger">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                    @enderror
                   </div>
                   <!-- /.form-group -->
                   <div id="appendCategoriesLavel">
@@ -68,13 +73,18 @@
                 <!-- /.col -->
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>Category Sections</label>
+                    <label>Select Sections</label>
                     <select id="categorySection" class="form-control select2" style="width: 100%;" name="section_id">
                       <option value="" selected > -Select- </option>
                       @foreach($sections as $item)
                       <option value="{{ $item -> id }}">{{ ucwords($item -> name) }}</option>
                       @endforeach
                     </select>
+                    @error('section_id')
+                      <span class="text-danger">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                    @enderror
                   </div>
                   <!-- /.form-group -->
                   <div class="form-group">
