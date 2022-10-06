@@ -29,7 +29,7 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">All Product</h3>
-                <a href="{{ route('category.add.view') }}" class="btn btn-info float-right">Add Product</a>
+                <a href="{{ route('product.add.edit') }}" class="btn btn-info float-right">Add Product</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -40,6 +40,8 @@
                     <th>Name</th>
                     <th>Code</th>
                     <th>Color</th>
+                    <th>Category</th>
+                    <th>Section</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
@@ -51,6 +53,8 @@
                       <td>{{ ucwords($item -> product_name) }}</td>
                       <td>{{ ucwords($item -> product_code) }}</td>
                       <td>{{ ucwords($item -> product_color) }}</td>
+                      <td>{{ ucwords($item -> getCategory -> category_name) }}</td>
+                      <td>{{ ucwords($item -> getSection -> name) }}</td>
                       <td>
                         @if($item -> status == 1)
                         <div class="productActiveInactive" id="product-{{$item -> id}}" product_id="{{ $item -> id }}">

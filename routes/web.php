@@ -107,9 +107,7 @@ Route::group(['prefix'  => 'admin'], function(){
     Route::get('/product', [ProductController::class, "ProductView"]) -> name('product.view');
     Route::get('/product/active-inactive', [ProductController::class, "ProductActiveInactive"]);
 
-
-
-    Route::get('/category/add', [CategoryController::class, "CategoryAddView"]) -> name('category.add.view');
+    Route::match(['get', 'post'], '/product/add/{id?}', [ProductController::class, "ProductAddOrEdit"]) -> name('product.add.edit');
 
 
 });

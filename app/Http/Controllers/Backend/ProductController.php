@@ -12,8 +12,11 @@ class ProductController extends Controller
     // Product view
     public function ProductView () {
 
-        $product = Product::get();
-        // $data = json_decode(json_encode($allData));
+        $product = Product::with(['getCategory' => function($query){
+            $query -> select('id', 'category_name');
+        }, 'getSection']) -> get();
+
+        // $data = json_decode(json_encode($product));
         // echo "<pre>"; print_r($data);
         return view('backend.product.product_view', compact('product'));
 
@@ -41,6 +44,25 @@ class ProductController extends Controller
 
     }
 
+    // product add 
+    public function ProductAddOrEdit(Request $request, $id=null){
+
+        if($id){
+            $allData['title'] = 'Edit Product';
+        }else {
+            $allData['title'] = 'Add Product';
+        }
+
+        // filter Arrays
+        $allData['fabricArr'] = ['Cotton', 'Colyster', 'Wool'];
+        $allData['sleeveArr'] = ['Full Sleeve', 'Half Sleeve', 'Short Sleeve'];
+        $allData['patternArr'] = ['Cehcked', 'Plain', 'Solid', 'Printed'];
+        $allData['fitArr'] = ['Regular', 'Slim'];
+        $allData['ocassionArr'] = ['Casual', 'Formal'];
+
+        return view('backend.product.product_add_edit', $allData);
+
+    }
 
 
 
