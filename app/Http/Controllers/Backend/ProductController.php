@@ -170,5 +170,33 @@ class ProductController extends Controller
     }
 
 
+    // product main image delete by ajax
+    public function ProductImageVideoDeleteAjax(Request $request){
+        
+       if($request -> text == 'image'){
+
+            $product = Product::find($request -> product_id);
+
+            @unlink('media/backend/product/large/'.$product -> main_image);
+
+            $product -> main_image = '';
+            $product -> update();
+            return 'image';
+
+       }else {
+
+            $product = Product::find($request -> product_id);
+
+            @unlink('media/backend/product/videos/'.$product -> product_video);
+
+            $product -> product_video = '';
+            $product -> update();
+            return 'video';
+
+       }
+
+    }
+
+
 
 }

@@ -43,7 +43,7 @@
               @csrf
               <div class="row">
                 <div class="col-md-6">
-                  <div class="form-group">{{$edit_product -> id}}
+                  <div class="form-group">
                     <label>Product Name</label>
                     <input type="text" class="form-control" name="product_name" placeholder="product" @if(!empty(@$edit_product -> product_name)) value="{{ $edit_product -> product_name }}" @else value="{{ old('product_name') }}" @endif>
 
@@ -151,10 +151,29 @@
                         <input type="file" class="custom-file-input" id="main_image" name="main_image">
                         <label class="custom-file-label" for="main_image">Choose file</label>
                       </div>
-                      <input type="hidden" name="old_img" @if(!empty(@$edit_product -> main_image)) value="{{ $edit_product -> main_image }}" @endif> <img src="{{URL::to('')}}/media/backend/product/large/{{ $edit_product -> main_image }}" alt="" style="width: 40px">
-                      <div class="input-group-append">
+
+                      <div class="input-group-append" @if(!empty(@$edit_product -> main_image)) style="height: 38px;" @endif>
                         <span class="input-group-text">Upload</span>
+                      </div> &nbsp;
+
+                      @if(!empty(@$edit_product -> main_image)) 
+
+                      <div class="product_edit_image" style="display: flex;">
+
+                        <img src="{{ URL::to('')}}/media/backend/product/large/{{ $edit_product -> main_image }}" alt="" style="width: 40px; height: 40px; border-radius : 50%; object-fit: cover" class="shadow"> 
+                        <i id="video_img_delete" text='image' product_id="{{ $edit_product -> id }}" class="fa fa-trash" style="color: red; font-size: 10px; cursor : pointer"></i>
+
                       </div>
+                      
+                      @else 
+
+                      <img src="{{ URL::to('')}}/media/no_image.jpg" alt="" style="width: 40px; height: 40px; border-radius : 50%; object-fit: cover">
+                      
+                      @endif 
+
+                      
+                      <input class="old_image_hide" type="text" name="old_img" @if(!empty(@$edit_product -> main_image)) value="{{ $edit_product -> main_image }}" @endif> 
+
                     </div>
                   </div>
                   <div class="form-group">
@@ -169,7 +188,24 @@
                       <div class="input-group-append">
                         <span class="input-group-text">Upload</span>
                       </div>
-                      <input type="hidden" name="old_video" @if(!empty(@$edit_product -> product_video)) value="{{ $edit_product -> product_video }}" @endif>
+
+                      @if(!empty(@$edit_product -> product_video)) 
+
+                        <div class="product_video_edit" style="display: flex;
+                          justify-content: center;
+                          align-items: center;
+                          gap: 5px;
+                          margin: 0px 5px;">
+                          <a href="{{ url('media/backend/product/videos/'.$edit_product -> product_video) }}" download >
+                            <i class="fa fa-download" style="color: green; font-size: 15px; cursor : pointer"></i>
+                          </a>
+  
+                          <i id="video_img_delete" product_id="{{ $edit_product -> id }}" text='video' class="fa fa-trash" style="color: red; font-size: 15px; cursor : pointer"></i>
+                        </div>
+
+                      @endif
+
+                      <input class="old_video_hide" type="text" name="old_video" @if(!empty(@$edit_product -> product_video)) value="{{ $edit_product -> product_video }}" @endif>
                     </div>
                   </div>
                   <!-- /.form-group -->

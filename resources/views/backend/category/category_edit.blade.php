@@ -92,7 +92,7 @@
                       <div class="input-group-append">
                         <span class="input-group-text" style="height : 38px">Upload</span>
                       </div> &nbsp;
-                      <img style="width: 50px; heigth : 50px; border-radius : 50%" src="{{ URL::to('') }}/media/category/{{ $category -> category_image }}" alt="">
+                      <img style="width: 50px; heigth : 50px; border-radius : 50%; object-fit: cover" src="{{ URL::to('') }}/media/category/{{ $category -> category_image }}" alt="">
 
                       <input type="hidden" name="old_img" value="{{ $category -> category_image }}">
 

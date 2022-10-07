@@ -150,6 +150,50 @@
             })
   
       });
+
+
+      // sweet alert show for product video or image delete
+      $(document).on('click', '#video_img_delete', function(e){
+          e.preventDefault();
+  
+          // user id
+          let product_id = $(this).attr('product_id');
+          let text = $(this).attr('text');
+
+          // alert(text)
+  
+          // alert
+          Swal.fire({
+              title: 'Are you sure?',
+              text: "You won't be able to revert this!",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                
+                // delete image
+                $.ajax({
+                  url : '/admin/product/main_img/video/delete/ajax',
+                  type : 'get',
+                  data : {product_id, text},
+                  success : function (data){
+                    if(data == 'image'){
+                      $('.product_edit_image').slideUp();
+                      $('.old_image_hide').attr('value', '');
+                    }else {
+                      $('.product_video_edit').slideUp();
+                      $('.old_video_hide').attr('value', '');
+                    }
+                  }
+                });
+
+              }
+            })
+  
+      });
   
   
   
