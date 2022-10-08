@@ -111,6 +111,11 @@ Route::group(['prefix'  => 'admin'], function(){
 
     Route::get('/product/main_img/video/delete/ajax', [ProductController::class, "ProductImageVideoDeleteAjax"]) -> name('product.add.edit.store');
 
+    // product attribute
+    Route::match(['get', 'post'], '/product/attr/add/edit/{id}', [ProductController::class, "ProductAttrViewOrAdd"]) -> name('product.add.edit.attr');
+
+    
+    Route::post('/product/attr/update', [ProductController::class, "ProductAttrUpdate"]) -> name('product.attr.update');
 
 });
 

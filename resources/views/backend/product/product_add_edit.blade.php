@@ -172,7 +172,7 @@
                       @endif 
 
                       
-                      <input class="old_image_hide" type="text" name="old_img" @if(!empty(@$edit_product -> main_image)) value="{{ $edit_product -> main_image }}" @endif> 
+                      <input class="old_image_hide" type="hidden" name="old_img" @if(!empty(@$edit_product -> main_image)) value="{{ $edit_product -> main_image }}" @endif> 
 
                     </div>
                   </div>
@@ -205,7 +205,7 @@
 
                       @endif
 
-                      <input class="old_video_hide" type="text" name="old_video" @if(!empty(@$edit_product -> product_video)) value="{{ $edit_product -> product_video }}" @endif>
+                      <input class="old_video_hide" type="hidden" name="old_video" @if(!empty(@$edit_product -> product_video)) value="{{ $edit_product -> product_video }}" @endif>
                     </div>
                   </div>
                   <!-- /.form-group -->

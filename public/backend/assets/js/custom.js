@@ -195,6 +195,28 @@
   
       });
   
+      // Add new field for product attributes
+       // add row
+      $("#addRow").click(function () {
+        var html = '';
+        html += '<div id="inputFormRow">';
+        html += '<div class="input-group mb-3">';
+        html += '<input type="text" name="size[]" class="form-control m-input" placeholder="Size" autocomplete="off">';
+        html += '<input type="number" name="price[]" class="form-control m-input" placeholder="price" autocomplete="off">';
+        html += '<input type="number" name="stock[]" class="form-control m-input" placeholder="stock" autocomplete="off">';
+        html += '<input type="text" name="sku[]" class="form-control m-input" placeholder="SKU" autocomplete="off">';
+        html += '<div class="input-group-append">';
+        html += '<button id="removeRow" type="button" class="btn btn-danger">Remove</button>';
+        html += '</div>';
+        html += '</div>';
+
+        $('#newRow').append(html);
+      });
+      // remove row
+      $(document).on('click', '#removeRow', function () {
+          $(this).closest('#inputFormRow').remove();
+      });
+
   
   
     //   // Add extra item in fee category amount page

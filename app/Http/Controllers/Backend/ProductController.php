@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\CreateSection;
 use App\Models\Product;
+use App\Models\ProductAttribute;
 use Illuminate\Http\Request;
 use Image;
 
@@ -195,6 +196,111 @@ class ProductController extends Controller
 
        }
 
+    }
+
+
+
+    // product attribute add
+    public function ProductAttrViewOrAdd($id, Request $request){
+        // dd($request -> all());
+        if($request -> isMethod('get')){
+
+            $edit_product = Product::with('getProductAttr') -> find($id);
+            return view('backend.product.product_attr_add', compact('edit_product'));
+
+        }else {
+            // get 4 Array item
+            $allData = $request -> all();
+            // echo"<pre>"; print_r($allData); die;
+
+            // all data insetting by looping
+            foreach($allData['sku'] as $key => $item){
+
+
+                // validation checking
+                $prevSKU = ProductAttribute::where('sku', $item) -> count();
+                $prevSize = ProductAttribute::where('product_id', $id) -> where('size', $allData['size'][$key]) -> count();
+
+                // product attribute create
+                if($prevSKU > 0){
+                    // msg
+                    $notify = [
+                        'message'       => 'This SKU already exists !',
+                        'alert-type'    => 'error'
+                    ];
+
+                    return redirect() -> back() -> with($notify);
+                }elseif($prevSize > 0){
+                    // msg
+                    $notify = [
+                        'message'       => 'This Size already exists !',
+                        'alert-type'    => 'error'
+                    ];
+
+                    return redirect() -> back() -> with($notify);
+                }elseif(!empty($item)){
+
+                    ProductAttribute::create([
+                        'product_id'        => $id,
+                        'size'              => $allData['size'][$key],
+                        'stock'             => $allData['stock'][$key],
+                        'price'             => $allData['price'][$key],
+                        'sku'               => $item
+                    ]);
+                    
+                }else {
+                    // msg
+                    $notify = [
+                        'message'       => 'All fields are require !',
+                        'alert-type'    => 'error'
+                    ];
+
+                    return redirect() -> back() -> with($notify);
+                }
+
+                    
+
+            }
+
+            // msg
+            $notify = [
+                'message'       => 'Product Attribute Add Successful',
+                'alert-type'    => "info"
+            ];
+
+            return redirect() -> route('product.view') -> with($notify);
+
+
+        }
+        
+
+    }
+
+
+    // product attribuet update
+    public function ProductAttrUpdate(Request $request){
+        // dd($request -> all());
+        $allData = $request -> all();
+
+        foreach($allData['attrId'] as $key => $value){
+
+            $update = ProductAttribute::find($value);
+            $update -> stock = $allData['stock'][$key];
+            $update -> price = $allData['price'][$key];
+            $update -> update();
+            
+        }
+
+
+         // msg
+         $notify = [
+            'message'       => 'Product Attribute Updated',
+            'alert-type'    => "success"
+        ];
+
+        return redirect() -> back() -> with($notify);
+
+    
     }
 
 

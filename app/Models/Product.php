@@ -21,4 +21,12 @@ class Product extends Model
         return $this -> belongsTo(CreateSection::class, 'section_id');
     }
 
+    // get product attribute relationship
+    public function getProductAttr(){
+        return $this -> hasMany(ProductAttribute::class, 'product_id', 'id');
+    }
+
+
+        
+
 }

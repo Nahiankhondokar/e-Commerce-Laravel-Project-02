@@ -88,7 +88,10 @@
                       </td>
 
                       <td>
+                        <a href="{{ route('product.add.edit.attr', $item -> id) }}" class="btn btn-sm btn-info"><i class="fa fa-plus"></i></a>
+
                         <a href="{{ route('product.add.edit', $item -> id) }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
+                        
                         <a id="delete" href="{{ route('category.delete', $item -> id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                       </td>
 
