@@ -217,6 +217,29 @@
           $(this).closest('#inputFormRow').remove();
       });
 
+
+      // product attribute status active inactive update script
+      $(document).on('click', '.productAttrActiveInactive', function(){
+        let text = $(this).text();
+        let product_attr = $(this).attr('product_attr');
+
+        $.ajax({
+          url : '/admin/product/attr/active-inactive',
+          type : 'get',
+          data : {product_attr},
+          success : function (data){
+            if(data == 'active'){
+              $('#product_attr-'+product_attr).html('<a class="badge badge-success"  href="javascript:void(0)">Active</a>');
+              $('#product_attr_active-btn'+product_attr).hide();
+            }else {
+              $('#product_attr-'+product_attr).html('<a class="badge badge-danger" href="javascript:void(0)">Inactive</a>')
+              $('#product_attr_inactive-btn'+product_attr).hide();
+            }
+          }
+        });
+
+      });
+      
   
   
     //   // Add extra item in fee category amount page

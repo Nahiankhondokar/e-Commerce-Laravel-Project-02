@@ -226,7 +226,7 @@ class ProductController extends Controller
                     // msg
                     $notify = [
                         'message'       => 'This SKU already exists !',
-                        'alert-type'    => 'error'
+                        'alert-type'    => 'warning'
                     ];
 
                     return redirect() -> back() -> with($notify);
@@ -234,7 +234,7 @@ class ProductController extends Controller
                     // msg
                     $notify = [
                         'message'       => 'This Size already exists !',
-                        'alert-type'    => 'error'
+                        'alert-type'    => 'warning'
                     ];
 
                     return redirect() -> back() -> with($notify);
@@ -268,7 +268,7 @@ class ProductController extends Controller
                 'alert-type'    => "info"
             ];
 
-            return redirect() -> route('product.view') -> with($notify);
+            return redirect() -> back() -> with($notify);
 
 
         }
@@ -288,7 +288,7 @@ class ProductController extends Controller
             $update -> stock = $allData['stock'][$key];
             $update -> price = $allData['price'][$key];
             $update -> update();
-            
+
         }
 
 
@@ -303,6 +303,43 @@ class ProductController extends Controller
     
     }
 
+
+    // Product attribute active or inactive status
+    public function ProductAttrActiveInactive(Request $request){
+
+        $status_data = ProductAttribute::find($request -> product_attr);
+
+        if($status_data -> status == 1){
+            $update = ProductAttribute::find($request -> product_attr);
+            $update -> status = 0;
+            $update -> update();
+            return 'inactive';
+
+        }else {
+            $update = ProductAttribute::find($request -> product_attr);
+            $update -> status = 1;
+            $update -> update();
+            return 'active';
+        }
+
+    }
+
+
+    // product attribuet delete
+    public function ProductAttrDelete($id){
+
+        $productAttr = ProductAttribute::find($id);
+        $productAttr -> delete();
+
+         // msg
+        $notify = [
+            'message'       => 'Product Attribute Deleted',
+            'alert-type'    => "info"
+        ];
+
+        return redirect() -> back() -> with($notify);
+    
+    }
 
 
 }

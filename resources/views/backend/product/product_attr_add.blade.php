@@ -153,23 +153,19 @@
                         
                         <td>
                           @if($item -> status == 1)
-                          <div class="productActiveInactive" id="product-{{$item -> id}}" product_id="{{ $item -> id }}">
-                            <a id="product_active-btn-{{$item -> id}}" class="badge badge-success" href="javascript:void(0)">Active</a>
+                          <div class="productAttrActiveInactive" id="product_attr-{{$item -> id}}" product_attr="{{ $item -> id }}">
+                            <a id="product_attr_active-btn-{{$item -> id}}" class="badge badge-success" href="javascript:void(0)">Active</a>
                           </div>
                           @else 
-                          <div class="productActiveInactive" id="product-{{$item -> id}}" product_id="{{ $item -> id }}">
-                            <a id="product_inactive-btn-{{$item -> id}}" class="badge badge-danger"  href="javascript:void(0)">Inactive</a>
+                          <div class="productAttrActiveInactive" id="product_attr-{{$item -> id}}" product_attr="{{ $item -> id }}">
+                            <a id="product_attr_inactive-btn-{{$item -> id}}" class="badge badge-danger"  href="javascript:void(0)">Inactive</a>
                           </div>
                           @endif
   
                         </td>
   
                         <td>
-                          <a href="{{ route('product.add.edit.attr', $item -> id) }}" class="btn btn-sm btn-info"><i class="fa fa-plus"></i></a>
-  
-                          <a href="{{ route('product.add.edit', $item -> id) }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
-                          
-                          <a id="delete" href="{{ route('category.delete', $item -> id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                          <a id="delete" href="{{ route('product.attr.delete', $item -> id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                         </td>
   
                       </tr>

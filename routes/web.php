@@ -116,6 +116,10 @@ Route::group(['prefix'  => 'admin'], function(){
 
     
     Route::post('/product/attr/update', [ProductController::class, "ProductAttrUpdate"]) -> name('product.attr.update');
+    Route::get('/product/attr/active-inactive', [ProductController::class, "ProductAttrActiveInactive"]);
+
+    Route::get('/product/attr/delete/{id}', [ProductController::class, "ProductAttrDelete"]) -> name('product.attr.delete');
+
 
 });
 
