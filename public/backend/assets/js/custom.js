@@ -239,7 +239,30 @@
         });
 
       });
-      
+
+
+      // product gallery status active inactive update script
+      $(document).on('click', '.productGallActiveInactive', function(){
+        
+        let product_gall = $(this).attr('product_gall');
+
+        $.ajax({
+          url : '/admin/product/gallery/active-inactive',
+          type : 'get',
+          data : {product_gall},
+          success : function (data){
+            if(data == 'active'){
+              $('#product_gall-'+product_gall).html('<a class="badge badge-success"  href="javascript:void(0)">Active</a>');
+              $('#product_gall_active-btn'+product_gall).hide();
+            }else {
+              $('#product_gall-'+product_gall).html('<a class="badge badge-danger" href="javascript:void(0)">Inactive</a>')
+              $('#product_gall_inactive-btn'+product_gall).hide();
+            }
+          }
+        });
+
+      });
+
   
   
     //   // Add extra item in fee category amount page

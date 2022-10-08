@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\CreateSection;
 use App\Models\Product;
 use App\Models\ProductAttribute;
+use App\Models\ProductGallery;
 use Illuminate\Http\Request;
 use Image;
 
@@ -340,6 +341,87 @@ class ProductController extends Controller
         return redirect() -> back() -> with($notify);
     
     }
+
+
+    // product gallery add 
+    public function ProductGalleryAdd($id, Request $request){
+        // echo "<pre>"; print_r($request -> gallery); die;
+        if($request -> isMethod('post')){
+            
+            if($request -> hasFile('gallery')){
+                $gall = $request -> file('gallery');
+
+               foreach($gall as $key => $item){
+
+                // echo $item; die;
+                    $unique_name = md5(time() . rand()) . '.' . $item -> getClientOriginalExtension();
+                    $item -> move(public_path('media/backend/product/gallery'), $unique_name);
+
+                    ProductGallery::create([
+                        'images'        => $unique_name,
+                        'product_id'    => $id
+                    ]);
+
+               }
+                // msg
+                $notify = [
+                    'message'       => 'Product Gallery Added',
+                    'alert-type'    => "info"
+                ];
+
+                return redirect() -> back() -> with($notify);
+
+            }
+            
+       
+
+        }else {
+            $product = Product::with('getProductGallery') -> select(['id','product_name', 'product_color', 'product_price', 'product_code']) -> find($id);
+            return view('backend.product.product_gallery_add', compact('product'));
+        }
+
+        
+    }
+
+
+    // Product gallery active or inactive status
+    public function ProductGalleryActiveInactive(Request $request){
+
+        $status_data = ProductGallery::find($request -> product_gall);
+
+        if($status_data -> status == 1){
+            $update = ProductGallery::find($request -> product_gall);
+            $update -> status = 0;
+            $update -> update();
+            return 'inactive';
+
+        }else {
+            $update = ProductGallery::find($request -> product_gall);
+            $update -> status = 1;
+            $update -> update();
+            return 'active';
+        }
+
+    }
+
+    // product gallert image delete
+    public function ProductGalleryImageDelete($id){
+
+        $productGall = ProductGallery::find($id);
+        @unlink('media/backend/product/gallery/'.$productGall -> images);
+        $productGall -> delete();
+
+            // msg
+        $notify = [
+            'message'       => 'Product Product Gallery Image Deleted',
+            'alert-type'    => "success"
+        ];
+
+        return redirect() -> back() -> with($notify);
+    
+    }
+
+
 
 
 }

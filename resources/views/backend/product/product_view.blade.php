@@ -87,12 +87,14 @@
 
                       </td>
 
-                      <td>
-                        <a href="{{ route('product.add.edit.attr', $item -> id) }}" class="btn btn-sm btn-info"><i class="fa fa-plus"></i></a>
+                      <td width="140px">
+                        <a title="Product Attribute" href="{{ route('product.add.edit.attr', $item -> id) }}" class="btn btn-sm btn-info"><i class="fa fa-plus"></i></a>
 
-                        <a href="{{ route('product.add.edit', $item -> id) }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
+                        <a title="Add Gallery" href="{{ route('product.gallery.add', $item -> id) }}" class="btn btn-sm btn-primary"><i class="fa fa-image"></i></a>
+
+                        <a title="Edit" href="{{ route('product.add.edit', $item -> id) }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
                         
-                        <a id="delete" href="{{ route('category.delete', $item -> id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                        <a title="Delete" id="delete" href="{{ route('category.delete', $item -> id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                       </td>
 
                     </tr>

@@ -121,5 +121,11 @@ Route::group(['prefix'  => 'admin'], function(){
     Route::get('/product/attr/delete/{id}', [ProductController::class, "ProductAttrDelete"]) -> name('product.attr.delete');
 
 
+    // product gallery
+    Route::match(['get', 'post'], '/product/gallery/add/{id}', [ProductController::class, "ProductGalleryAdd"]) -> name('product.gallery.add');
+    Route::get('/product/gallery/active-inactive', [ProductController::class, "ProductGalleryActiveInactive"]);
+
+    Route::get('/product/gallery/delete/{id}', [ProductController::class, "ProductGalleryImageDelete"]) -> name('product.gallery.delete');
+
 });
 

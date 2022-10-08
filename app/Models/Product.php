@@ -27,6 +27,12 @@ class Product extends Model
     }
 
 
+    // get product gallery relationship
+    public function getProductGallery(){
+        return $this -> hasMany(ProductGallery::class, 'product_id', 'id');
+    }
+
+
         
 
 }
