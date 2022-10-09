@@ -263,6 +263,128 @@
 
       });
 
+    
+      //product brand add 
+      $(document).on('submit', '#productBrandAdd', function(e){
+        e.preventDefault();
+
+        let brand = $('#brand_name').val();
+
+        $.ajax({
+          url : '/admin/product/brand/add/edit/',
+          method : 'POST',
+          data : new FormData(this),
+          contentType : false,
+          processData : false,
+          success : function (d){
+            allProductBrand();
+            $('#productBrandAdd').modal('hide');
+
+          }
+        });
+        
+      });
+
+
+      // product Brand status active inactive update script
+      $(document).on('click', '.brandActiveInactive', function(){
+  
+        let brand_id = $(this).attr('brand_id');
+        // alert(brand_id);
+
+        $.ajax({
+          url : '/admin/product/brand/active-inactive',
+          type : 'get',
+          data : {brand_id},
+          success : function (data){
+            if(data == 'active'){
+              $('#brand-'+brand_id).html('<a class="badge badge-success"  href="javascript:void(0)"><i class="fa fa-toggle-on" style="font-size : 20px"></i></a>');
+              $('#brand_active-btn'+brand_id).hide();
+            }else {
+              $('#brand-'+brand_id).html('<a class="badge badge-danger" href="javascript:void(0)"><i class="fa fa-toggle-off" style="font-size : 20px"></i></a>')
+              $('#brand_inactive-btn'+brand_id).hide();
+            }
+          }
+        });
+
+      });
+
+      // product brand edit
+      $(document).on('click', '#productBrandEditBtn', function(e){
+        e.preventDefault();
+
+        let brand_id = $(this).attr('edit_id');
+        // alert(brand_id);
+
+        $.ajax({
+          url : '/admin/product/brand/single/edit/'+brand_id,
+          success : function (data){
+            $('#productBrandEdit').modal('show');
+            $('#productBrandEdit #brand_name').val(data.name);
+            $('#productBrandEdit #edit_id').val(data.id);
+            // alert(d.name);
+
+          }
+        });
+        
+      });
+      
+
+      // product brand update
+      $(document).on('submit', '#productBrandUpdate', function(e){
+        e.preventDefault();
+
+        // let brand_name = $('#brand_name').val();
+        let brand_id = $(this).attr('edit_id');
+
+        // alert(brand_name - brand_id);
+
+        $.ajax({
+          url : '/admin/product/brand/add/edit/'+brand_id,
+          method : 'POST',
+          data : new FormData(this),
+          contentType : false,
+          processData : false,
+          success : function (d){
+            allProductBrand();
+            $('#productBrandEdit').modal('hide');
+            // alert(d);
+
+          }
+        });
+        
+      });
+      
+
+
+      // sweet alert show befor delete
+      $(document).on('click', '#deleteBrand', function(e){
+          e.preventDefault();
+  
+          let delete_id = $(this).attr('delete_id');
+  
+          Swal.fire({
+              title: 'Are you sure?',
+              text: "You won't be able to revert this!",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                
+                $.ajax({
+                  url : '/admin/product/brand/delete/'+delete_id,
+                  success : function (data){
+                    allProductBrand();
+                  }
+                });
+
+              }
+            })
+  
+      });
   
   
     //   // Add extra item in fee category amount page

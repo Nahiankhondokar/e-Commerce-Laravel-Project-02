@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\MainAdminController;
+use App\Http\Controllers\Backend\ProductBrandController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SectionController;
 use App\Http\Controllers\Frontend\MainUserController;
@@ -111,9 +112,10 @@ Route::group(['prefix'  => 'admin'], function(){
 
     Route::get('/product/main_img/video/delete/ajax', [ProductController::class, "ProductImageVideoDeleteAjax"]) -> name('product.add.edit.store');
 
+
+
     // product attribute
     Route::match(['get', 'post'], '/product/attr/add/edit/{id}', [ProductController::class, "ProductAttrViewOrAdd"]) -> name('product.add.edit.attr');
-
     
     Route::post('/product/attr/update', [ProductController::class, "ProductAttrUpdate"]) -> name('product.attr.update');
     Route::get('/product/attr/active-inactive', [ProductController::class, "ProductAttrActiveInactive"]);
@@ -126,6 +128,18 @@ Route::group(['prefix'  => 'admin'], function(){
     Route::get('/product/gallery/active-inactive', [ProductController::class, "ProductGalleryActiveInactive"]);
 
     Route::get('/product/gallery/delete/{id}', [ProductController::class, "ProductGalleryImageDelete"]) -> name('product.gallery.delete');
+
+
+    // brand all routes
+    Route::get('/brand', [ProductBrandController::class, "BrandView"]) -> name('brand.view');
+    Route::match(['get', 'post'],'/product/brand/add/edit/{id?}', [ProductBrandController::class, "BrandAddEdit"]) -> name('brand.add.edit');
+
+    Route::get('/product/all/brand', [ProductBrandController::class, "GetAllProductBrand"]);
+    Route::get('/product/brand/single/edit/{id}', [ProductBrandController::class, "ProductBrandEdit"]);
+
+    Route::get('/product/brand/active-inactive', [ProductBrandController::class, "ProductBrandActiveInactive"]);
+
+    Route::get('/product/brand/delete/{id}', [ProductBrandController::class, "ProductBrandDelete"]);
 
 });
 

@@ -91,18 +91,14 @@
               </a>
             </li>
 
+            
             <li class="nav-item">
-              <a href="pages/charts/inline.html" class="nav-link">
+              <a href="{{ route('brand.view') }}" class="nav-link {{ ($route == 'brand.view') ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Inline</p>
+                <p>Brand</p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="pages/charts/uplot.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>uPlot</p>
-              </a>
-            </li>
+
           </ul>
         </li>
 
