@@ -143,6 +143,22 @@
                         </span>
                     @enderror
                   </div>
+
+                  <div class="form-group">
+                    <label>Select Brand</label>
+                    <select class="form-control select2" style="width: 100%;" name="brand_id">
+                      <option value="" selected > -Select- </option>
+                      @foreach($brand as $item)
+                        <option value="{{ $item -> id }}" @if(!empty(@old('brand_id')) && @old('brand_id') == $item -> id) selected @endif  @if($item -> id == @$edit_product -> brand_id) selected @endif> &nbsp; -- &nbsp; {{ ucwords($item -> name) }}</option>
+                      @endforeach
+                    </select>
+                    @error('brand_id')
+                        <span class="text-danger">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                  </div>
+
                   <!-- /.form-group -->
                   <div class="form-group">
                     <label for="exampleInputFile">Product Image</label>

@@ -112,18 +112,4 @@ class ProductBrandController extends Controller
     }
 
 
-    // '<a id="brand_active-btn-'. $item -> id .'" class="badge badge-'.$status.'" href="javascript:void(0)">'. ($item -> status == 1) ? 'Active' : 'Inactive' .'</a>'
-
-
-
-
-
-    // // msg
-    // $notify = [
-    //     'message'       => 'Brand Added',
-    //     'alert-type'    => "success"
-    // ];
-
-    // return redirect() -> route('product.view') -> with($notify);
-
 }

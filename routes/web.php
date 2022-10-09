@@ -131,7 +131,7 @@ Route::group(['prefix'  => 'admin'], function(){
 
 
     // brand all routes
-    Route::get('/brand', [ProductBrandController::class, "BrandView"]) -> name('brand.view');
+    Route::get('/product/brand', [ProductBrandController::class, "BrandView"]) -> name('brand.view');
     Route::match(['get', 'post'],'/product/brand/add/edit/{id?}', [ProductBrandController::class, "BrandAddEdit"]) -> name('brand.add.edit');
 
     Route::get('/product/all/brand', [ProductBrandController::class, "GetAllProductBrand"]);

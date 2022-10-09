@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\CreateSection;
 use App\Models\Product;
 use App\Models\ProductAttribute;
+use App\Models\ProductBrand;
 use App\Models\ProductGallery;
 use Illuminate\Http\Request;
 use Image;
@@ -75,6 +76,7 @@ class ProductController extends Controller
                 'product_name'      => 'required|regex:/^[\pL\s\-]+$/',
                 'product_code'      => 'required|regex:/^[a-zA-Z0-9_-]*$/',
                 'category_id'       => 'required',
+                'brand_id'          => 'required',
                 'product_price'     => 'required|numeric',
                 'product_weight'    => 'required|regex:/^[0-9]*$/'
             ], [
@@ -117,6 +119,7 @@ class ProductController extends Controller
             $cat_details = Category::find($request -> category_id);
             $product -> product_name    = $request -> product_name;
             $product -> category_id     = $request -> category_id;
+            $product -> brand_id        = $request -> brand_id;
             $product -> section_id      = $cat_details -> section_id;
             $product -> product_code    = $request -> product_code;
             $product -> product_color   = $request -> product_color;
@@ -152,8 +155,9 @@ class ProductController extends Controller
 
     
        
-        // get all sesction
+        // get all sesction or brand
         $allData['section'] = CreateSection::with('getCategory') -> get();
+        $allData['brand'] = ProductBrand::where('status', 1) -> get();
         // $data = json_decode(json_encode($section));
         // echo "<pre>"; print_r($data);
 
