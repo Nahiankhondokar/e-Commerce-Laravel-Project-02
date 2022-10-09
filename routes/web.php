@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\MainAdminController;
 use App\Http\Controllers\Backend\ProductBrandController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SectionController;
+use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\MainUserController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,9 +22,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 // default route
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
 // admin auth route
@@ -57,17 +58,17 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin']], function(){
 
 
 // user rotues
-Route::group(['prefix' => 'user'], function(){
-    Route::get('/logout', [MainUserController::class, "Logout"]) -> name('user.logout');
-    Route::get('/profile', [MainUserController::class, "UserProfile"]) -> name('user.profile');
-    Route::get('/password/change', [MainUserController::class, "PasswordChange"]) -> name('user.password.view');
-    Route::post('/password/update', [MainUserController::class, "PasswordUpdate"]) -> name('user.password.update');
-    Route::get('/profile/edit/{id}', [MainUserController::class, "UserProfileEdit"]) -> name('user.profile.edit');
-    Route::post('/profile/update/{id}', [MainUserController::class, "UserProfileUpdate"]) -> name('user.profile.update');
-});
+// Route::group(['prefix' => 'user'], function(){
+//     Route::get('/logout', [MainUserController::class, "Logout"]) -> name('user.logout');
+//     Route::get('/profile', [MainUserController::class, "UserProfile"]) -> name('user.profile');
+//     Route::get('/password/change', [MainUserController::class, "PasswordChange"]) -> name('user.password.view');
+//     Route::post('/password/update', [MainUserController::class, "PasswordUpdate"]) -> name('user.password.update');
+//     Route::get('/profile/edit/{id}', [MainUserController::class, "UserProfileEdit"]) -> name('user.profile.edit');
+//     Route::post('/profile/update/{id}', [MainUserController::class, "UserProfileUpdate"]) -> name('user.profile.update');
+// });
 
 
-// admin rotues
+// admin rotues (backend)
 Route::get('/admin/logout', [AdminController::class, "destroy"]) -> name('admin.logout');
 
 Route::group(['prefix'  => 'admin'], function(){
@@ -143,3 +144,9 @@ Route::group(['prefix'  => 'admin'], function(){
 
 });
 
+
+// user all routes (frontend)
+Route::get('/', [IndexController::class, "IndexView"]);
+Route::group(['prefix' => 'user'], function(){
+    // Route::get('/', [IndexController::class, "IndexView"]);
+});

@@ -1,183 +1,260 @@
- @extends('frontend.user_master');
+@extends('frontend.user_master')
+@section('main_content')
 
- @section('user');
-
- <!--middle content wrapper-->
- <div class="middle_content_wrapper">
-    <!-- counter_area -->
-    <section class="counter_area">
-        <div class="row">
-            <div class="col-lg-3 col-sm-6">
-                <div class="counter">
-                    <div class="counter_item">
-                        <span><i class="fa fa-code"></i></span>
-                        <h2 class="timer count-number" data-to="300" data-speed="1500"></h2>
+<div class="span9">
+    <div class="well well-small">
+        <h4>Featured Products <small class="pull-right">200+ featured products</small></h4>
+        <div class="row-fluid">
+            <div id="featured" class="carousel slide">
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <ul class="thumbnails">
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <i class="tag"></i>
+                                    <a href="product_details.html"><img src="themes/images/products/b1.jpg" alt=""></a>
+                                    <div class="caption">
+                                        <h5>Product name</h5>
+                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <i class="tag"></i>
+                                    <a href="product_details.html"><img src="themes/images/products/b2.jpg" alt=""></a>
+                                    <div class="caption">
+                                        <h5>Product name</h5>
+                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <i class="tag"></i>
+                                    <a href="product_details.html"><img src="themes/images/products/b3.jpg" alt=""></a>
+                                    <div class="caption">
+                                        <h5>Product name</h5>
+                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <i class="tag"></i>
+                                    <a href="product_details.html"><img src="themes/images/products/b4.jpg" alt=""></a>
+                                    <div class="caption">
+                                        <h5>Product name</h5>
+                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                
-                <p class="count-text ">SomeText GoesHere</p>
+                    <div class="item">
+                        <ul class="thumbnails">
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <i class="tag"></i>
+                                    <a href="product_details.html"><img src="themes/images/products/5.jpg" alt=""></a>
+                                    <div class="caption">
+                                        <h5>Product name</h5>
+                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <i class="tag"></i>
+                                    <a href="product_details.html"><img src="themes/images/products/6.jpg" alt=""></a>
+                                    <div class="caption">
+                                        <h5>Product name</h5>
+                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <a href="product_details.html"><img src="themes/images/products/7.jpg" alt=""></a>
+                                    <div class="caption">
+                                        <h5>Product name</h5>
+                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <a href="product_details.html"><img src="themes/images/products/8.jpg" alt=""></a>
+                                    <div class="caption">
+                                        <h5>Product name</h5>
+                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="item">
+                        <ul class="thumbnails">
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <a href="product_details.html"><img src="themes/images/products/9.jpg" alt=""></a>
+                                    <div class="caption">
+                                        <h5>Product name</h5>
+                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <a href="product_details.html"><img src="themes/images/products/10.jpg" alt=""></a>
+                                    <div class="caption">
+                                        <h5>Product name</h5>
+                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <a href="product_details.html"><img src="themes/images/products/11.jpg" alt=""></a>
+                                    <div class="caption">
+                                        <h5>Product name</h5>
+                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <a href="product_details.html"><img src="themes/images/products/1.jpg" alt=""></a>
+                                    <div class="caption">
+                                        <h5>Product name</h5>
+                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="item">
+                        <ul class="thumbnails">
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <a href="product_details.html"><img src="themes/images/products/2.jpg" alt=""></a>
+                                    <div class="caption">
+                                        <h5>Product name</h5>
+                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <a href="product_details.html"><img src="themes/images/products/3.jpg" alt=""></a>
+                                    <div class="caption">
+                                        <h5>Product name</h5>
+                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <a href="product_details.html"><img src="themes/images/products/4.jpg" alt=""></a>
+                                    <div class="caption">
+                                        <h5>Product name</h5>
+                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <a href="product_details.html"><img src="themes/images/products/5.jpg" alt=""></a>
+                                    <div class="caption">
+                                        <h5>Product name</h5>
+                                        <h4><a class="btn" href="product_details.html">VIEW</a> <span class="pull-right">Rs.1000</span></h4>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
+                <a class="left carousel-control" href="#featured" data-slide="prev">‹</a>
+                <a class="right carousel-control" href="#featured" data-slide="next">›</a>
             </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="counter">
-                    <div class="counter_item">
-                        <span><i class="fa fa-coffee"></i></span>
-                        <h2 class="timer count-number" data-to="1700" data-speed="1500"></h2>
-                    </div>
-                    <p class="count-text ">SomeText GoesHere</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="counter">
-                    <div class="counter_item">
-                        <span><i class="fas fa-user"></i></span>
-                        <h2 class="timer count-number" data-to="11900" data-speed="1500"></h2>
-                    </div>
-                    <p class="count-text ">SomeText GoesHere</p>
+        </div>
+    </div>
+    <h4>Latest Products </h4>
+    <ul class="thumbnails">
+        <li class="span3">
+            <div class="thumbnail">
+                <a  href="product_details.html"><img src="themes/images/products/6.jpg" alt=""/></a>
+                <div class="caption">
+                    <h5>Product name</h5>
+                    <p>
+                        Lorem Ipsum is simply dummy text.
+                    </p>
                     
+                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">Rs.1000</a></h4>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="counter">
-                    <div class="counter_item">
-                        <span><i class="fa fa-bug"></i></span>
-                        <h2 class="timer count-number" data-to="157" data-speed="1500"></h2>
-                    </div>
-                    <p class="count-text ">SomeText GoesHere</p>
+        </li>
+        <li class="span3">
+            <div class="thumbnail">
+                <a  href="product_details.html"><img src="themes/images/products/7.jpg" alt=""/></a>
+                <div class="caption">
+                    <h5>Product name</h5>
+                    <p>
+                        Lorem Ipsum is simply dummy text.
+                    </p>
+                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">Rs.1000</a></h4>
                 </div>
             </div>
-        </div>
-    </section>
-    <!--/ counter_area -->
-    <!-- table area -->
-    <section class="table_area">
-        <div class="panel">
-            <div class="panel_header">
-                <div class="panel_title"><span>FooTable with row toggler, sorting, filter and pagination</span></div>
-            </div>
-            <div class="panel_body">
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Job Title</th>
-                            <th>Started On</th>
-                            <th data-hide="all">Date of Birth</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Dennise</td>
-                            <td>Fuhrman</td>
-                            <td>High School History Teacher</td>
-                            <td>November 8th 2011</td>
-                            <td>July 25th 1960</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Elodia</td>
-                            <td>Weisz</td>
-                            <td>Wallpaperer Helper</td>
-                            <td>October 15th 2010</td>
-                            <td>March 30th 1982</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Raeann</td>
-                            <td>Haner</td>
-                            <td>Internal Medicine Nurse Practitioner</td>
-                            <td>November 28th 2013</td>
-                            <td>February 26th 1966</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Junie</td>
-                            <td>Landa</td>
-                            <td>Offbearer</td>
-                            <td>October 31st 2010</td>
-                            <td>March 29th 1966</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Solomon</td>
-                            <td>Bittinger</td>
-                            <td>Roller Skater</td>
-                            <td>December 29th 2011</td>
-                            <td>September 22nd 1964</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>Bar</td>
-                            <td>Lewis</td>
-                            <td>Clown</td>
-                            <td>November 12th 2012</td>
-                            <td>August 4th 1991</td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>Usha</td>
-                            <td>Leak</td>
-                            <td>Ships Electronic Warfare Officer</td>
-                            <td>August 14th 2012</td>
-                            <td>November 20th 1979</td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>Lorriane</td>
-                            <td>Cooke</td>
-                            <td>Technical Services Librarian</td>
-                            <td>September 21st 2010</td>
-                            <td>April 7th 1969</td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>Lorriane</td>
-                            <td>Cooke</td>
-                            <td>Technical Services Librarian</td>
-                            <td>September 21st 2010</td>
-                            <td>April 7th 1969</td>
-                        </tr>
-                    </tbody>
-                    </table>
+        </li>
+        <li class="span3">
+            <div class="thumbnail">
+                <a  href="product_details.html"><img src="themes/images/products/8.jpg" alt=""/></a>
+                <div class="caption">
+                    <h5>Product name</h5>
+                    <p>
+                        Lorem Ipsum is simply dummy text.
+                    </p>
+                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">Rs.1000</a></h4>
                 </div>
             </div>
-        </div> <!-- /table -->
-        <!-- chart area -->
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="panel chart_area">
-                    <div class="panel_header">
-                        <div class="panel_title">
-                            <span class="panel_icon"><i class="far fa-chart-bar"></i></span>
-                            <span>bar chat</span>
-                        </div>
-                    </div>
-                    <div class="panel_body">
-                        <div id="bar-chart">
-                            <div id="bar-legend"></div>
-                            <canvas id="bar-canvas" ></canvas>
-                        </div>
-                    </div>
-                </div> 
+        </li>
+        <li class="span3">
+            <div class="thumbnail">
+                <a  href="product_details.html"><img src="themes/images/products/9.jpg" alt=""/></a>
+                <div class="caption">
+                    <h5>Product name</h5>
+                    <p>
+                        Lorem Ipsum is simply dummy text.
+                    </p>
+                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">Rs.1000</a></h4>
+                </div>
             </div>
-            <div class="col-lg-4">
-                <div class="panel">
-                    <div class="panel_header">
-                        <div class="panel_title">
-                            <span class="panel_icon"><i class="fas fa-chart-pie"></i></span>
-                            <span>pie chat</span>
-                        </div>
-                    </div>
-                    <div class="panel_body">
-                        <div id="piechart"></div>
-                    </div>
-                </div> 
+        </li>
+        <li class="span3">
+            <div class="thumbnail">
+                <a  href="product_details.html"><img src="themes/images/products/10.jpg" alt=""/></a>
+                <div class="caption">
+                    <h5>Product name</h5>
+                    <p>
+                        Lorem Ipsum is simply dummy text.
+                    </p>
+                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">Rs.1000</a></h4>
+                </div>
             </div>
-        </div>
-    </section>                   
-</div><!--/middle content wrapper-->
+        </li>
+        <li class="span3">
+            <div class="thumbnail">
+                <a  href="product_details.html"><img src="themes/images/products/11.jpg" alt=""/></a>
+                <div class="caption">
+                    <h5>Product name</h5>
+                    <p>
+                        Lorem Ipsum is simply dummy text.
+                    </p>
+                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">Rs.1000</a></h4>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
 
 @endsection
