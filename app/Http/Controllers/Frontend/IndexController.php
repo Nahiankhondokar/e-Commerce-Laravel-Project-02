@@ -9,10 +9,11 @@ class IndexController extends Controller
 {
     // index page view
     public function IndexView(){
-        return view('frontend.index');
+        $page_name = 'index';
+        return view('frontend.index', compact('page_name'));
     }
 
 
 
-    
+
 }

@@ -1,3 +1,7 @@
+@php
+	$section = App\Models\CreateSection::with('getCategory') -> where('status', 1) -> get();
+	// dd($section) -> toArray();
+@endphp
 <div id="header">
 	<div class="container">
 		<div id="welcomeLine" class="row">
@@ -22,45 +26,25 @@
 		        <div class="nav-collapse">
 		          <ul class="nav">
 		            <li class="active"><a href="#">Home</a></li>
-		            <li class="dropdown">
-		              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Men <b class="caret"></b></a>
-		              <ul class="dropdown-menu">
-		              	<li class="divider"></li>
-		                <li class="nav-header"><a href="#">T-Shirts</a></li>
-		                <li><a href="#">Casual T-Shirts</a></li>
-		                <li><a href="#">Formal T-Shirts</a></li>
-		                <li class="divider"></li>
-		                <li class="nav-header"><a href="#">Shirts</a></li>
-		                <li><a href="#">Casual Shirts</a></li>
-		                <li><a href="#">Formal Shirts</a></li>
-		              </ul>
-		            </li>
-		            <li class="dropdown">
-		              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Women <b class="caret"></b></a>
-		              <ul class="dropdown-menu">
-		              	<li class="divider"></li>
-		                <li class="nav-header"><a href="#">Tops</a></li>
-		                <li><a href="#">Casual Tops</a></li>
-		                <li><a href="#">Formal Tops</a></li>
-		                <li class="divider"></li>
-		                <li class="nav-header"><a href="#">Dresses</a></li>
-		                <li><a href="#">Casual Dresses</a></li>
-		                <li><a href="#">Formal Dresses</a></li>
-		              </ul>
-		            </li>
-		            <li class="dropdown">
-		              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kids <b class="caret"></b></a>
-		              <ul class="dropdown-menu">
-		              	<li class="divider"></li>
-		                <li class="nav-header"><a href="#">T-Shirts</a></li>
-		                <li><a href="#">Casual T-Shirts</a></li>
-		                <li><a href="#">Formal T-Shirts</a></li>
-		                <li class="divider"></li>
-		                <li class="nav-header"><a href="#">Shirts</a></li>
-		                <li><a href="#">Casual Shirts</a></li>
-		                <li><a href="#">Formal Shirts</a></li>
-		              </ul>
-		            </li>
+					@foreach($section as $section)
+						@if(count($section -> getCategory) > 0)
+		            	<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ ucwords($section -> name) }}<b class="caret"> </b>
+							</a>
+							<ul class="dropdown-menu">
+								@foreach($section -> getCategory as $cat)
+								<li class="divider"></li>
+								<li class="nav-header">
+									<a href="#">{{ $cat -> category_name }}</a>
+									@foreach($cat -> subcategories as $subcat)
+									<li><a href="#">{{ $subcat -> category_name }}</a></li>
+									@endforeach
+								</li>
+								@endforeach
+							</ul>
+		            	</li>
+						@endif
+					@endforeach
 		            <li><a href="#">About</a></li>
 		          </ul>
 		          <form class="navbar-search pull-left" action="#">

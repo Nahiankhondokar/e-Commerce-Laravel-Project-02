@@ -1,42 +1,26 @@
+@php
+	$section = App\Models\CreateSection::with('getCategory') -> where('status', 1) -> get();
+	// dd($section) -> toArray();
+@endphp
 <div id="sidebar" class="span3">
     <div class="well well-small"><a id="myCart" href="product_summary.html"><img src="frontend/assets/images/ico-cart.png" alt="cart">3 Items in your cart</a></div>
     <ul id="sideManu" class="nav nav-tabs nav-stacked">
-        <li class="subMenu"><a>MEN</a>
-            <ul>
-                <li><a href="products.html"><i class="icon-chevron-right"></i><strong>T-Shirts</strong></a></li>
-                <li><a href="products.html"><i class="icon-chevron-right"></i>Casual T-Shirts</a></li>
-                <li><a href="products.html"><i class="icon-chevron-right"></i>Formal T-Shirts</a></li>
-            </ul>
-            <ul>
-                <li><a href="products.html"><i class="icon-chevron-right"></i><strong>Shirts</strong></a></li>
-                <li><a href="products.html"><i class="icon-chevron-right"></i>Casual Shirts</a></li>
-                <li><a href="products.html"><i class="icon-chevron-right"></i>Formal Shirts</a></li>
-            </ul>
-        </li>
-        <li class="subMenu"><a> WOMEN </a>
-            <ul>
-                <li><a href="products.html"><i class="icon-chevron-right"></i><strong>Tops</strong></a></li>
-                <li><a href="products.html"><i class="icon-chevron-right"></i>Casual Tops</a></li>
-                <li><a href="products.html"><i class="icon-chevron-right"></i>Formal Tops</a></li>
-            </ul>
-            <ul>
-                <li><a href="products.html"><i class="icon-chevron-right"></i><strong>Dresses</strong></a></li>
-                <li><a href="products.html"><i class="icon-chevron-right"></i>Casual Dresses</a></li>
-                <li><a href="products.html"><i class="icon-chevron-right"></i>Formal Dresses</a></li>
-            </ul>
-        </li>
-        <li class="subMenu"><a>KIDS</a>
-            <ul>
-                <li><a href="products.html"><i class="icon-chevron-right"></i><strong>T-Shirts</strong></a></li>
-                <li><a href="products.html"><i class="icon-chevron-right"></i>Casual T-Shirts</a></li>
-                <li><a href="products.html"><i class="icon-chevron-right"></i>Formal T-Shirts</a></li>
-            </ul>
-            <ul>
-                <li><a href="products.html"><i class="icon-chevron-right"></i><strong>Shirts</strong></a></li>
-                <li><a href="products.html"><i class="icon-chevron-right"></i>Casual Shirts</a></li>
-                <li><a href="products.html"><i class="icon-chevron-right"></i>Formal Shirts</a></li>
-            </ul>
-        </li>
+        @foreach($section as $section)
+            @if(count($section -> getCategory) > 0)
+                <li class="subMenu"><a>{{ ucwords($section -> name) }}</a>
+                    <ul>
+                        @foreach($section -> getCategory as $cat)
+                        <li>
+                            <a href="products.html"><i class="icon-chevron-right"></i><strong>{{ $cat -> category_name }}</strong></a>
+                        </li>
+                            @foreach($cat -> subcategories as $subcat)
+                            <li><a href="products.html"><i class="icon-chevron-right"></i>{{ $subcat -> category_name }}</a></li>
+                            @endforeach
+                        @endforeach
+                    </ul>
+                </li>
+            @endif
+        @endforeach
     </ul>
     <br/>
     <div class="thumbnail">
