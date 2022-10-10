@@ -1,12 +1,11 @@
 @extends('frontend.user_master')
 @section('main_content')
-{{-- <a href="product_details.html"><img src="{{ () ? " " : "" }}" alt="" style="height: 160px"></a> --}}
 
 <div class="span9">
     <div class="well well-small">
         <h4>Featured Products <small class="pull-right">{{$featureItemCount}} featured products</small></h4>
         <div class="row-fluid">
-            <div id="featured" class="carousel slide">
+            <div id="featured" class="{{ ($featureItemCount > 4) ? 'carousel slide' : '' }}">
                 <div class="carousel-inner">
                     @foreach($featureItemChunk as $key => $chunkItem)
                     <div class="item {{ $key == 0 ?? 'active' }}">
@@ -33,86 +32,34 @@
                     </div>
                     @endforeach
                 </div>
-                <a class="left carousel-control" href="#featured" data-slide="prev">‹</a>
-                <a class="right carousel-control" href="#featured" data-slide="next">›</a>
+                {{-- <a class="left carousel-control" href="#featured" data-slide="prev">‹</a>
+                <a class="right carousel-control" href="#featured" data-slide="next">›</a> --}}
             </div>
         </div>
     </div>
     <h4>Latest Products </h4>
     <ul class="thumbnails">
+        @foreach($new_product_arr as $key => $latest)
         <li class="span3">
             <div class="thumbnail">
-                <a  href="product_details.html"><img src="frontend/assets/images/products/6.jpg" alt=""/></a>
+                <a href="product_details.html">
+                    @if(@$latest -> main_image)
+                    <img src="{{URL::to('')}}/media/backend/product/large/{{ $latest -> main_image }}" alt="" style="height: 160px">
+                    @else
+                    <img src="{{URL::to('')}}/media/no_image.jpg" alt="" style="height: 160px">
+                    @endif
+                </a>
                 <div class="caption">
-                    <h5>Product name</h5>
+                    <h5>{{ $latest -> product_name }}</h5>
                     <p>
-                        Lorem Ipsum is simply dummy text.
+                        {{ $latest -> description  }}
                     </p>
                     
                     <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">Rs.1000</a></h4>
                 </div>
             </div>
         </li>
-        <li class="span3">
-            <div class="thumbnail">
-                <a  href="product_details.html"><img src="frontend/assets/images/products/7.jpg" alt=""/></a>
-                <div class="caption">
-                    <h5>Product name</h5>
-                    <p>
-                        Lorem Ipsum is simply dummy text.
-                    </p>
-                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">Rs.1000</a></h4>
-                </div>
-            </div>
-        </li>
-        <li class="span3">
-            <div class="thumbnail">
-                <a  href="product_details.html"><img src="frontend/assets/images/products/8.jpg" alt=""/></a>
-                <div class="caption">
-                    <h5>Product name</h5>
-                    <p>
-                        Lorem Ipsum is simply dummy text.
-                    </p>
-                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">Rs.1000</a></h4>
-                </div>
-            </div>
-        </li>
-        <li class="span3">
-            <div class="thumbnail">
-                <a  href="product_details.html"><img src="frontend/assets/images/products/9.jpg" alt=""/></a>
-                <div class="caption">
-                    <h5>Product name</h5>
-                    <p>
-                        Lorem Ipsum is simply dummy text.
-                    </p>
-                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">Rs.1000</a></h4>
-                </div>
-            </div>
-        </li>
-        <li class="span3">
-            <div class="thumbnail">
-                <a  href="product_details.html"><img src="frontend/assets/images/products/10.jpg" alt=""/></a>
-                <div class="caption">
-                    <h5>Product name</h5>
-                    <p>
-                        Lorem Ipsum is simply dummy text.
-                    </p>
-                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">Rs.1000</a></h4>
-                </div>
-            </div>
-        </li>
-        <li class="span3">
-            <div class="thumbnail">
-                <a  href="product_details.html"><img src="frontend/assets/images/products/11.jpg" alt=""/></a>
-                <div class="caption">
-                    <h5>Product name</h5>
-                    <p>
-                        Lorem Ipsum is simply dummy text.
-                    </p>
-                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">Rs.1000</a></h4>
-                </div>
-            </div>
-        </li>
+        @endforeach
     </ul>
 </div>
 
