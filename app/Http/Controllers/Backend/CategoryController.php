@@ -68,7 +68,6 @@ class CategoryController extends Controller
         $this -> validate($request, [
             'category_name'      => 'required',
             'section_id'       => 'required',
-            'parent_id'       => 'required',
         ]);
         
 
@@ -84,9 +83,9 @@ class CategoryController extends Controller
         // category store
         Category::insert([
             'category_name'         => $request -> category_name,
-            'parent_id'             => $request -> parent_id,
+            'parent_id'             => $request -> parent_id ?? 0,
             'section_id'            => $request -> section_id,
-            'category_image'         => $unique,
+            'category_image'         => $unique ?? '',
             'category_discount'      => $request -> category_discount,
             'description'           => $request -> description,
             'url'                   => $request -> url,
@@ -151,7 +150,7 @@ class CategoryController extends Controller
         // category store
         $update = Category::find($id);
         $update -> category_name        = $request -> category_name;
-        $update -> parent_id            = $request -> parent_id;
+        $update -> parent_id            = $request -> parent_id ?? 0;
         $update -> section_id           = $request -> section_id;
         $update -> category_image       = $unique;
         $update -> category_discount    = $request -> category_discount;

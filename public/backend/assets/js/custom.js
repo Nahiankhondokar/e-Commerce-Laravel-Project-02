@@ -53,7 +53,7 @@
         let category_id = $(this).attr('category_id');
 
         $.ajax({
-          url : '/admin/active-inactive',
+          url : '/admin/category/active-inactive',
           type : 'get',
           data : {text, category_id},
           success : function (data){
