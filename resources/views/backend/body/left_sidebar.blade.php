@@ -99,6 +99,13 @@
               </a>
             </li>
 
+            <li class="nav-item">
+              <a href="{{ route('banner.view') }}" class="nav-link {{ ($route == 'banner.view') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Banner</p>
+              </a>
+            </li>
+
           </ul>
         </li>
 

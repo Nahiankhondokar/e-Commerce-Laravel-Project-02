@@ -10,19 +10,7 @@
       $("#category").DataTable();
 
 
-  
-      // img preview system
-      $('#inputTag').change(function(e){
-          let reader = new FileReader();
-          reader.onload = function(e){
-              $('#imgPriview').attr('src', e.target.result);
-          }
-  
-          reader.readAsDataURL(e.target.files[0]);
-      });
-  
-
-
+      //===================== section Scripts =====================
 
       // section status active inactive update script
       $(document).on('click', '.sectionActiveInactive', function(){
@@ -44,6 +32,42 @@
           }
         });
 
+      });
+
+
+      //===================== Category level Scripts =====================
+
+      // Category leve load automatically select on category section
+      $(document).on('change', '#categorySection', function(){
+
+        let section_id = $(this).val();
+        // alert(section_id);
+        
+        $.ajax({
+          url : '/admin/get/categroy/section/wise',
+          type : 'get',
+          data : {section_id},
+          success : function(data){
+            $('#appendCategoriesLavel').html(data);
+          }
+        });
+      });
+
+      
+      // Edit Category leve load automatically select on category section
+      $(document).on('change', '#editCategorySection', function(){
+
+        let section_id = $(this).val();
+        // alert(section_id);
+        
+        $.ajax({
+          url : '/admin/get/edit/categroy/section/wise',
+          type : 'get',
+          data : {section_id},
+          success : function(data){
+            $('#editAppendCategoriesLavel').html(data);
+          }
+        });
       });
 
 
@@ -69,88 +93,9 @@
 
       });
 
-      // product status active inactive update script
-      $(document).on('click', '.productActiveInactive', function(){
-        let text = $(this).text();
-        let product_id = $(this).attr('product_id');
-
-        $.ajax({
-          url : '/admin/product/active-inactive',
-          type : 'get',
-          data : {product_id},
-          success : function (data){
-            if(data == 'active'){
-              $('#product-'+product_id).html('<a class="badge badge-success"  href="javascript:void(0)">Active</a>');
-              $('#product_active-btn'+product_id).hide();
-            }else {
-              $('#product-'+product_id).html('<a class="badge badge-danger" href="javascript:void(0)">Inactive</a>')
-              $('#product_inactive-btn'+product_id).hide();
-            }
-          }
-        });
-
-      });
 
 
-      // Category leve load automatically select on category section
-      $(document).on('change', '#categorySection', function(){
-
-        let section_id = $(this).val();
-        // alert(section_id);
-        
-        $.ajax({
-          url : '/admin/get/categroy/section/wise',
-          type : 'get',
-          data : {section_id},
-          success : function(data){
-            $('#appendCategoriesLavel').html(data);
-          }
-        });
-      });
-
-
-
-      
-      // Edit Category leve load automatically select on category section
-      $(document).on('change', '#editCategorySection', function(){
-
-        let section_id = $(this).val();
-        // alert(section_id);
-        
-        $.ajax({
-          url : '/admin/get/edit/categroy/section/wise',
-          type : 'get',
-          data : {section_id},
-          success : function(data){
-            $('#editAppendCategoriesLavel').html(data);
-          }
-        });
-      });
-
-
-  
-      // sweet alert show befor delete
-      $(document).on('click', '#delete', function(e){
-          e.preventDefault();
-  
-          let link = $(this).attr('href');
-  
-          Swal.fire({
-              title: 'Are you sure?',
-              text: "You won't be able to revert this!",
-              icon: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-              if (result.isConfirmed) {
-                window.location.href = link;
-              }
-            })
-  
-      });
-
+      //===================== product video image sweet alert Scripts ======================
 
       // sweet alert show for product video or image delete
       $(document).on('click', '#video_img_delete', function(e){
@@ -195,7 +140,32 @@
   
       });
   
-      // Add new field for product attributes
+      // product status active inactive update script
+      $(document).on('click', '.productActiveInactive', function(){
+        let text = $(this).text();
+        let product_id = $(this).attr('product_id');
+
+        $.ajax({
+          url : '/admin/product/active-inactive',
+          type : 'get',
+          data : {product_id},
+          success : function (data){
+            if(data == 'active'){
+              $('#product-'+product_id).html('<a class="badge badge-success"  href="javascript:void(0)">Active</a>');
+              $('#product_active-btn'+product_id).hide();
+            }else {
+              $('#product-'+product_id).html('<a class="badge badge-danger" href="javascript:void(0)">Inactive</a>')
+              $('#product_inactive-btn'+product_id).hide();
+            }
+          }
+        });
+
+      });
+      
+
+      //===================== product attribute Scripts ======================
+
+      // Add new field for product attribute
        // add row
       $("#addRow").click(function () {
         var html = '';
@@ -216,7 +186,6 @@
       $(document).on('click', '#removeRow', function () {
           $(this).closest('#inputFormRow').remove();
       });
-
 
       // product attribute status active inactive update script
       $(document).on('click', '.productAttrActiveInactive', function(){
@@ -241,6 +210,8 @@
       });
 
 
+      //===================== product gallery Scripts ======================
+
       // product gallery status active inactive update script
       $(document).on('click', '.productGallActiveInactive', function(){
         
@@ -263,7 +234,10 @@
 
       });
 
-    
+
+
+      //===================== Product Barnd Scripts ======================
+
       //product brand add 
       $(document).on('submit', '#productBrandAdd', function(e){
         e.preventDefault();
@@ -284,7 +258,6 @@
         });
         
       });
-
 
       // product Brand status active inactive update script
       $(document).on('click', '.brandActiveInactive', function(){
@@ -355,9 +328,7 @@
         
       });
       
-
-
-      // sweet alert show befor delete
+      // product brand delete sweet alert 
       $(document).on('click', '#deleteBrand', function(e){
           e.preventDefault();
   
@@ -386,7 +357,144 @@
   
       });
   
+
+      //===================== Banner Scripts ======================
+
+      // Banner add 
+      $(document).on('submit', '#bannerStore', function(e){
+        e.preventDefault();
+        // Swal('all fields are require');
+
+        let tittle = $('#tittle').val();
+        let image = $('#image').val();
+
+        // alert(image);
+
+        // validation 
+        if(!image || !tittle){
+          $.ajax({
+            url : '/admin/banner/add/edit/',
+            method : 'POST',
+            data : new FormData(this),
+            contentType : false,
+            processData : false,
+            success : function (d){
+              allBanner()
+              $('#bannerAdd').modal('hide');
+              e.target.reset();
+              $('#imgPriview').attr('src', ' ');
   
+            }
+          });
+        }else {
+          Swal.fire('Title & Image are required');
+        }
+
+
+        
+      });
+  
+      // Banner status active inactive update script
+      $(document).on('click', '.bannerActiveInactive', function(){
+
+        let banner_id = $(this).attr('banner_id');
+        // alert(banner_id);
+
+        $.ajax({
+          url : '/admin/banner/active-inactive',
+          type : 'get',
+          data : {banner_id},
+          success : function (data){
+            // alert(data);
+            if(data == 'active'){
+              $('#banner-'+banner_id).html('<a class="badge badge-success"  href="javascript:void(0)"><i class="fa fa-toggle-on" style="font-size : 20px"></i></a>');
+              $('#banner_active-btn'+banner_id).hide();
+            }else {
+              $('#banner-'+banner_id).html('<a class="badge badge-danger" href="javascript:void(0)"><i class="fa fa-toggle-off" style="font-size : 20px"></i></a>')
+              $('#banner_inactive-btn'+banner_id).hide();
+            }
+          }
+        });
+
+      });
+
+
+      // Banner edit
+      $(document).on('click', '#bannerEditBtn', function(e){
+        e.preventDefault();
+
+        let banner_id = $(this).attr('edit_id');
+        // alert(brand_id);
+
+        $.ajax({
+          url : '/admin/banner/single/edit/'+banner_id,
+          success : function (data){
+            $('#BannerEdit').modal('show');
+            $('form input#update_id').val(data.id);
+            $('form input#link').val(data.link);
+            $('form input#alt').val(data.alt);
+            $('form input#tittle').val(data.title);
+            $('form input#old_image').val(data.image);
+            $('img#editImgPreview').attr('src',  `http://127.0.0.1:8000/media/backend/banner/${data.image}`);
+            // alert(d.name);
+          }
+        });
+        
+      });
+
+      // Banner update
+      $(document).on('submit', '#BannerUpdate', function(e){
+        e.preventDefault();
+
+        $.ajax({
+          url : '/admin/banner/add/edit/',
+          method : 'POST',
+          data : new FormData(this),
+          contentType : false,
+          processData : false,
+          success : function (res){
+            allBanner();
+            $('#BannerEdit').modal('hide');
+            e.target.reset();
+            // alert(d);
+
+          }
+        });
+        
+      });
+
+
+      // product brand delete sweet alert 
+      $(document).on('click', '#deleteBanner', function(e){
+          e.preventDefault();
+  
+          let delete_id = $(this).attr('delete_id');
+  
+          Swal.fire({
+              title: 'Are you sure?',
+              text: "You won't be able to revert this!",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                
+                $.ajax({
+                  url : '/admin/banner/delete/'+delete_id,
+                  success : function (data){
+                    allBanner();
+                  }
+                });
+
+              }
+            })
+  
+      });
+      
+
+
     //   // Add extra item in fee category amount page
     //   $(document).on('click', '.addEventMore', function(e){
     //     e.preventDefault();

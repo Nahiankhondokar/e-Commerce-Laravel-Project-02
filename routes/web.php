@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\MainAdminController;
 use App\Http\Controllers\Backend\ProductBrandController;
@@ -141,6 +142,18 @@ Route::group(['prefix'  => 'admin'], function(){
     Route::get('/product/brand/active-inactive', [ProductBrandController::class, "ProductBrandActiveInactive"]);
 
     Route::get('/product/brand/delete/{id}', [ProductBrandController::class, "ProductBrandDelete"]);
+
+
+    // banner all routes
+    Route::get('/banner', [BannerController::class, "BannerView"]) -> name('banner.view');
+    Route::match(['get', 'post'],'/banner/add/edit/{id?}', [BannerController::class, "BannerAddEdit"]);
+
+    Route::get('/banner/all', [BannerController::class, "GetAllBanner"]);
+    Route::get('/banner/single/edit/{id}', [BannerController::class, "BannerEdit"]);
+
+    Route::get('/banner/active-inactive', [BannerController::class, "BannerActiveInactive"]);
+
+    Route::get('/banner/delete/{id}', [BannerController::class, "BannerDelete"]);
 
 });
 
