@@ -138,7 +138,9 @@ class BannerController extends Controller
     // banner delete
     public function BannerDelete($id){
     
-        Banner::find($id) -> delete();
+        $del = Banner::find($id);
+        @unlink('media/backend/banner/'.$del -> image);
+        $del -> delete();
 
     }
 
