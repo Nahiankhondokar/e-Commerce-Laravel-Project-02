@@ -10,5 +10,14 @@ class Banner extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+
+
+    // get all banner
+    public static function getAllBanner(){
+        // frontend banner
+        $banners = Banner::where('status', 1) -> limit(3) -> get() -> toArray();
+        return $banners;
+    }
     
 }
