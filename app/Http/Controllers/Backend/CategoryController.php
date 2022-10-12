@@ -80,6 +80,12 @@ class CategoryController extends Controller
 
         }
 
+
+        // make slug or url 
+        function makeSlug($slug){
+            strtolower(str_replace(' ', '-', $slug));
+        }
+
         // category store
         Category::insert([
             'category_name'         => $request -> category_name,
@@ -88,7 +94,7 @@ class CategoryController extends Controller
             'category_image'         => $unique ?? '',
             'category_discount'      => $request -> category_discount,
             'description'           => $request -> description,
-            'url'                   => $request -> url,
+            'url'                   => makeSlug($request -> url),
             'meta_title'            => $request -> meta_title,
             'meta_description'      => $request -> meta_description,
             'meta_keyword'          => $request -> meta_keyword,

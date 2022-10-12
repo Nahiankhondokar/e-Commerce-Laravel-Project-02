@@ -16,7 +16,7 @@ class Banner extends Model
     // get all banner
     public static function getAllBanner(){
         // frontend banner
-        $banners = Banner::where('status', 1) -> limit(3) -> get() -> toArray();
+        $banners = Banner::where('status', 1) -> get() -> toArray();
         return $banners;
     }
     

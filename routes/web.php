@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SectionController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\MainUserController;
+use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -160,6 +161,9 @@ Route::group(['prefix'  => 'admin'], function(){
 
 // user all routes (frontend)
 Route::get('/', [IndexController::class, "IndexView"]);
+// category wise product get
+Route::get('/{url}', [FrontendProductController::class, "ProductListing"]);
+
 Route::group(['prefix' => 'user'], function(){
     // Route::get('/', [IndexController::class, "IndexView"]);
 });

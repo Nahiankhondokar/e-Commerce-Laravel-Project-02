@@ -22,7 +22,7 @@
 		          <span class="icon-bar"></span>
 		          <span class="icon-bar"></span>
 		        </a>
-		        <a class="brand" href="#">Stack Developers</a>
+		        <a class="brand" href="{{ url('/') }}">Stack Developers</a>
 		        <div class="nav-collapse">
 		          <ul class="nav">
 		            <li class="active"><a href="#">Home</a></li>
@@ -35,9 +35,9 @@
 								@foreach($section -> getCategory as $cat)
 								<li class="divider"></li>
 								<li class="nav-header">
-									<a href="#">{{ $cat -> category_name }}</a>
+									<a href="{{ $cat -> url }}">{{ $cat -> category_name }}</a>
 									@foreach($cat -> subcategories as $subcat)
-									<li><a href="#">{{ $subcat -> category_name }}</a></li>
+									<li><a href="{{ $subcat -> url }}">{{ $subcat -> category_name }}</a></li>
 									@endforeach
 								</li>
 								@endforeach

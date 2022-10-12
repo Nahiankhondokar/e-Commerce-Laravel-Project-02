@@ -28,7 +28,7 @@
 <!-- Header ================================================== -->
     @include('frontend.body.header')
 <!-- Header end ================================================== -->
-    @include('frontend.body.banner')
+    @include('frontend.banner.banner')
 <!-- Header End====================================================================== -->
 
 

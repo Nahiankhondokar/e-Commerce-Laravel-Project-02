@@ -21,6 +21,12 @@ class Product extends Model
         return $this -> belongsTo(CreateSection::class, 'section_id');
     }
 
+    
+    // brand name find
+    public function getBrand(){
+        return $this -> belongsTo(ProductBrand::class, 'brand_id', 'id') -> select('id' ,'name');
+    }
+
     // get product attribute relationship
     public function getProductAttr(){
         return $this -> hasMany(ProductAttribute::class, 'product_id', 'id');
