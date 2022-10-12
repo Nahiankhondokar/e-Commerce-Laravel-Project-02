@@ -39,7 +39,7 @@ class ProductController extends Controller
             // }
 
             // get data without loop
-            $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $catIds) -> where('status', 1) -> get();
+            $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $catIds) -> where('status', 1) -> paginate(3);
             $catCount = count($catWiseProduct);
             // dd($catWiseProduct);
             // print_r($catWiseProduct);

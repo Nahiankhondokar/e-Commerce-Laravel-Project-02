@@ -109,9 +109,10 @@
             <hr class="soft"/>
         </div>
     </div>
-    <a href="compair.html" class="btn btn-large pull-right">Compair Product</a>
+    <a href="compair.html" class="btn btn-large pull-right">Compare Product</a>
     <div class="pagination">
-        <ul>
+        {{ $catWiseProduct -> links() }}
+        {{-- <ul>
             <li><a href="#">&lsaquo;</a></li>
             <li><a href="#">1</a></li>
             <li><a href="#">2</a></li>
@@ -119,7 +120,7 @@
             <li><a href="#">4</a></li>
             <li><a href="#">...</a></li>
             <li><a href="#">&rsaquo;</a></li>
-        </ul>
+        </ul> --}}
     </div>
     <br class="clr"/>
 </div>
