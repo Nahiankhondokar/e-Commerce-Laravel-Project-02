@@ -19,8 +19,6 @@ class ProductController extends Controller
                 $query -> select('id', 'parent_id', 'description', 'category_name', 'parent_id') -> where('status', 1);
             }) -> where(['url' => $url]) -> first() -> toArray();
 
-            // dd($catDetails);
-
             // cat or subcat all Ids array
             $catIds = [$catDetails['id']];
 
@@ -28,7 +26,6 @@ class ProductController extends Controller
                 // $catIds = $item['id'];
                 array_push($catIds, $item['id']);
             }
-            // print_r($catIds);
 
             // breadcum define
             $breadcum = Category::find($searchUrl -> parent_id);
@@ -40,11 +37,28 @@ class ProductController extends Controller
 
             // get data without loop
             $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $catIds) -> where('status', 1) -> paginate(3);
-            $catCount = count($catWiseProduct);
-            // dd($catWiseProduct);
-            // print_r($catWiseProduct);
+            
 
-            return view('frontend.product.product_list', compact('catWiseProduct', 'catDetails', 'catCount', 'breadcum'));
+            // product filtering by sort
+            if(isset($_GET['sort']) && !empty($_GET['sort'])){
+                if($_GET['sort'] == 'latest_product'){
+                    $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $catIds) -> where('status', 1) -> orderBy('id', 'DESC') -> paginate(3);
+                }elseif($_GET['sort'] == 'highest_price'){
+                    $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $catIds) -> where('status', 1) -> orderBy('product_price', 'DESC') -> paginate(3);
+                }elseif($_GET['sort'] == 'lower_price'){
+                    $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $catIds) -> where('status', 1) -> orderBy('product_price', 'ASC') -> paginate(3);
+                }elseif($_GET['sort'] == 'product_z_a'){
+                    $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $catIds) -> where('status', 1) -> orderBy('product_name', 'DESC') -> paginate(3);
+                }elseif($_GET['sort'] == 'product_a_z'){
+                    $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $catIds) -> where('status', 1) -> orderBy('product_name', 'ASC') -> paginate(3);
+                }
+            }else{
+                $catWiseProduct;
+            }
+ 
+          
+
+            return view('frontend.product.product_list', compact('catWiseProduct', 'catDetails', 'breadcum'));
         }else{
             abort(404);
         }
