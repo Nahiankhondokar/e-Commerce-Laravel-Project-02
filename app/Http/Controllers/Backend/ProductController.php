@@ -163,15 +163,11 @@ class ProductController extends Controller
 
 
         // filter Arrays
-        $allData['fabricArr']   = ['Cotton', 'Colyster', 'Wool'];
-        $allData['sleeveArr']   = ['Full Sleeve', 'Half Sleeve', 'Short Sleeve'];
-        $allData['patternArr']  = ['Cehcked', 'Plain', 'Solid', 'Printed'];
-        $allData['fitArr']      = ['Regular', 'Slim'];
-        $allData['ocassionArr'] = ['Casual', 'Formal'];
+        $allFilters = Product::getAllFilters();
 
 
 
-        return view('backend.product.product_add_edit', $allData);
+        return view('backend.product.product_add_edit', $allData, $allFilters);
 
     }
 

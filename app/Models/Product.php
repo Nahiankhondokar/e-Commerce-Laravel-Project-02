@@ -39,6 +39,17 @@ class Product extends Model
     }
 
 
+    // all filter static filter items
+    public static function getAllFilters(){
+        $allData['fabricArr']   = ['Cotton', 'Colyster', 'Wool'];
+        $allData['sleeveArr']   = ['Full Sleeve', 'Half Sleeve', 'Short Sleeve'];
+        $allData['patternArr']  = ['Cehcked', 'Plain', 'Solid', 'Printed'];
+        $allData['fitArr']      = ['Regular', 'Slim'];
+        $allData['ocassionArr'] = ['Casual', 'Formal'];
+
+        return $allData;
+    }
+
         
 
 }
