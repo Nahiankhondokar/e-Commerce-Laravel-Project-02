@@ -14,11 +14,12 @@
             const sort = $(this).val();
             const url = $('#url').val();
             const fabric = get_filter('fabric');
+            const sleeve = get_filter('sleeve');
 
             $.ajax({
                 url : url,
                 type : 'get',
-                data : {sort, url, fabric},
+                data : {sort, url, fabric, sleeve},
                 success : function (data){
                     $('.filter_products').html(data);
                 }
@@ -31,13 +32,14 @@
             const sort = $('#sort option:selected').val();
             const url = $('#url').val();
             const fabric = get_filter(this);
+            const sleeve = get_filter('sleeve');
             
             // console.log(this);
 
             $.ajax({
                 url : url,
                 type : 'get',
-                data : {sort, url, fabric},
+                data : {sort, url, fabric, sleeve},
                 success : function (data){
                     $('.filter_products').html(data);
                 }
@@ -47,6 +49,27 @@
         });
 
 
+        // filter by fabric, sleeve 
+        $(document).on('click', '.sleeve', function(){
+            const sort = $('#sort option:selected').val();
+            const url = $('#url').val();
+            const fabric = get_filter('fabric');
+            const sleeve = get_filter('sleeve');
+            
+            
+            // console.log(this);
+
+            $.ajax({
+                url : url,
+                type : 'get',
+                data : {sort, url, fabric, sleeve},
+                success : function (data){
+                    $('.filter_products').html(data);
+                }
+            });
+
+
+        });
 
         // function for filtering 
         function get_filter(cls_name){
