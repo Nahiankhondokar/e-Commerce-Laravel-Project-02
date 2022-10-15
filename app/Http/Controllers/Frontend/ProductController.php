@@ -74,12 +74,30 @@ class ProductController extends Controller
                 if(isset($data['sleeve']) && !empty($data['sleeve'])){
                     // {{ echo "fabric1/";}}
                     $catWiseProduct = Product::with('getBrand') -> whereIn('sleeve', $data['sleeve']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> get();
-                    
                 }
                 if(isset($data['sleeve']) && !empty($data['sleeve']) && isset($data['fabric']) && !empty($data['fabric'])){
                     // {{ echo "fabric1/";}}
                     $catWiseProduct = Product::with('getBrand') -> whereIn('sleeve', $data['sleeve']) -> whereIn('fabric', $data['fabric']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> get();
-                    
+                }
+
+                // if sleeve or fabric or fit both are selected
+                if(isset($data['fit']) && !empty($data['fit'])){
+                    // {{ echo "fabric1/";}}
+                    $catWiseProduct = Product::with('getBrand') -> whereIn('fit', $data['fit']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> get();
+                }
+                
+                if(isset($data['fabric']) && !empty($data['fabric']) && isset($data['fit']) && !empty($data['fit'])){
+                    // {{ echo "fabric1/";}}
+                    $catWiseProduct = Product::with('getBrand') -> whereIn('fit', $data['fit']) -> whereIn('fabric', $data['fabric']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> get();
+                }
+                if(isset($data['sleeve']) && !empty($data['sleeve'])  && isset($data['fit']) && !empty($data['fit'])){
+                    // {{ echo "fabric1/";}}
+                    $catWiseProduct = Product::with('getBrand') -> whereIn('sleeve', $data['sleeve']) -> whereIn('fit', $data['fit']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> get();
+                }
+
+                if(isset($data['sleeve']) && !empty($data['sleeve']) && isset($data['fabric']) && !empty($data['fabric']) && isset($data['fit']) && !empty($data['fit'])){
+                    {{ echo "fit3/";}}
+                    $catWiseProduct = Product::with('getBrand') -> whereIn('sleeve', $data['sleeve']) -> whereIn('fabric', $data['fabric']) -> whereIn('fit', $data['fit']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> get();
                 }
 
 
@@ -88,7 +106,9 @@ class ProductController extends Controller
                     {{ echo "sort1/";}}
                     if($data['sort'] == 'latest_product'){
                         $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('id', 'DESC') -> paginate(6);
-                        
+
+
+                        // ================ sleeve or fabric ==============
                         if(isset($data['fabric']) && !empty($data['fabric'])){
                             // $catWiseProduct -> whereIn('products.fabric', $data['fabric']);
         
@@ -96,6 +116,7 @@ class ProductController extends Controller
         
                         }
 
+                        // ================ sleeve or fabric ==============
                         // if sleeve or fabric both are selected
                         if(isset($data['sleeve']) && !empty($data['sleeve'])){
                             {{ echo "sleeve1/";}}
@@ -107,12 +128,35 @@ class ProductController extends Controller
                             $catWiseProduct = Product::with('getBrand') -> whereIn('sleeve', $data['sleeve']) -> whereIn('fabric', $data['fabric']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('id', 'DESC') -> get();
                             
                         }
+
+                        // ================ sleeve or fabric or fit ==============
+                        // if sleeve or fabric or fit both are selected
+                        if(isset($data['fit']) && !empty($data['fit'])){
+                            // {{ echo "fabric1/";}}
+                            $catWiseProduct = Product::with('getBrand') -> whereIn('fit', $data['fit']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('id', 'DESC') -> get();
+                        }
+                        
+                        if(isset($data['fabric']) && !empty($data['fabric']) && isset($data['fit']) && !empty($data['fit'])){
+                            // {{ echo "fabric1/";}}
+                            $catWiseProduct = Product::with('getBrand') -> whereIn('fit', $data['fit']) -> whereIn('fabric', $data['fabric']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('id', 'DESC') -> get();
+                        }
+                        if(isset($data['sleeve']) && !empty($data['sleeve'])  && isset($data['fit']) && !empty($data['fit'])){
+                            // {{ echo "fabric1/";}}
+                            $catWiseProduct = Product::with('getBrand') -> whereIn('sleeve', $data['sleeve']) -> whereIn('fit', $data['fit']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('id', 'DESC')  -> get();
+                        }
+
+                        if(isset($data['sleeve']) && !empty($data['sleeve']) && isset($data['fabric']) && !empty($data['fabric']) && isset($data['fit']) && !empty($data['fit'])){
+                            {{ echo "fit3/";}}
+                            $catWiseProduct = Product::with('getBrand') -> whereIn('sleeve', $data['sleeve']) -> whereIn('fabric', $data['fabric']) -> whereIn('fit', $data['fit']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('id', 'DESC') -> get();
+                        }
+
                         
                         // $catWiseProduct->orderBy('products.id', 'Desc') -> get();
 
                     }elseif($data['sort'] == 'highest_price'){
                         $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_price', 'DESC') -> paginate(6);
 
+                        // ================ fabric  ==============
                         if(isset($data['fabric']) && !empty($data['fabric'])){
                             // $catWiseProduct -> whereIn('products.fabric', $data['fabric']);
                             {{ echo "sort2/";}}
@@ -120,6 +164,7 @@ class ProductController extends Controller
         
                         }
 
+                        // ================ sleeve or fabric==============
                         // if sleeve or fabric both are selected
                         if(isset($data['sleeve']) && !empty($data['sleeve'])){
                             // {{ echo "sleeve1/";}}
@@ -132,11 +177,36 @@ class ProductController extends Controller
                             
                         }
 
+
+                        // ================ sleeve or fabric or fit ==============
+                        // if sleeve or fabric or fit both are selected
+                        if(isset($data['fit']) && !empty($data['fit'])){
+                            // {{ echo "fabric1/";}}
+                            $catWiseProduct = Product::with('getBrand') -> whereIn('fit', $data['fit']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_price', 'DESC') -> get();
+                        }
+                        
+                        if(isset($data['fabric']) && !empty($data['fabric']) && isset($data['fit']) && !empty($data['fit'])){
+                            // {{ echo "fabric1/";}}
+                            $catWiseProduct = Product::with('getBrand') -> whereIn('fit', $data['fit']) -> whereIn('fabric', $data['fabric']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_price', 'DESC') -> get();
+                        }
+                        if(isset($data['sleeve']) && !empty($data['sleeve'])  && isset($data['fit']) && !empty($data['fit'])){
+                            // {{ echo "fabric1/";}}
+                            $catWiseProduct = Product::with('getBrand') -> whereIn('sleeve', $data['sleeve']) -> whereIn('fit', $data['fit']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_price', 'DESC')  -> get();
+                        }
+
+                        if(isset($data['sleeve']) && !empty($data['sleeve']) && isset($data['fabric']) && !empty($data['fabric']) && isset($data['fit']) && !empty($data['fit'])){
+                            {{ echo "fit3/";}}
+                            $catWiseProduct = Product::with('getBrand') -> whereIn('sleeve', $data['sleeve']) -> whereIn('fabric', $data['fabric']) -> whereIn('fit', $data['fit']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_price', 'DESC') -> get();
+                        }
+
+
                         // $catWiseProduct->orderBy('id', 'Desc') -> get();
 
                     }elseif($data['sort'] == 'lower_price'){
                         $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_price', 'ASC') -> paginate(6);
 
+
+                        // ================ fabric ==============
                         if(isset($data['fabric']) && !empty($data['fabric'])){
                             // $catWiseProduct -> whereIn('products.fabric', $data['fabric']);
         
@@ -144,6 +214,7 @@ class ProductController extends Controller
         
                         }
 
+                        // ================ sleeve or fabriceve ==============
                         // if sleeve or fabric both are selected
                         if(isset($data['sleeve']) && !empty($data['sleeve'])){
                             {{ echo "sleeve1/";}}
@@ -156,9 +227,33 @@ class ProductController extends Controller
                             
                         }
 
-                    }elseif($data['sort'] == 'product_z_a'){
-                        $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_name', 'DESC') -> paginate(6);
 
+                        // ================ sleeve or fabric or fit ==============
+                        // if sleeve or fabric or fit both are selected
+                        if(isset($data['fit']) && !empty($data['fit'])){
+                            // {{ echo "fabric1/";}}
+                            $catWiseProduct = Product::with('getBrand') -> whereIn('fit', $data['fit']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_price', 'ASC') -> get();
+                        }
+                        
+                        if(isset($data['fabric']) && !empty($data['fabric']) && isset($data['fit']) && !empty($data['fit'])){
+                            // {{ echo "fabric1/";}}
+                            $catWiseProduct = Product::with('getBrand') -> whereIn('fit', $data['fit']) -> whereIn('fabric', $data['fabric']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_price', 'ASC') -> get();
+                        }
+                        if(isset($data['sleeve']) && !empty($data['sleeve'])  && isset($data['fit']) && !empty($data['fit'])){
+                            // {{ echo "fabric1/";}}
+                            $catWiseProduct = Product::with('getBrand') -> whereIn('sleeve', $data['sleeve']) -> whereIn('fit', $data['fit']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('idproduct_price', 'ASC')  -> get();
+                        }
+
+                        if(isset($data['sleeve']) && !empty($data['sleeve']) && isset($data['fabric']) && !empty($data['fabric']) && isset($data['fit']) && !empty($data['fit'])){
+                            {{ echo "fit3/";}}
+                            $catWiseProduct = Product::with('getBrand') -> whereIn('sleeve', $data['sleeve']) -> whereIn('fabric', $data['fabric']) -> whereIn('fit', $data['fit']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_price', 'ASC') -> get();
+                        }
+
+
+                    }elseif($data['sort'] == 'product_z_a'){
+                        $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_price', 'ASC') -> paginate(6);
+
+                        // ================ fabric==============
                         if(isset($data['fabric']) && !empty($data['fabric'])){
                             // $catWiseProduct -> whereIn('products.fabric', $data['fabric']);
         
@@ -166,6 +261,7 @@ class ProductController extends Controller
         
                         }
 
+                        // ================ sleeve or fabric==============
                         // if sleeve or fabric both are selected
                         if(isset($data['sleeve']) && !empty($data['sleeve'])){
                             {{ echo "sleeve1/";}}
@@ -178,9 +274,33 @@ class ProductController extends Controller
                             
                         }
 
+                        // ================ sleeve or fabric or fit ==============
+                        // if sleeve or fabric or fit both are selected
+                        if(isset($data['fit']) && !empty($data['fit'])){
+                            // {{ echo "fabric1/";}}
+                            $catWiseProduct = Product::with('getBrand') -> whereIn('fit', $data['fit']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_name', 'DESC') -> get();
+                        }
+                        
+                        if(isset($data['fabric']) && !empty($data['fabric']) && isset($data['fit']) && !empty($data['fit'])){
+                            // {{ echo "fabric1/";}}
+                            $catWiseProduct = Product::with('getBrand') -> whereIn('fit', $data['fit']) -> whereIn('fabric', $data['fabric']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_name', 'DESC') -> get();
+                        }
+                        if(isset($data['sleeve']) && !empty($data['sleeve'])  && isset($data['fit']) && !empty($data['fit'])){
+                            // {{ echo "fabric1/";}}
+                            $catWiseProduct = Product::with('getBrand') -> whereIn('sleeve', $data['sleeve']) -> whereIn('fit', $data['fit']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_name', 'DESC')  -> get();
+                        }
+
+                        if(isset($data['sleeve']) && !empty($data['sleeve']) && isset($data['fabric']) && !empty($data['fabric']) && isset($data['fit']) && !empty($data['fit'])){
+                            {{ echo "fit3/";}}
+                            $catWiseProduct = Product::with('getBrand') -> whereIn('sleeve', $data['sleeve']) -> whereIn('fabric', $data['fabric']) -> whereIn('fit', $data['fit']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_name', 'DESC') -> get();
+                        }
+
+
+
                     }elseif($data['sort'] == 'product_a_z'){
                         $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_name', 'ASC') -> paginate(6);
 
+                        // ================ fabric==============
                         if(isset($data['fabric']) && !empty($data['fabric'])){
                             // $catWiseProduct -> whereIn('products.fabric', $data['fabric']);
         
@@ -188,6 +308,7 @@ class ProductController extends Controller
         
                         }
 
+                        // ================ sleeve or fabric ==============
                         // if sleeve or fabric both are selected
                         if(isset($data['sleeve']) && !empty($data['sleeve'])){
                             {{ echo "sleeve1/";}}
@@ -199,6 +320,28 @@ class ProductController extends Controller
                             $catWiseProduct = Product::with('getBrand') -> whereIn('sleeve', $data['sleeve']) -> whereIn('fabric', $data['fabric']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_name', 'ASC') -> get();
                             
                         }
+
+                        // ================ sleeve or fabric or fit ==============
+                        // if sleeve or fabric or fit both are selected
+                        if(isset($data['fit']) && !empty($data['fit'])){
+                            // {{ echo "fabric1/";}}
+                            $catWiseProduct = Product::with('getBrand') -> whereIn('fit', $data['fit']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_name', 'ASC') -> get();
+                        }
+                        
+                        if(isset($data['fabric']) && !empty($data['fabric']) && isset($data['fit']) && !empty($data['fit'])){
+                            // {{ echo "fabric1/";}}
+                            $catWiseProduct = Product::with('getBrand') -> whereIn('fit', $data['fit']) -> whereIn('fabric', $data['fabric']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_name', 'ASC') -> get();
+                        }
+                        if(isset($data['sleeve']) && !empty($data['sleeve'])  && isset($data['fit']) && !empty($data['fit'])){
+                            // {{ echo "fabric1/";}}
+                            $catWiseProduct = Product::with('getBrand') -> whereIn('sleeve', $data['sleeve']) -> whereIn('fit', $data['fit']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_name', 'ASC')  -> get();
+                        }
+
+                        if(isset($data['sleeve']) && !empty($data['sleeve']) && isset($data['fabric']) && !empty($data['fabric']) && isset($data['fit']) && !empty($data['fit'])){
+                            {{ echo "fit3/";}}
+                            $catWiseProduct = Product::with('getBrand') -> whereIn('sleeve', $data['sleeve']) -> whereIn('fabric', $data['fabric']) -> whereIn('fit', $data['fit']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_name', 'ASC') -> get();
+                        }
+
                     }
                 }
 

@@ -15,10 +15,11 @@
             const url = $('#url').val();
             const fabric = get_filter('fabric');
             const sleeve = get_filter('sleeve');
+            const fit = get_filter('fit');
             $.ajax({
                 url : url,
                 type : 'get',
-                data : {sort, url, fabric, sleeve},
+                data : {sort, url, fabric, sleeve, fit},
                 success : function (data){
                     $('.filter_products').html(data);
                 }
@@ -32,11 +33,12 @@
             const url = $('#url').val();
             const fabric = get_filter(this);
             const sleeve = get_filter('sleeve');
+            const fit = get_filter('fit');
             // console.log(this);
             $.ajax({
                 url : url,
                 type : 'get',
-                data : {sort, url, fabric, sleeve},
+                data : {sort, url, fabric, sleeve, fit},
                 success : function (data){
                     $('.filter_products').html(data);
                 }
@@ -50,18 +52,35 @@
             const url = $('#url').val();
             const fabric = get_filter('fabric');
             const sleeve = get_filter('sleeve');
+            const fit = get_filter('fit');
             // console.log(this);
             $.ajax({
                 url : url,
                 type : 'get',
-                data : {sort, url, fabric, sleeve},
+                data : {sort, url, fabric, sleeve, fit},
                 success : function (data){
                     $('.filter_products').html(data);
                 }
             });
         });
 
-
+        // filter by fabric, sleeve, fit
+        $(document).on('click', '.fit', function(){
+            const sort = $('#sort option:selected').val();
+            const url = $('#url').val();
+            const fabric = get_filter('fabric');
+            const sleeve = get_filter('sleeve');
+            const fit = get_filter('fit');
+            // console.log(this);
+            $.ajax({
+                url : url,
+                type : 'get',
+                data : {sort, url, fabric, sleeve, fit},
+                success : function (data){
+                    $('.filter_products').html(data);
+                }
+            });
+        });
 
         // function for filtering 
         function get_filter(cls_name){

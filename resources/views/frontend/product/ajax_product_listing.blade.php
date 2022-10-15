@@ -20,6 +20,7 @@
                     </div>
                     <h5>{{ $item -> fabric }}</h5>
                     <h5>{{ $item -> sleeve }}</h5>
+                    <h5>{{ $item -> fit }}</h5>
                 </div>
             </li>
         @empty
