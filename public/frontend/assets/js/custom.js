@@ -9,21 +9,58 @@
         // });
 
 
-        // // product filtering system by ajax
+        // product filtering system by ajax
         $(document).on('change', '#sort', function(){
             const sort = $(this).val();
             const url = $('#url').val();
-            // alert(url)
+            const fabric = get_filter('fabric');
 
             $.ajax({
                 url : url,
-                data : {sort, url},
+                type : 'get',
+                data : {sort, url, fabric},
                 success : function (data){
                     $('.filter_products').html(data);
                 }
             });
         });
 
+
+        // filter by fabrics , sleeve 
+        $(document).on('click', '.fabric', function(){
+            const sort = $('#sort option:selected').val();
+            const url = $('#url').val();
+            const fabric = get_filter(this);
+            
+            // console.log(this);
+
+            $.ajax({
+                url : url,
+                type : 'get',
+                data : {sort, url, fabric},
+                success : function (data){
+                    $('.filter_products').html(data);
+                }
+            });
+
+
+        });
+
+
+
+        // function for filtering 
+        function get_filter(cls_name){
+            let filterArr = [];
+            // console.log(`.${cls_name}:checked`);
+
+            $('.'+cls_name+':checked').each(function(){
+                filterArr.push($(this).val());
+                // alert($(this).val());
+            });
+
+            return filterArr;
+            // console.log(filterArr);
+        }
 
 
 

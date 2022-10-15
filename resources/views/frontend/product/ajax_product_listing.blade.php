@@ -18,6 +18,8 @@
                         </p>
                         <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">${{ $item -> product_price }}</a></h4>
                     </div>
+                    <h5>{{ $item -> fabric }}</h5>
+                    <h5>{{ $item -> sleeve }}</h5>
                 </div>
             </li>
         @empty

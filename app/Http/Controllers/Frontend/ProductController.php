@@ -19,54 +19,129 @@ class ProductController extends Controller
             $data = $request -> all();
             $url = $data['url'];
 
-            $catCount = Category::where(['url' => $url, 'status' => 1]) -> get() -> count();
+            $catCount = Category::where(['url' => $url, 'status' => 1]) -> count();
+            // breadchumb
             $searchUrl = Category::where(['url' => $url, 'status' => 1]) -> first();
-
+            // echo '<pre>'; print_r($catCount); die;
             if($catCount > 0){
-                $catDetails = Category::select('id', 'category_name', 'url', 'description', 'parent_id') -> with('subcategories', function($query){
-                    $query -> select('id', 'parent_id', 'description', 'category_name', 'parent_id') -> where('status', 1);
-                }) -> where(['url' => $url]) -> first() -> toArray();
+                $categoryDetails = Category::catDetails($url);
 
-                // cat or subcat all Ids array
-                $catIds = [$catDetails['id']];
+                // echo '<pre>'; print_r($categoryDetails); die;
 
-                foreach($catDetails['subcategories'] as $key => $item){
-                    // $catIds = $item['id'];
-                    array_push($catIds, $item['id']);
-                }
+                // get data without loop
+                $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> get();
+                // dd($catWiseProduct) -> toArray(); die;
+                // echo '<pre>'; print_r($catWiseProduct); die;
 
                 // breadcum define
                 $breadcum = Category::find($searchUrl -> parent_id);
 
-                // get data without loop
-                $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $catIds) -> where('status', 1) -> paginate(3);
-                
+                // product filtering by ajax if fabric option is checked
+                if(isset($data['fabric']) && !empty($data['fabric'])){
+                    {{ echo "fabric1/";}}
+                    $catWiseProduct = Product::with('getBrand') -> whereIn('fabric', $data['fabric']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> get();
 
-                // product filtering by ajax
-                if(isset($data['sort']) && !empty($data['sort'])){
-                    if($data['sort'] == 'latest_product'){
-                        $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $catIds) -> where('status', 1) -> orderBy('id', 'DESC') -> paginate(3);
-                    }elseif($data['sort'] == 'highest_price'){
-                        $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $catIds) -> where('status', 1) -> orderBy('product_price', 'DESC') -> paginate(3);
-                    }elseif($data['sort'] == 'lower_price'){
-                        $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $catIds) -> where('status', 1) -> orderBy('product_price', 'ASC') -> paginate(3);
-                    }elseif($data['sort'] == 'product_z_a'){
-                        $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $catIds) -> where('status', 1) -> orderBy('product_name', 'DESC') -> paginate(3);
-                    }elseif($data['sort'] == 'product_a_z'){
-                        $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $catIds) -> where('status', 1) -> orderBy('product_name', 'ASC') -> paginate(3);
-                    }
-                }else{
-                    $catWiseProduct;
+                    // if(isset($data['sort']) && !empty($data['sort'])){
+                    //     {{ echo "fabric2/";}}
+                    //     if($data['sort'] == 'highest_price'){
+                    //         $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_price', 'DESC') -> paginate(6);
+    
+                    //     }
+                    // }elseif($data['sort'] == 'highest_price'){
+                    //     $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_price', 'DESC') -> paginate(6);
+
+
+                    //     // $catWiseProduct->orderBy('id', 'Desc') -> get();
+
+                    // }elseif($data['sort'] == 'lower_price'){
+                    //     $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_price', 'ASC') -> paginate(6);
+
+
+                    // }elseif($data['sort'] == 'product_z_a'){
+                    //     $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_name', 'DESC') -> paginate(6);
+
+
+                    // }elseif($data['sort'] == 'product_a_z'){
+                    //     $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_name', 'ASC') -> paginate(6);
+
+                    
+                    // }
+
+
                 }
 
-                return view('frontend.product.ajax_product_listing', compact('catWiseProduct', 'catDetails', 'breadcum'));
+               
+
+
+                // product filtering by ajax if sort option is seleted
+                if(isset($data['sort']) && !empty($data['sort'])){
+                    {{ echo "sort1/";}}
+                    if($data['sort'] == 'latest_product'){
+                        $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('id', 'DESC') -> paginate(6);
+                        
+                        if(isset($data['fabric']) && !empty($data['fabric'])){
+                            // $catWiseProduct -> whereIn('products.fabric', $data['fabric']);
+        
+                            $catWiseProduct = Product::with('getBrand') -> whereIn('fabric', $data['fabric']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('id', 'DESC') -> get();
+        
+                        }
+                        
+                        // $catWiseProduct->orderBy('products.id', 'Desc') -> get();
+
+                    }elseif($data['sort'] == 'highest_price'){
+                        $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_price', 'DESC') -> paginate(6);
+
+                        if(isset($data['fabric']) && !empty($data['fabric'])){
+                            // $catWiseProduct -> whereIn('products.fabric', $data['fabric']);
+                            {{ echo "sort2/";}}
+                            $catWiseProduct = Product::with('getBrand') -> whereIn('fabric', $data['fabric']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_price', 'DESC') -> get();
+        
+                        }
+
+                        // $catWiseProduct->orderBy('id', 'Desc') -> get();
+
+                    }elseif($data['sort'] == 'lower_price'){
+                        $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_price', 'ASC') -> paginate(6);
+
+                        if(isset($data['fabric']) && !empty($data['fabric'])){
+                            // $catWiseProduct -> whereIn('products.fabric', $data['fabric']);
+        
+                            $catWiseProduct = Product::with('getBrand') -> whereIn('fabric', $data['fabric']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_price', 'ASC') -> get();
+        
+                        }
+
+                    }elseif($data['sort'] == 'product_z_a'){
+                        $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_name', 'DESC') -> paginate(6);
+
+                        if(isset($data['fabric']) && !empty($data['fabric'])){
+                            // $catWiseProduct -> whereIn('products.fabric', $data['fabric']);
+        
+                            $catWiseProduct = Product::with('getBrand') -> whereIn('fabric', $data['fabric']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_name', 'DESC') -> get();
+        
+                        }
+
+                    }elseif($data['sort'] == 'product_a_z'){
+                        $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_name', 'ASC') -> paginate(6);
+
+                        if(isset($data['fabric']) && !empty($data['fabric'])){
+                            // $catWiseProduct -> whereIn('products.fabric', $data['fabric']);
+        
+                            $catWiseProduct = Product::with('getBrand') -> whereIn('fabric', $data['fabric']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> orderBy('product_name', 'ASC') -> get();
+        
+                        }
+                    }
+                }
+
+                $catDetails = $categoryDetails['catDetails'];
+
+                return view('frontend.product.ajax_product_listing', compact('catWiseProduct', 'breadcum', 'catDetails'));
             }else{
                 abort(404);
             }
             
         }else{
             
-            $catCount = Category::where(['url' => $url, 'status' => 1]) -> get() -> count();
+            $catCount = Category::where(['url' => $url, 'status' => 1]) -> count();
             $searchUrl = Category::where(['url' => $url, 'status' => 1]) -> first();
 
             if($catCount > 0){
@@ -91,7 +166,7 @@ class ProductController extends Controller
                 // }
 
                 // get data without loop
-                $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $catIds) -> where('status', 1) -> paginate(3);
+                $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $catIds) -> where('status', 1) -> paginate(6);
 
                 // product fabric filter option
                 $page_name = 'list';

@@ -27,6 +27,27 @@ class Category extends Model
         return $this -> belongsTo(Category::class, 'parent_id', 'id') -> select('id', 'category_name');
     }
 
+    // get all filter product category
+    public static function catDetails($url) {
+        $catDetails = Category::select('id', 'category_name', 'url', 'description', 'parent_id') -> with('subcategories', function($query){
+            $query -> select('id', 'parent_id', 'description', 'category_name', 'parent_id') -> where('status', 1);
+        }) -> where(['url' => $url]) -> first() -> toArray();
+
+        // cat or subcat all Ids array
+        // $catDetails['catIds'] = [$catDetails['allCats']['id']];
+        $catIds = array();
+        $catIds[] = $catDetails['id'];
+        foreach($catDetails['subcategories'] as $key => $item){
+            // $catIds = $item['id'];
+            // array_push($catDetails['catIds'], $item['id']);
+            $catIds[] = $item['id'];
+        }
+
+        return [
+            'catIds'        => $catIds,
+            'catDetails'    => $catDetails
+        ];
+    }
 
 
 
