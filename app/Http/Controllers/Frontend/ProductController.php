@@ -7,12 +7,13 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Pagination\Paginator;
 
 class ProductController extends Controller
 {
     // product listin page category wise
     public function ProductListing(Request $request){
-
+        Paginator::useBootstrap();
         // filtering system by ajax
         if($request -> ajax()){
             // echo '<pre>'; print_r($request -> all()); die;
@@ -381,7 +382,7 @@ class ProductController extends Controller
                 // }
 
                 // get data without loop
-                $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $catIds) -> where('status', 1) -> paginate(6);
+                $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $catIds) -> where('status', 1) -> paginate(3);
 
                 // product fabric filter option
                 $page_name = 'list';
