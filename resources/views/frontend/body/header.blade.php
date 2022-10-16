@@ -35,9 +35,9 @@
 								@foreach($section -> getCategory as $cat)
 								<li class="divider"></li>
 								<li class="nav-header">
-									<a href="{{ $cat -> url }}">{{ $cat -> category_name }}</a>
+									<a href="{{ url('/'.$cat -> url) }}">{{ $cat -> category_name }}</a>
 									@foreach($cat -> subcategories as $subcat)
-									<li><a href="{{ $subcat -> url }}">{{ $subcat -> category_name }}</a></li>
+									<li><a href="{{ url('/'.$cat -> url) }}">{{ $subcat -> category_name }}</a></li>
 									@endforeach
 								</li>
 								@endforeach

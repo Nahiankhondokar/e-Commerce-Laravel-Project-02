@@ -13,11 +13,11 @@
                         <ul>
                             @foreach($section -> getCategory as $cat)
                             <li>
-                                <a href="{{ $cat -> url }}"><i class="icon-chevron-right"></i><strong>{{ $cat -> category_name }}</strong></a>
+                                <a href="{{ url('/'.$cat -> url) }}"><i class="icon-chevron-right"></i><strong>{{ $cat -> category_name }}</strong></a>
                             </li>
                                 @foreach($cat -> subcategories as $subcat)
                                 <li>
-                                    <a href="{{ $subcat -> url }}"><i class="icon-chevron-right"></i>{{ $subcat -> category_name }}</a>
+                                    <a href="{{ url('/'.$subcat -> url) }}"><i class="icon-chevron-right"></i>{{ $subcat -> category_name }}</a>
                                 </li>
                                 @endforeach
                             @endforeach

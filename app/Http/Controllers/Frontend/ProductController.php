@@ -410,9 +410,12 @@ class ProductController extends Controller
         $productDetails = Product::find($id);
         $productGalleris = ProductGallery::where('product_id', $id) -> where('status', 1) -> get() -> pluck('images');
         $totalStock = ProductAttribute::where('product_id', $id) -> sum('stock');
-        // echo '<pre>'; print_r($productGalleris); die;
 
-        return view('frontend.product.product_details', compact('productDetails', 'productGalleris', 'totalStock'));
+        $relatedProduct = Product::where('category_id', $productDetails -> category_id) -> where('id', '!=', $id) -> limit(3) -> inRandomOrder() -> get();
+        // echo '<pre>'; print_r($relatedProduct); die;
+        // dd($relatedProduct);
+
+        return view('frontend.product.product_details', compact('productDetails', 'productGalleris', 'totalStock', 'relatedProduct'));
     }
 
 
