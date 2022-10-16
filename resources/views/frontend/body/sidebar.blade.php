@@ -28,7 +28,7 @@
         </ul>
         <br>
         
-        @if($page_name == 'list')
+        @if(@$page_name && $page_name == 'list')
             <div class="well well-small filter-item">
                 <h5> Fabric</h5>
                 @foreach($fabricArr as $key => $item)

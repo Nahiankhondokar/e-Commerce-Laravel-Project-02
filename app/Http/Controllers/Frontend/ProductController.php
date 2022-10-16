@@ -5,13 +5,18 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductAttribute;
+use App\Models\ProductGallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Pagination\Paginator;
 
 class ProductController extends Controller
 {
-    // product listin page category wise
+    /**
+     * product listin page category wise
+     * product filter combindly
+     */
     public function ProductListing(Request $request){
         Paginator::useBootstrap();
         // filtering system by ajax
@@ -382,7 +387,7 @@ class ProductController extends Controller
                 // }
 
                 // get data without loop
-                $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $catIds) -> where('status', 1) -> paginate(3);
+                $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $catIds) -> where('status', 1) -> paginate(6);
 
                 // product fabric filter option
                 $page_name = 'list';
@@ -400,5 +405,14 @@ class ProductController extends Controller
 
     }
 
+    // product details page show
+    public function ProductDetailsPage($id){
+        $productDetails = Product::find($id);
+        $productGalleris = ProductGallery::where('product_id', $id) -> where('status', 1) -> get() -> pluck('images');
+        $totalStock = ProductAttribute::where('product_id', $id) -> sum('stock');
+        // echo '<pre>'; print_r($productGalleris); die;
+
+        return view('frontend.product.product_details', compact('productDetails', 'productGalleris', 'totalStock'));
+    }
 
 }

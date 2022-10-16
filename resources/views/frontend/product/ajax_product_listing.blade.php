@@ -6,7 +6,9 @@
                 <div class="thumbnail">
                     <a href="product_details.html">
                         @if(@$item -> main_image)
-                        <img style="width: 160px" src="{{ URL::to('') }}/media/backend/product/large/{{ $item -> main_image}}" alt=""/>
+                        <a href="{{ route('product.details', $item -> id) }}">
+                            <img style="width: 160px" src="{{ URL::to('') }}/media/backend/product/large/{{ $item -> main_image}}" alt=""/>
+                        </a>
                         @else
                         <img style="width: 160px" src="{{URL::to('')}}/media/no_image.jpg" alt="">
                         @endif

@@ -73,7 +73,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin']], function(){
 // });
 
 
-// admin rotues (backend)
+/**
+ * admin rotues
+ * backend
+ */
 Route::get('/admin/logout', [AdminController::class, "destroy"]) -> name('admin.logout');
 
 Route::group(['prefix'  => 'admin'], function(){
@@ -161,17 +164,20 @@ Route::group(['prefix'  => 'admin'], function(){
 
 });
 
+
+/**
+ * user all routes 
+ * frontend
+ */
 // category wise product get
 foreach ($CatsUrl as $url) {
     Route::get('/'.$url, [FrontendProductController::class, "ProductListing"]);
 }
-// user all routes (frontend)
 Route::get('/', [IndexController::class, "IndexView"]);
 
+Route::get('/product/{id}', [FrontendProductController::class, "ProductDetailsPage"]) -> name('product.details');
 
-Route::group(['prefix' => 'user'], function(){
-    // Route::get('/', [IndexController::class, "IndexView"]);
-});
+
 
 
 
