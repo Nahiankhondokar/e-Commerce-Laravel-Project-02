@@ -24,6 +24,9 @@
 	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{asset('frontend/assets/images/ico/apple-touch-icon-72-precomposed.png')}}">
 	<link rel="apple-touch-icon-precomposed" href="{{asset('frontend/assets/images/ico/apple-touch-icon-57-precomposed.png')}}">
 	<style type="text/css" id="enject"></style>
+	{{-- Toster css file --}}
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+
 </head>
 <body>
 
@@ -56,6 +59,33 @@
 
 <script src="{{asset('frontend/assets/js/front.js')}}"></script>
 <script src="{{asset('frontend/assets/js/jquery.lightbox-0.5.js')}}"></script>
+
+{{-- Toster js file --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+  {{-- // Toster --}}
+  <script>
+    
+    @if (Session::has('message'))
+    let type = "{{ Session::get('alert-type', 'info') }}"
+    switch(type){
+        case 'info':
+        toastr.info("{{ Session::get('message') }}");
+        break;
+        case 'success':
+        toastr.success("{{ Session::get('message') }}");
+        break;
+        case 'warning':
+        toastr.warning("{{ Session::get('message') }}");
+        break;
+        case 'error':
+        toastr.error("{{ Session::get('message') }}");
+        break;  
+    }
+        
+  @endif
+
+</script>
 
 </body>
 </html>

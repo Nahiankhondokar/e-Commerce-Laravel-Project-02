@@ -109,15 +109,19 @@
             const product_id = $('#getPrice').attr('product_id');
             // alert(size + product_id);
 
-            $.ajax({
-                url : '/get-price-by-product-size',
-                type : 'get',
-                data : {size, product_id},
-                success : function (data){
-                    $('.getAttrPrice').html(`$${data.price}`);
-                    // alert(data.price);
-                }
-            });
+            if(size){
+                $.ajax({
+                    url : '/get-price-by-product-size',
+                    type : 'get',
+                    data : {size, product_id},
+                    success : function (data){
+                        $('.getAttrPrice').text(`$${data.price}`);
+                        // alert(data.price);
+                    }
+                });
+            }else {
+                $('.getAttrPrice').text(00);
+            }
         });
 
 

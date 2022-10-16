@@ -29,7 +29,7 @@ class Product extends Model
 
     // get product attribute relationship
     public function getProductAttr(){
-        return $this -> hasMany(ProductAttribute::class, 'product_id', 'id');
+        return $this -> hasMany(ProductAttribute::class, 'product_id', 'id') -> where('status', 1);
     }
 
 

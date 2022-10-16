@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductAttribute;
@@ -10,6 +11,8 @@ use App\Models\ProductGallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class ProductController extends Controller
 {
@@ -432,6 +435,67 @@ class ProductController extends Controller
             return $getPrice;
         }
 
+    }
+
+    // add to cart
+    public function AddToCart(Request $request){
+
+        if($request -> isMethod('post')){
+            $getStock = ProductAttribute::where('product_id', $request -> product_id) -> where('size', $request -> size) -> first();
+
+            // stock validation 
+            if($getStock -> stock < $request -> quantity){
+                // msg  
+                $notify = [
+                    'message'       => 'Quantity is not available',
+                    'alert-type'    => "warning"
+                ];
+
+                return redirect() -> back() -> with($notify);
+            }
+
+            $session_id = Session::get('session_id');
+            if(empty($session_id)){
+                $session_id = Session::getId();
+                Session::put('session_id', $session_id);
+            }
+
+            // if same size already exists
+            $countProduct = Cart::where('product_id', $request -> product_id) -> where('size', $request -> size) -> count();
+            if($countProduct > 0){
+                // msg  
+                $notify = [
+                    'message'       => 'Product already exists',
+                    'alert-type'    => "error"
+                ];
+
+                return redirect() -> back() -> with($notify);
+            }
+
+            // store data
+            Cart::insert([
+                'session_id'        => $session_id,
+                'product_id'        => $request -> product_id,
+                'user_id'           => Auth::user('id') ?? 0,
+                'size'              => $request -> size,
+                'quantity'          => $request -> quantity,
+            ]);
+
+
+            // msg  
+            $notify = [
+                'message'       => 'Product added succesfully',
+                'alert-type'    => "success"
+            ];
+
+            return redirect() -> back() -> with($notify);
+
+
+
+           
+
+
+        }
     }
 
 }

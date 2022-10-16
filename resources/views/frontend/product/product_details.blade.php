@@ -49,17 +49,18 @@
             <h5>- {{ ucwords($productDetails -> getBrand -> name ?? 'No Brand') }}</h5>
             <hr class="soft"/>
             <h5> {{ $totalStock }} items in stock</h5>
-            <form class="form-horizontal qtyFrm">
+            <form class="form-horizontal qtyFrm" action="{{ route('add.to.cart') }}" method="POST">
+                @csrf
                 <div class="control-group">
+                    <input type="hidden" name="product_id" value="{{ $productDetails -> id }}">
                     <h4 class="getAttrPrice">${{ ucwords($productDetails -> product_price) }}</h4>
-                        <select name="size" id="getPrice" product_id="{{ $productDetails -> id }}" class="span2 pull-left">
-                            <option value="" disabled>Select</option>
-                            {{print_r($productDetails -> getProductAttr)}}
+                        <select name="size" id="getPrice" product_id="{{ $productDetails -> id }}" class="span2 pull-left" required>
+                            <option value="">Select</option>
                             @foreach($productDetails -> getProductAttr as $item)
                             <option value="{{ $item -> size }}">{{ $item -> size }}</option>
                             @endforeach
                         </select>
-                        <input type="number" class="span1" placeholder="Qty."/>
+                        <input type="number" class="span1" placeholder="Qty." name="quantity" required/>
                         <button type="submit" class="btn btn-large btn-primary pull-right"> Add to cart <i class=" icon-shopping-cart"></i></button>
                     </div>
                 </div>
