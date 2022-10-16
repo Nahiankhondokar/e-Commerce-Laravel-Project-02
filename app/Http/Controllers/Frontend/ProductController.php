@@ -441,6 +441,14 @@ class ProductController extends Controller
     public function AddToCart(Request $request){
 
         if($request -> isMethod('post')){
+
+            // validaiton
+            $this -> validate($request, [
+                'size'      => 'required',
+                'quantity'  => 'required'
+            ]);
+
+            // get product stock
             $getStock = ProductAttribute::where('product_id', $request -> product_id) -> where('size', $request -> size) -> first();
 
             // stock validation 
@@ -460,8 +468,16 @@ class ProductController extends Controller
                 Session::put('session_id', $session_id);
             }
 
+            // check wheather auth is logged in or not
+            if(Auth::check()){
+                // user is logged in
+                $countProduct = Cart::where(['product_id' => $request -> product_id, 'size' => $request -> size, 'user_id' => Auth::user() -> id]) -> count();
+            }else{
+                // user is not logged in
+                $countProduct = Cart::where(['product_id' => $request -> product_id, 'size' => $request -> size, 'session_id' => Session::get('session_id')]) -> count();
+            }
+
             // if same size already exists
-            $countProduct = Cart::where('product_id', $request -> product_id) -> where('size', $request -> size) -> count();
             if($countProduct > 0){
                 // msg  
                 $notify = [
@@ -472,11 +488,11 @@ class ProductController extends Controller
                 return redirect() -> back() -> with($notify);
             }
 
-            // store data
+            // store product
             Cart::insert([
-                'session_id'        => $session_id,
+                'session_id'        => $session_id ?? 0,
                 'product_id'        => $request -> product_id,
-                'user_id'           => Auth::user('id') ?? 0,
+                'user_id'           => Auth::user() -> id ?? 0,
                 'size'              => $request -> size,
                 'quantity'          => $request -> quantity,
             ]);
@@ -489,11 +505,6 @@ class ProductController extends Controller
             ];
 
             return redirect() -> back() -> with($notify);
-
-
-
-           
-
 
         }
     }
