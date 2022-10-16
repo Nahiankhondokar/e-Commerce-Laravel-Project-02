@@ -1,6 +1,11 @@
 @php
-  $prefix = Request::route() -> getPrefix();
-  $route = Route::current() -> getName();
+
+
+  $prefix = Request::route() -> getPrefix(); // get prefix
+  $route  = Route::current() -> getName(); // get name route
+  $uri    =Route::getFacadeRoot() -> current() -> uri(); // get uri
+
+  
 @endphp
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">

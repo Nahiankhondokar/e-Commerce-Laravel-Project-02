@@ -6,11 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class ProductController extends Controller
 {
     // product listin page category wise
-    public function ProductListing($url, Request $request){
+    public function ProductListing(Request $request){
 
         // filtering system by ajax
         if($request -> ajax()){
@@ -353,7 +354,8 @@ class ProductController extends Controller
             }
             
         }else{
-            
+            $url = Route::getFacadeRoot() -> current() -> uri();
+
             $catCount = Category::where(['url' => $url, 'status' => 1]) -> count();
             $searchUrl = Category::where(['url' => $url, 'status' => 1]) -> first();
 

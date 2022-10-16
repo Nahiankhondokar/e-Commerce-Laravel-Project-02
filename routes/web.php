@@ -28,6 +28,9 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+use App\Models\Category;
+$CatsUrl = Category::select('url') -> where('status', 1) -> get() -> pluck('url');
+// echo '<pre>'; print_r($CatsUrl); die;
 
 // admin auth route
 Route::middleware([
@@ -158,12 +161,17 @@ Route::group(['prefix'  => 'admin'], function(){
 
 });
 
-
+// category wise product get
+foreach ($CatsUrl as $url) {
+    Route::get('/'.$url, [FrontendProductController::class, "ProductListing"]);
+}
 // user all routes (frontend)
 Route::get('/', [IndexController::class, "IndexView"]);
-// category wise product get
-Route::get('/{url}', [FrontendProductController::class, "ProductListing"]);
+
 
 Route::group(['prefix' => 'user'], function(){
     // Route::get('/', [IndexController::class, "IndexView"]);
 });
+
+
+
