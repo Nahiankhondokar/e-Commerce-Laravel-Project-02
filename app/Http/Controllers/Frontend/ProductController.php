@@ -415,4 +415,20 @@ class ProductController extends Controller
         return view('frontend.product.product_details', compact('productDetails', 'productGalleris', 'totalStock'));
     }
 
+
+    /**
+     *  get price based on product size
+     */
+    public function ProductWiseGetPrice(Request $request){
+
+        if($request -> ajax()){
+
+            $getPrice = ProductAttribute::where('product_id', $request -> product_id) -> where('size', $request -> size) -> first();
+
+            // dd($getPrice);
+            return $getPrice;
+        }
+
+    }
+
 }

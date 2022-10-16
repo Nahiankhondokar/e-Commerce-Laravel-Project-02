@@ -5,8 +5,8 @@
 <div class="span9">
     <ul class="breadcrumb">
         <li><a href="index.html">Home</a> <span class="divider">/</span></li>
-        <li><a href="products.html">Products</a> <span class="divider">/</span></li>
-        <li class="active">product Details</li>
+        <li><a href="products.html">{{ $productDetails -> getCategory -> category_name }}</a> <span class="divider">/</span></li>
+        <li class="active">{{ $productDetails -> product_name }}</li>
     </ul>
     <div class="row">
         <div id="gallery" class="span3">
@@ -42,13 +42,13 @@
         </div>
         <div class="span6">
             <h3> {{ ucwords($productDetails -> product_name) }} </h3>
-            <small>- {{ ucwords($productDetails -> getBrand -> name) }}</small>
+            <h5>- {{ ucwords($productDetails -> getBrand -> name) }}</h5>
             <hr class="soft"/>
             <h5> {{ $totalStock }} items in stock</h5>
             <form class="form-horizontal qtyFrm">
                 <div class="control-group">
-                    <h4>${{ ucwords($productDetails -> product_price) }}</h4>
-                        <select class="span2 pull-left">
+                    <h4 class="getAttrPrice">${{ ucwords($productDetails -> product_price) }}</h4>
+                        <select name="size" id="getPrice" product_id="{{ $productDetails -> id }}" class="span2 pull-left">
                             <option value="" disabled>Select</option>
                             {{print_r($productDetails -> getProductAttr)}}
                             @foreach($productDetails -> getProductAttr as $item)

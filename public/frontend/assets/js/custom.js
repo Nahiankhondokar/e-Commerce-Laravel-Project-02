@@ -1,6 +1,12 @@
 (function($){
     $(document).ready(function(){
 
+        // csrf token will not show any error when we pass POST type data through ajax.
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
         // product filtering system by laravel
         // $(document).on('change', '#sort', function(){
@@ -96,6 +102,23 @@
             // console.log(filterArr);
         }
 
+
+        // get price product size wise
+        $(document).on('change', '#getPrice', function(){
+            const size = $(this).val();
+            const product_id = $('#getPrice').attr('product_id');
+            // alert(size + product_id);
+
+            $.ajax({
+                url : '/get-price-by-product-size',
+                type : 'get',
+                data : {size, product_id},
+                success : function (data){
+                    $('.getAttrPrice').html(`$${data.price}`);
+                    // alert(data.price);
+                }
+            });
+        });
 
 
     });

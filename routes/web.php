@@ -176,6 +176,7 @@ foreach ($CatsUrl as $url) {
 Route::get('/', [IndexController::class, "IndexView"]);
 
 Route::get('/product/{id}', [FrontendProductController::class, "ProductDetailsPage"]) -> name('product.details');
+Route::get('/get-price-by-product-size', [FrontendProductController::class, "ProductWiseGetPrice"]);
 
 
 
