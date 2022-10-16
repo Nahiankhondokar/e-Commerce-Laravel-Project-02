@@ -46,16 +46,7 @@
                     </div>
                 @endforeach
             </div>
-
-            <div class="well well-small filter-item">
-                <h5>Pattern</h5>
-                @foreach($patternArr as $key => $item)
-                    <div class="item" style="display: flex">
-                        <input class="pattern" type="checkbox" value="{{ $item }}" name="pattern[]" id="pattern-{{$key}}"> <label style="padding-top: 8px; font-weight:600;" for="pattern-{{$key}}">&nbsp; {{ $item }}</label>
-                    </div>
-                @endforeach
-            </div>
-
+            
             <div class="well well-small filter-item">
                 <h5>Fit</h5>
                 @foreach($fitArr as $key => $item)
@@ -65,14 +56,6 @@
                 @endforeach
             </div>
 
-            <div class="well well-small filter-item">
-                <h5>Ocassion </h5>
-                @foreach($ocassionArr as $key => $item)
-                    <div class="item" style="display: flex">
-                        <input class="ocassion" type="checkbox" value="{{ $item }}" name="ocassion" id="ocassion-{{$key}}"> <label style="padding-top: 8px; font-weight:600;" for="ocassion-{{$key}}">&nbsp; {{ $item }}</label>
-                    </div>
-                @endforeach
-            </div>
         @endif
 
         <div class="thumbnail mt-10">
