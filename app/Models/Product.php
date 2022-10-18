@@ -50,6 +50,25 @@ class Product extends Model
         return $allData;
     }
 
+
+    // get product discount price
+    public static function getDiscountPrice($product_id){
+
+        $discountPro = Product::select('id', 'product_price', 'product_discount', 'category_id') -> where('id', $product_id) -> first();
+        $discountCat = Category::select('category_discount') -> where('id', $discountPro -> category_id) -> first();
+
+        if($discountPro -> product_discount > 0){
+
+            $discountPrice = $discountPro -> product_price - ($discountPro -> product_price * $discountPro -> product_discount / 100);
+
+        }elseif($discountCat -> category_discount > 0){
+            $discountPrice = $discountPro -> product_price - ($discountPro -> product_price * $discountCat -> category_discount / 100);
+        }else {
+            $discountPrice = 0;
+        }
+
+        return round($discountPrice);
+    }
         
 
 }

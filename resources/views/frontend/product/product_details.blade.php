@@ -1,3 +1,9 @@
+@php
+    use App\Models\Product;
+@endphp
+
+
+
 @extends('frontend.user_master')
 
 @section('main_content')
@@ -53,8 +59,18 @@
                 @csrf
                 <div class="control-group">
                     <input type="hidden" name="product_id" value="{{ $productDetails -> id }}">
-                    <h4 class="getAttrPrice">${{ ucwords($productDetails -> product_price) }}</h4>
-                        <select name="size" id="getPrice" product_id="{{ $productDetails -> id }}" class="span2 pull-left" required>
+
+                    @php
+                        $discount = Product::getDiscountPrice($productDetails -> id);
+                    @endphp
+                    @if($discount > 0)
+                    <h4 class="getAttrPrice">${{ $discount }}</h4>
+                    <h5 class="getAttrPrice" disabled ><del>${{ $productDetails -> product_price }}</del></h5>
+                    @else
+                    <h4 class="getAttrPrice">${{ $productDetails -> product_price }}</h4>
+                    @endif 
+
+                    <select name="size" id="getPrice" product_id="{{ $productDetails -> id }}" class="span2 pull-left" required>
                             <option value="">Select</option>
                             @foreach($productDetails -> getProductAttr as $item)
                             <option value="{{ $item -> size }}">{{ $item -> size }}</option>
@@ -151,7 +167,19 @@
                                 </div>
                                 <div class="span3 alignR">
                                     <form class="form-horizontal qtyFrm">
-                                        <h3> ${{ $item -> product_price }} </h3>
+
+
+                                        @php
+                                            $discount = Product::getDiscountPrice($item -> id);
+                                        @endphp
+                                        @if($discount > 0)
+                                        <h4 class="getAttrPrice">${{ $discount }}</h4>
+                                        <h5 class="getAttrPrice" disabled ><del>${{ $item -> product_price }}</del></h5>
+                                        @else
+                                        <h4 class="getAttrPrice">${{ $item -> product_price }}</h4>
+                                        @endif 
+
+
                                         <label class="checkbox">
                                             <input type="checkbox">  Adds product to compair
                                         </label><br/>
@@ -186,7 +214,21 @@
                                             <p>
                                                 {{ $item -> description }}
                                             </p>
-                                            <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">${{ $item -> product_price }}</a></h4>
+                                            <h4 style="text-align:center">
+                                                <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> 
+
+                                                @php
+                                                $discount = Product::getDiscountPrice($item -> id);
+                                                @endphp
+
+                                                @if($discount > 0)
+                                                <a class="btn btn-primary" href="#">${{ round($discount) }}</a>
+                                                <a class="btn btn-primary" href="#" disabled><del>${{ $item -> product_price }}</del></a>
+                                                @else
+                                                <a class="btn btn-primary" href="#">${{ $item -> product_price }}</a>
+                                                @endif
+
+                                            </h4>
                                         </div>
                                     </div>
                                 </li>

@@ -1,4 +1,7 @@
-<?php use App\Models\Cart; ?>
+<?php 
+use App\Models\Cart; 
+use App\Models\Product;
+?>
 
 @extends('frontend.user_master')
 
