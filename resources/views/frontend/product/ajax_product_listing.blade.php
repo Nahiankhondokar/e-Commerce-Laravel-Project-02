@@ -31,13 +31,12 @@
                             @php
                                 $discount = Product::getDiscountPrice($item -> id);
                             @endphp
-                            @if($discount > 0)
-                            <a class="btn btn-primary" href="#">${{ round($discount) }}</a>
+                            @if(@$discount > 0)
+                            <a class="btn btn-primary" href="#">${{ $discount }}</a>
                             <a class="btn btn-primary" href="#" disabled><del>${{ $item -> product_price }}</del></a>
                             @else
                             <a class="btn btn-primary" href="#">${{ $item -> product_price }}</a>
                             @endif
-                            
 
                         </h4>
                     </div>

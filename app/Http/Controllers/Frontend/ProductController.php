@@ -429,10 +429,12 @@ class ProductController extends Controller
 
         if($request -> ajax()){
 
-            $getPrice = ProductAttribute::where('product_id', $request -> product_id) -> where('size', $request -> size) -> first();
+            // $getPrice = ProductAttribute::where('product_id', $request -> product_id) -> where('size', $request -> size) -> first();
+
+            $getDiscount = Product::getAttrDiscountPrice($request -> product_id, $request -> size);
 
             // dd($getPrice);
-            return $getPrice;
+            return $getDiscount;
         }
 
     }

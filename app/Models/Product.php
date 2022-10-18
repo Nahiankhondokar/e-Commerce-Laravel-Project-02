@@ -54,14 +54,17 @@ class Product extends Model
     // get product discount price
     public static function getDiscountPrice($product_id){
 
-        $discountPro = Product::select('id', 'product_price', 'product_discount', 'category_id') -> where('id', $product_id) -> first();
-        $discountCat = Category::select('category_discount') -> where('id', $discountPro -> category_id) -> first();
+        $discountPro = Product::select('id', 'product_price', 'product_discount', 'product_weight', 'category_id') -> where('id', $product_id) -> first();
+        $discountCat = Category::select('id', 'category_discount') -> where('id', $discountPro -> category_id) -> first();
+
+        
 
         if($discountPro -> product_discount > 0){
-
+            // return $discountPro -> product_discount . 'pro';
             $discountPrice = $discountPro -> product_price - ($discountPro -> product_price * $discountPro -> product_discount / 100);
 
-        }elseif($discountCat -> category_discount > 0){
+        }else if($discountCat -> category_discount > 0){
+            // return $discountCat -> category_discount . 'cat';
             $discountPrice = $discountPro -> product_price - ($discountPro -> product_price * $discountCat -> category_discount / 100);
         }else {
             $discountPrice = 0;
@@ -70,5 +73,35 @@ class Product extends Model
         return round($discountPrice);
     }
         
+
+
+    // get attribute product discount price
+    public static function getAttrDiscountPrice($product_id, $size){
+
+        $attrPrice = ProductAttribute::select('price') -> where(['product_id' => $product_id, 'size' => $size]) -> first();
+
+        $discountPro = Product::select('product_price', 'product_discount', 'category_id') -> where('id', $product_id) -> first();
+
+        $discountCat = Category::select('id', 'category_discount') -> where('id', $discountPro -> category_id) -> first();
+
+        
+
+        if($discountPro -> product_discount > 0){
+            // return $discountPro -> product_discount . 'pro';
+            $discountPrice = $attrPrice -> price - ($attrPrice -> price * $discountPro -> product_discount / 100);
+
+        }else if($discountCat -> category_discount > 0){
+            // return $discountCat -> category_discount . 'cat';
+            $discountPrice = $attrPrice -> price - ($attrPrice -> price * $discountCat -> category_discount / 100);
+        }else {
+            $discountPrice = 0;
+        }
+
+        return [
+            'attrDiscountPrice'     => $discountPrice,
+            'attrPrice'             => $attrPrice
+        ];
+    }
+           
 
 }

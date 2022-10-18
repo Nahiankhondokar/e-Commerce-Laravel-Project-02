@@ -115,7 +115,13 @@
                     type : 'get',
                     data : {size, product_id},
                     success : function (data){
-                        $('.getAttrPrice').text(`$${data.price}`);
+                        // alert(data); return false;
+                        if(data['attrDiscountPrice'] > 0){
+                            $('.getAttrPrice').html(`<del>$${data['attrPrice'].price}</del> - $${data['attrDiscountPrice']}`);
+                        }else {
+                            $('.getAttrPrice').html(`$${data['attrPrice'].price}`);
+                        }
+                        
                         // alert(data.price);
                     }
                 });

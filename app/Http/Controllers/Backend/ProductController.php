@@ -124,7 +124,7 @@ class ProductController extends Controller
             $product -> product_code    = $request -> product_code;
             $product -> product_color   = $request -> product_color;
             $product -> product_price   = $request -> product_price;
-            $product -> product_discount = $request -> product_discount;
+            $product -> product_discount = $request -> product_discount ?? 0;
             $product -> product_weight  = $request -> product_weight;
             $product -> product_video   = $video_name ?? '';
             $product -> main_image      = $unique ?? '';

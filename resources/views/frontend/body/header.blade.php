@@ -37,7 +37,7 @@
 								<li class="nav-header">
 									<a href="{{ url('/'.$cat -> url) }}">{{ $cat -> category_name }}</a>
 									@foreach($cat -> subcategories as $subcat)
-									<li><a href="{{ url('/'.$cat -> url) }}">{{ $subcat -> category_name }}</a></li>
+									<li><a href="{{ url('/'.$subcat -> url) }}">{{ $subcat -> category_name }}</a></li>
 									@endforeach
 								</li>
 								@endforeach
