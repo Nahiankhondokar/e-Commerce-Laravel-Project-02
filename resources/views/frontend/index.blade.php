@@ -1,3 +1,8 @@
+@php
+    use App\Models\Product;
+@endphp
+
+
 @extends('frontend.user_master')
 @section('main_content')
 
@@ -16,14 +21,36 @@
                                     <i class="tag"></i>
                                     <a href="product_details.html">
                                         @if(@$item['main_image'])
-                                        <img src="{{URL::to('')}}/media/backend/product/large/{{ $item['main_image'] }}" alt="" style="height: 160px">
+                                        <a href="{{ route('product.details', $item['id']) }}">
+                                            <img src="{{URL::to('')}}/media/backend/product/large/{{ $item['main_image'] }}" alt="" style="height: 160px">
+                                        </a>
+                                        
                                         @else
-                                        <img src="{{URL::to('')}}/media/no_image.jpg" alt="" style="height: 160px">
+                                        <a href="{{ route('product.details', $item['id']) }}">
+                                            <img src="{{URL::to('')}}/media/no_image.jpg" alt="" style="height: 160px">
+                                        </a>
                                         @endif
                                     </a>
-                                    <div class="caption">
+                                    <div class="caption" style="text-align: center">
                                         <h5>{{ $item['product_name'] }}</h5>
-                                        <h4><a class="btn" href="">VIEW</a> <span class="pull-right">$ {{ $item['product_price'] }}</span></h4>
+                                        <h4>
+                                            <a class="btn btn-sm" href="">View</a> 
+                                            {{-- <span class="pull-right">$ {{ $item['product_price'] }}</span> --}}
+
+                                        </h4>
+                                        <h4>
+                                            @php
+                                            $discount = Product::getDiscountPrice($item['id']);
+                                            @endphp
+                                            @if(@$discount > 0)
+                                            <a class="btn btn-primary btn-sm" href="#">${{ $discount }}</a>
+                                            <a class="btn btn-primary btn-sm" href="#" disabled><del>${{ $item['product_price'] }}</del></a>
+                                            @else
+                                            <a class="btn btn-primary btn-sm" href="#">${{ $item['product_price'] }}</a>
+                                            @endif
+                                        </h4>
+                                          
+
                                     </div>
                                 </div>
                             </li>
@@ -44,9 +71,13 @@
             <div class="thumbnail">
                 <a href="product_details.html">
                     @if(@$latest -> main_image)
-                    <img src="{{URL::to('')}}/media/backend/product/large/{{ $latest -> main_image }}" alt="" style="height: 160px">
+                    <a href="{{ route('product.details', $latest -> id) }}">
+                        <img src="{{URL::to('')}}/media/backend/product/large/{{ $latest -> main_image }}" alt="" style="height: 160px">
+                    </a>
                     @else
-                    <img src="{{URL::to('')}}/media/no_image.jpg" alt="" style="height: 160px">
+                    <a href="{{ route('product.details', $latest -> id) }}">
+                        <img src="{{URL::to('')}}/media/no_image.jpg" alt="" style="height: 160px">
+                    </a>
                     @endif
                 </a>
                 <div class="caption">
@@ -55,7 +86,18 @@
                         {{ $latest -> description  }}
                     </p>
                     
-                    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">Rs.1000</a></h4>
+                    <h4 style="text-align:center">
+                        {{-- <a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a>  --}}
+                        <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> 
+                        @php
+                        $discount = Product::getDiscountPrice($latest -> id);
+                        @endphp
+                        @if(@$discount > 0)
+                        <a class="btn btn-primary" href="#">${{ $discount }}</a>
+                        <a class="btn btn-primary" href="#" disabled><del>${{ $latest -> product_price }}</del></a>
+                        @else
+                        <a class="btn btn-primary" href="#">${{ $latest -> product_price }}</a>
+                        @endif
                 </div>
             </div>
         </li>
