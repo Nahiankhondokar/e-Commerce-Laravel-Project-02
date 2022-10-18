@@ -179,6 +179,8 @@ Route::get('/product/{id}', [FrontendProductController::class, "ProductDetailsPa
 Route::get('/get-price-by-product-size', [FrontendProductController::class, "ProductWiseGetPrice"]);
 Route::post('/add-to-cart', [FrontendProductController::class, "AddToCart"]) -> name('add.to.cart');
 
+Route::get('/cart', [FrontendProductController::class, "CartPage"]) -> name('cart.view');
+
 
 
 

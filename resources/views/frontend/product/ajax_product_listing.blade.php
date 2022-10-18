@@ -3,8 +3,8 @@
        
         @forelse($catWiseProduct as $item)
             <li class="span3">
-                <div class="thumbnail">
-                    <a href="product_details.html">
+                <div class="thumbnail">product.details
+                    <a href="{{route('product.details', $item -> id)}}">
                         @if(@$item -> main_image)
                         <a href="{{ route('product.details', $item -> id) }}">
                             <img style="width: 160px" src="{{ URL::to('') }}/media/backend/product/large/{{ $item -> main_image}}" alt=""/>
@@ -18,7 +18,7 @@
                         <p>
                             {{ $item -> getBrand -> name ?? 'No Brand Found' }}
                         </p>
-                        <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">${{ $item -> product_price }}</a></h4>
+                        <h4 style="text-align:center"><a class="btn" href="{{route('product.details', $item -> id)}}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">${{ $item -> product_price }}</a></h4>
                     </div>
 
                     {{-- // debug perpouse --}}

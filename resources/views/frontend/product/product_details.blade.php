@@ -46,7 +46,7 @@
         </div>
         <div class="span6">
             <h3> {{ ucwords($productDetails -> product_name) }} </h3>
-            <h5>- {{ ucwords($productDetails -> getBrand -> name ?? 'No Brand') }}</h5>
+            <h5>- {{ ucwords(@$productDetails -> getBrand -> name ?? 'No Brand') }}</h5>
             <hr class="soft"/>
             <h5> {{ $totalStock }} items in stock</h5>
             <form class="form-horizontal qtyFrm" action="{{ route('add.to.cart') }}" method="POST">
@@ -87,7 +87,7 @@
                     <table class="table table-bordered">
                         <tbody>
                             <tr class="techSpecRow"><th colspan="2">Product Details</th></tr>
-                            <tr class="techSpecRow"><td class="techSpecTD1">Brand: </td><td class="techSpecTD2">{{ ucwords($productDetails -> getBrand -> name) }}</td></tr>
+                            <tr class="techSpecRow"><td class="techSpecTD1">Brand: </td><td class="techSpecTD2">{{ ucwords($productDetails -> getBrand -> name ?? 'No Brand') }}</td></tr>
                             <tr class="techSpecRow"><td class="techSpecTD1">Code:</td><td class="techSpecTD2">{{ ucwords($productDetails -> product_code) }}</td></tr>
                             <tr class="techSpecRow"><td class="techSpecTD1">Color:</td>
                                 <td class="techSpecTD2">{{ ucwords($productDetails -> product_color) }}</td>

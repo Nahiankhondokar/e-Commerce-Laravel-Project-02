@@ -4,7 +4,7 @@
 
 <div class="span9">
     <ul class="breadcrumb">
-        <li><a href="index.html">Home</a> <span class="divider">/</span></li>
+        <li><a href="{{url('/')}}">Home</a> <span class="divider">/</span></li>
 
         @if(@$catDetails['parent_id'] == 0)
         <li class="active"> <a href="{{ url('/'.$catDetails['category_name']) }}">{{ $catDetails['category_name'] }}</a> </li>

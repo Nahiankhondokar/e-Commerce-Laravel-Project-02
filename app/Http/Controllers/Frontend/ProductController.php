@@ -39,7 +39,7 @@ class ProductController extends Controller
                 // echo '<pre>'; print_r($categoryDetails); die;
 
                 // get data without loop
-                $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> get();
+                $catWiseProduct = Product::with('getBrand') -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> paginate(6);
                 // dd($catWiseProduct) -> toArray(); die;
                 // echo '<pre>'; print_r($catWiseProduct); die;
 
@@ -49,7 +49,7 @@ class ProductController extends Controller
                 // product filtering by ajax if fabric option is checked
                 if(isset($data['fabric']) && !empty($data['fabric'])){
                     // {{ echo "fabric1/";}}
-                    $catWiseProduct = Product::with('getBrand') -> whereIn('fabric', $data['fabric']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> get();
+                    $catWiseProduct = Product::with('getBrand') -> whereIn('fabric', $data['fabric']) -> whereIn('category_id', $categoryDetails['catIds']) -> where('status', 1) -> paginate(6);
 
                     // if(isset($data['sort']) && !empty($data['sort'])){
                     //     {{ echo "fabric2/";}}
@@ -507,6 +507,15 @@ class ProductController extends Controller
             return redirect() -> back() -> with($notify);
 
         }
+    }
+
+
+    // cart page view
+    public function CartPage(){
+        $userCartItems = Cart::userCartItems();
+        // echo '<pre>'; print_r($userCartItems); die;
+
+        return view('frontend.product.cart_view', compact('userCartItems'));
     }
 
 }
