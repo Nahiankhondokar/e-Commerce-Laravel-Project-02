@@ -180,6 +180,7 @@ Route::get('/get-price-by-product-size', [FrontendProductController::class, "Pro
 Route::post('/add-to-cart', [FrontendProductController::class, "AddToCart"]) -> name('add.to.cart');
 
 Route::get('/cart', [FrontendProductController::class, "CartPage"]) -> name('cart.view');
+Route::get('/update/cart-item-qty', [FrontendProductController::class, "CartItemUpdateByAjax"]);
 
 
 

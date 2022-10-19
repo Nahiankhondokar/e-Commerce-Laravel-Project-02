@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
 use App\Models\Cart;
-use App\Models\Category;
 use App\Models\Product;
-use App\Models\ProductAttribute;
-use App\Models\ProductGallery;
+use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+use App\Models\ProductGallery;
+use App\Models\ProductAttribute;
+use App\Http\Controllers\Controller;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
 class ProductController extends Controller
@@ -518,6 +519,21 @@ class ProductController extends Controller
         // echo '<pre>'; print_r($userCartItems); die;
 
         return view('frontend.product.cart_view', compact('userCartItems'));
+    }
+
+
+    // cart item increment or decrement
+    public function CartItemUpdateByAjax(Request $request){
+        if($request -> ajax()){
+            $update = Cart::find($request -> cartId);
+            $update -> quantity = $request -> new_qty;
+            $update -> update();
+        }
+
+        $userCartItems = Cart::userCartItems();
+        
+        // full page will reload the data again by ajax
+        return response() -> json(['view' => (String)View::make('frontend.product.append_cart_item') -> with(compact('userCartItems'))]);
     }
 
 }

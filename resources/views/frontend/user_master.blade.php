@@ -24,6 +24,7 @@
 	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{asset('frontend/assets/images/ico/apple-touch-icon-72-precomposed.png')}}">
 	<link rel="apple-touch-icon-precomposed" href="{{asset('frontend/assets/images/ico/apple-touch-icon-57-precomposed.png')}}">
 	<style type="text/css" id="enject"></style>
+
 	{{-- Toster css file --}}
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
 
@@ -50,9 +51,15 @@
 <!-- Footer ================================================================== -->
     @include('frontend.body.footer')   
 <!-- Placed at the end of the document so the pages load faster ============================================= -->
+
+{{-- // sweet alert file --}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script src="{{asset('frontend/assets/js/jquery.js')}}" type="text/javascript"></script>
 <script src="{{asset('frontend/assets/js/front.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('frontend/assets/js/google-code-prettify/prettify.js')}}"></script>
+
+
 
 {{-- // custom js file --}}
 <script src="{{asset('frontend/assets/js/custom.js')}}"></script>

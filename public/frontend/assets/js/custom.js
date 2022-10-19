@@ -131,5 +131,41 @@
         });
 
 
+        // =========== cart page qty increment or decrement ============
+        $(document).on('click', '.btnItemUpdate', function(){
+            
+            let new_qty = 0;
+
+            // decrement button
+            if($(this).hasClass('qtyDecrement')){
+                let qty = $(this).prev().val();
+                if(qty == 1){
+                    swal.fire('You can not decrement your Produdct item');
+                }else {
+                    new_qty = parseInt(qty) - 1;
+                }
+            }
+
+            // increment button
+            if($(this).hasClass('qtyIncrement')){
+                let qty = $(this).prev().prev().val();
+                new_qty = parseInt(qty) + 1;
+            }
+
+            const cartId = $(this).attr('cartId');
+            // alert(cartId); return false;
+            $.ajax({
+                url : '/update/cart-item-qty',
+                data : {cartId, new_qty}, 
+                success : function(data){
+                    // console.log(data);
+                    $('#appendCartItem').html(data.view);
+                }
+            });
+
+
+        });
+
+
     });
 })(jQuery);
