@@ -53,7 +53,14 @@
 		          <ul class="nav pull-right">
 		            <li><a href="#">Contact</a></li>
 		            <li class="divider-vertical"></li>
-		            <li><a href="#">Login</a></li>
+					@if(Auth::check())
+					<li><a href="{{ route('user.profile') }}">Account</a></li>
+					<li><a href="{{ route('user.logout') }}">Logout</a></li>
+					@else 
+					<li><a href="{{ url('/login-register') }}">Login|Register</a></li>
+					@endif
+		            
+
 		          </ul>
 		        </div><!-- /.nav-collapse -->
 		      </div>

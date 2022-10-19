@@ -10,12 +10,79 @@ use App\Http\Controllers\Controller;
 
 class MainUserController extends Controller
 {
+
+    // user login page view
+    public function LoginRegPageView(){
+        return view('auth.login');
+    }
+
+    // user register 
+    public function UserRegister(Request $request){
+        
+        // email checking
+        $email = User::where('email', $request -> email) -> first() -> count();
+        if($email > 0){
+            // msg
+            $notify = [
+                'message'       => 'Email already Exists !',
+                'alert-type'    => "error"
+            ];
+
+            return redirect() -> back() -> with($notify);
+        }else {
+
+            // user store
+            User::insert([
+                'name'              => $request -> name,
+                'email'             => $request -> email,
+                'phone'             => $request -> phone,
+                'password'          => Hash::make($request -> password)
+            ]);
+
+            // msg
+            $notify = [
+                'message'       => 'Account Created Successfull',
+                'alert-type'    => "success"
+            ];
+
+            return redirect() -> to('/') -> with($notify);
+        }
+
+    }
+
+
+    // user login
+    public function LoginUser(Request $request){
+        // dd($request -> all()) -> toArray();
+        if(Auth::attempt(['email' => $request -> email, 'password' => $request -> password])){
+
+            // msg
+            $notify = [
+                'message'       => 'Account Login Successfull',
+                'alert-type'    => "info"
+            ];
+
+            return redirect() -> to('/') -> with($notify);
+            
+        }else {
+            // msg
+            $notify = [
+                'message'       => 'Wrong Email or Password',
+                'alert-type'    => "error"
+            ];
+
+            return redirect() -> to('/login-register') -> with($notify);
+        }
+
+    }
+    
+
     /**
      *  user logout
      */
     public function Logout(){
         Auth::logout();
-        return redirect() -> route('login');
+        return redirect() -> to('/');
     }
 
 

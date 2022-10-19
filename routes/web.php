@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\SectionController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\MainUserController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
+use App\Http\Controllers\Frontend\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+// category route manage
 use App\Models\Category;
 $CatsUrl = Category::select('url') -> where('status', 1) -> get() -> pluck('url');
 // echo '<pre>'; print_r($CatsUrl); die;
@@ -60,17 +62,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin']], function(){
     Route::post('/login', [AdminController::class, 'store']) -> name('admin.login');
 
 });
-
-
-// user rotues
-// Route::group(['prefix' => 'user'], function(){
-//     Route::get('/logout', [MainUserController::class, "Logout"]) -> name('user.logout');
-//     Route::get('/profile', [MainUserController::class, "UserProfile"]) -> name('user.profile');
-//     Route::get('/password/change', [MainUserController::class, "PasswordChange"]) -> name('user.password.view');
-//     Route::post('/password/update', [MainUserController::class, "PasswordUpdate"]) -> name('user.password.update');
-//     Route::get('/profile/edit/{id}', [MainUserController::class, "UserProfileEdit"]) -> name('user.profile.edit');
-//     Route::post('/profile/update/{id}', [MainUserController::class, "UserProfileUpdate"]) -> name('user.profile.update');
-// });
 
 
 /**
@@ -175,15 +166,38 @@ foreach ($CatsUrl as $url) {
 }
 Route::get('/', [IndexController::class, "IndexView"]);
 
+
+// product details page
 Route::get('/product/{id}', [FrontendProductController::class, "ProductDetailsPage"]) -> name('product.details');
 Route::get('/get-price-by-product-size', [FrontendProductController::class, "ProductWiseGetPrice"]);
-Route::post('/add-to-cart', [FrontendProductController::class, "AddToCart"]) -> name('add.to.cart');
 
+
+// cart all routes
+Route::post('/add-to-cart', [FrontendProductController::class, "AddToCart"]) -> name('add.to.cart');
 Route::get('/cart', [FrontendProductController::class, "CartPage"]) -> name('cart.view');
 Route::get('/update/cart-item-qty', [FrontendProductController::class, "CartItemUpdateByAjax"]);
 Route::get('/delete-cart-item', [FrontendProductController::class, "CartItemDeleteByAjax"]);
 
 
+/**
+ *  user login & registration routes
+ */
+Route::get('/login-register', [MainUserController::class, "LoginRegPageView"]);
+Route::post('/login', [MainUserController::class, "LoginUser"]) -> name('login');
+Route::post('/user-register', [MainUserController::class, "UserRegister"]) -> name('user.register');
+
+Route::group(['prefix' => 'user'], function(){
+    Route::get('/logout', [MainUserController::class, "Logout"]) -> name('user.logout');
+    Route::get('/profile', [MainUserController::class, "UserProfile"]) -> name('user.profile');
+    Route::get('/password/change', [MainUserController::class, "PasswordChange"]) -> name('user.password.view');
+    Route::post('/password/update', [MainUserController::class, "PasswordUpdate"]) -> name('user.password.update');
+    Route::get('/profile/edit/{id}', [MainUserController::class, "UserProfileEdit"]) -> name('user.profile.edit');
+    Route::post('/profile/update/{id}', [MainUserController::class, "UserProfileUpdate"]) -> name('user.profile.update');
+});
+
+
+// Route::get('/login', [::class, "LoginRegPageView"]);
+// Route::get('/register', [::class, "LoginRegPageView"]);
 
 
 
