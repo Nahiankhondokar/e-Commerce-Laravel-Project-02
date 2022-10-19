@@ -560,4 +560,20 @@ class ProductController extends Controller
         return response() -> json(['view' => (String)View::make('frontend.product.append_cart_item') -> with(compact('userCartItems'))]);
     }
 
+
+
+    // cart item delete
+    public function CartItemDeleteByAjax(Request $request){
+        
+        // data delete
+        Cart::find($request -> cart_id) -> delete();
+
+        // get all cart items
+        $userCartItems = Cart::userCartItems();
+
+        // full page will reload the data again by ajax
+        return response() -> json(['view' => (String)View::make('frontend.product.append_cart_item') -> with(compact('userCartItems'))]);
+
+    }
+
 }

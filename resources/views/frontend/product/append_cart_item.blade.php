@@ -40,9 +40,12 @@ use App\Models\Product;
 			<td>
 				<div class="input-append">
 				<input class="span1" style="max-width:34px" value="{{$item['quantity']}}" id="appendedInputButtons-{{$item['id']}}" size="16" type="text">
+
 				<button class="btn btnItemUpdate qtyDecrement" cartId='{{ $item['id'] }}' type="button"><i class="icon-minus"></i></button>
+
 				<button class="btn btnItemUpdate qtyIncrement" cartId='{{ $item['id'] }}'  type="button"><i class="icon-plus"></i></button>
-				<button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				
+
+				<button class="btn btn-danger cartitemDelete" type="button" cartId='{{ $item['id'] }}' ><i class="icon-remove icon-white"></i></button>				
 			</div>
 			</td>
 			{{-- {{ print_r($discount) }} --}}

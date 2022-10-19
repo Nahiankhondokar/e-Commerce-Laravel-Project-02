@@ -181,6 +181,7 @@ Route::post('/add-to-cart', [FrontendProductController::class, "AddToCart"]) -> 
 
 Route::get('/cart', [FrontendProductController::class, "CartPage"]) -> name('cart.view');
 Route::get('/update/cart-item-qty', [FrontendProductController::class, "CartItemUpdateByAjax"]);
+Route::get('/delete-cart-item', [FrontendProductController::class, "CartItemDeleteByAjax"]);
 
 
 
