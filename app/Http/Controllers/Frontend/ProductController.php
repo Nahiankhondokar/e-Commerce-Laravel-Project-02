@@ -506,7 +506,7 @@ class ProductController extends Controller
                 'alert-type'    => "success"
             ];
 
-            return redirect() -> back() -> with($notify);
+            return redirect() -> to('/cart') -> with($notify);
 
         }
     }

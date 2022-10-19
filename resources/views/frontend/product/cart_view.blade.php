@@ -64,6 +64,9 @@ use App\Models\Product;
 				@foreach($userCartItems as $item)
 				<?php 
 					$getProductPrice = Cart::getProductPrice($item['product_id'], $item['size']);
+					$discount = Product::getAttrDiscountPrice($item['product_id'], $item['size']);
+
+					// dd($discount) -> toArray();
 				?>
 				<tr>
 					<td> 
@@ -85,22 +88,27 @@ use App\Models\Product;
 						<button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				
 					</div>
 					</td>
+					{{-- {{ print_r($discount) }} --}}
 					<td>${{ $getProductPrice }}</td>
-					<td>Rs.0.00</td>
-					<td>${{$getProductPrice * $item['quantity']}}</td>
+					<td>${{$discount['discountAmount']}}</td>
+					<td>
+						{{$discount['attrDiscountPrice'] * $item['quantity']}}
+					</td>
 				  </tr>
-				  <?php $total = $total + ($getProductPrice * $item['quantity']); ?>
+				  <?php 
+				  	$total = $total + ($discount['attrDiscountPrice'] * $item['quantity']); 
+				  ?>
 					  
 				@endforeach
                 
 				
                 <tr>
-                  <td colspan="6" style="text-align:right">Total Price:	</td>
+                  <td colspan="6" style="text-align:right">Sub Total Price:	</td>
                   <td> ${{$total}}</td>
                 </tr>
 				 <tr>
-                  <td colspan="6" style="text-align:right">Total Discount:	</td>
-                  <td> Rs.0.00</td>
+                  <td colspan="6" style="text-align:right">Vhaocer Discount:	</td>
+                  <td> Rs. 000</td>
                 </tr>
 				 <tr>
                   <td colspan="6" style="text-align:right"><strong>GRAND TOTAL (${{$total}}  - Rs.0 + Rs.0) =</strong></td>

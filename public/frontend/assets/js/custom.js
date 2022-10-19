@@ -115,11 +115,11 @@
                     type : 'get',
                     data : {size, product_id},
                     success : function (data){
-                        // alert(data); return false;
-                        if(data['attrDiscountPrice'] > 0){
-                            $('.getAttrPrice').html(`<del>$${data['attrPrice'].price}</del> - $${data['attrDiscountPrice']}`);
+                        // alert(data['attrDiscountPrice']); return false;
+                        if(data['attrDiscountPrice'] != data['attrPrice'].price){
+                            $('.getAttrPriceWithDiscount').html(`<del>$${data['attrPrice'].price}</del> - $${data['attrDiscountPrice']}`);
                         }else {
-                            $('.getAttrPrice').html(`$${data['attrPrice'].price}`);
+                            $('#getAttrPriceWithOutDiscount').text('$'+data['attrDiscountPrice']);
                         }
                         
                         // alert(data.price);

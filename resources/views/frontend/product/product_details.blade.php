@@ -65,12 +65,11 @@
                     @endphp
                     {{-- <h3>Product Price</h3> --}}
                     @if($discount > 0)
-                    <h4 class="getAttrPrice"><del>${{ $productDetails -> product_price }}</del> - ${{ $discount }} 
+                    <h4 class="getAttrPriceWithDiscount"><del>${{ $productDetails -> product_price }}</del> - ${{ $discount }} 
                         
                     </h4>
-                    
                     @else
-                    <h4 class="">${{ $productDetails -> product_price }}</h4>
+                    <h4 id="getAttrPriceWithOutDiscount">${{ $productDetails -> product_price }} </h4>
                     @endif 
 
                     <select name="size" id="getPrice" product_id="{{ $productDetails -> id }}" class="span2 pull-left" required>

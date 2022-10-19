@@ -90,16 +90,22 @@ class Product extends Model
             // return $discountPro -> product_discount . 'pro';
             $discountPrice = $attrPrice -> price - ($attrPrice -> price * $discountPro -> product_discount / 100);
 
+            $discountAmount = $attrPrice -> price - $discountPrice;
+
         }else if($discountCat -> category_discount > 0){
             // return $discountCat -> category_discount . 'cat';
             $discountPrice = $attrPrice -> price - ($attrPrice -> price * $discountCat -> category_discount / 100);
+
+            $discountAmount = $attrPrice -> price - $discountPrice;
         }else {
-            $discountPrice = 0;
+            $discountPrice = $attrPrice -> price;
+            $discountAmount = 0;
         }
 
         return [
             'attrDiscountPrice'     => $discountPrice,
-            'attrPrice'             => $attrPrice
+            'attrPrice'             => $attrPrice,
+            'discountAmount'        => $discountAmount
         ];
     }
            
