@@ -158,6 +158,9 @@
                 url : '/update/cart-item-qty',
                 data : {cartId, new_qty}, 
                 success : function(data){
+                    if(data.status == false){
+                        swal.fire('Product Stock is not available !');
+                    }
                     // console.log(data);
                     $('#appendCartItem').html(data.view);
                 }

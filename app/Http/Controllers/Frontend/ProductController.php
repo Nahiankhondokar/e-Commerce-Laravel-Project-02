@@ -524,14 +524,38 @@ class ProductController extends Controller
 
     // cart item increment or decrement
     public function CartItemUpdateByAjax(Request $request){
+
+        // get all cart items
+        $userCartItems = Cart::userCartItems();
+
+        // stock checking
+        $cartDetails = Cart::find($request -> cartId);
+        $stockLimit = ProductAttribute::where('product_id', $cartDetails -> product_id) -> where('size', $cartDetails -> size) -> first() -> toArray();
+        // dd($stockLimit);
+
+        // stock validation
+        if($stockLimit['stock'] < $request -> new_qty){
+            return response() -> json([
+                'status'        => false
+            ]);
+        }
+
+
+        // Size stock checking
+        if($stockLimit['size'] != $request -> size){
+            return response() -> json([
+                'status'        => false
+            ]);
+        }
+
+
+        // quantity update
         if($request -> ajax()){
             $update = Cart::find($request -> cartId);
             $update -> quantity = $request -> new_qty;
             $update -> update();
         }
 
-        $userCartItems = Cart::userCartItems();
-        
         // full page will reload the data again by ajax
         return response() -> json(['view' => (String)View::make('frontend.product.append_cart_item') -> with(compact('userCartItems'))]);
     }
