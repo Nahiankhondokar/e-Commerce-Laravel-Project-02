@@ -182,9 +182,11 @@ Route::get('/delete-cart-item', [FrontendProductController::class, "CartItemDele
 /**
  *  user login & registration routes
  */
-Route::get('/login-register', [MainUserController::class, "LoginRegPageView"]);
+Route::get('/login', [MainUserController::class, "LoginRegPageView"]);
 Route::post('/login', [MainUserController::class, "LoginUser"]) -> name('login');
 Route::post('/user-register', [MainUserController::class, "UserRegister"]) -> name('user.register');
+// email check by js validation
+Route::match(['get', 'post'],'/check-email',[MainUserController::class, "UserEmailCheck"]);
 
 Route::group(['prefix' => 'user'], function(){
     Route::get('/logout', [MainUserController::class, "Logout"]) -> name('user.logout');

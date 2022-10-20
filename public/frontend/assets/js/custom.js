@@ -203,6 +203,44 @@
         });
 
 
+        // =========== validate signup form on keyup and submit ============
+		$("#registerForm").validate({
+			rules: {
+				name: "required",
+				phone: {
+					required: true,
+					minlength: 11,
+                    maxlength: 11,
+                    digits : true
+				},
+				password: {
+					required: true,
+					minlength: 5
+				},
+				email: {
+					required: true,
+					email: true,
+                    remote : "check-email"
+				}
+			},
+			messages: {
+				name: "Please enter your name",
+				phone: {
+					required: "Please enter a phone",
+					minlength: "Your phone number must have 11 digits",
+                    maxlength: "Your phone number must have 11 digits",
+				},
+				password: {
+					required: "Please provide a password",
+					minlength: "Your password must be at least 5 characters long"
+				},
+				email: {
+                    required : "Please enter a valid email address", 
+                    remote : "Email Already Exists"
+                },
+			}
+		});
+
 
 
     });

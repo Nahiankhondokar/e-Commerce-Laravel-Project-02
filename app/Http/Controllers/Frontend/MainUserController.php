@@ -13,15 +13,16 @@ class MainUserController extends Controller
 
     // user login page view
     public function LoginRegPageView(){
-        return view('auth.login');
+        return view('frontend.user.login');
     }
 
     // user register 
     public function UserRegister(Request $request){
         
         // email checking
-        $email = User::where('email', $request -> email) -> first() -> count();
-        if($email > 0){
+        $email = User::where('email', $request -> email) -> get() -> count();
+        // dd($email);
+        if(@$email > 0){
             // msg
             $notify = [
                 'message'       => 'Email already Exists !',
@@ -45,7 +46,7 @@ class MainUserController extends Controller
                 'alert-type'    => "success"
             ];
 
-            return redirect() -> to('/') -> with($notify);
+            return redirect() -> to('/login') -> with($notify);
         }
 
     }
@@ -74,6 +75,19 @@ class MainUserController extends Controller
             return redirect() -> to('/login-register') -> with($notify);
         }
 
+    }
+
+
+    // user email checking by js validation package
+    public function UserEmailCheck(Request $request){
+
+        // email checking
+        $emailCount = User::where('email', $request -> email) -> count();
+        if($emailCount>0){
+            return "false";
+        } else {
+            return "true";
+        }
     }
     
 

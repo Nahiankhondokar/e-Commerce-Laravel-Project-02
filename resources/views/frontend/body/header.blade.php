@@ -57,7 +57,7 @@
 					<li><a href="{{ route('user.profile') }}">Account</a></li>
 					<li><a href="{{ route('user.logout') }}">Logout</a></li>
 					@else 
-					<li><a href="{{ url('/login-register') }}">Login|Register</a></li>
+					<li><a href="{{ url('/login') }}">Login|Register</a></li>
 					@endif
 		            
 

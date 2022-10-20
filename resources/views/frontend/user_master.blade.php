@@ -27,6 +27,14 @@
 
 	{{-- Toster css file --}}
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+	
+	{{-- // js validation css --}}
+	<style>
+		form.cmxform label.error, label.error {
+		color: red;
+		font-style: italic;
+		}
+	</style>
 
 </head>
 <body>
@@ -52,13 +60,15 @@
     @include('frontend.body.footer')   
 <!-- Placed at the end of the document so the pages load faster ============================================= -->
 
+{{-- jQuery validate file --}}
+<script src="{{asset('frontend/assets/js/jquery.js')}}" type="text/javascript"></script>
+<script src="{{asset('frontend/assets/js/jquery.validate.js')}}" type="text/javascript"></script>
+
 {{-- // sweet alert file --}}
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script src="{{asset('frontend/assets/js/jquery.js')}}" type="text/javascript"></script>
 <script src="{{asset('frontend/assets/js/front.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('frontend/assets/js/google-code-prettify/prettify.js')}}"></script>
-
 
 
 {{-- // custom js file --}}
