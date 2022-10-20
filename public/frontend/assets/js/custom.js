@@ -203,7 +203,7 @@
         });
 
 
-        // =========== validate signup form on keyup and submit ============
+        // =========== validate Registration form on keyup and submit ============
 		$("#registerForm").validate({
 			rules: {
 				name: "required",
@@ -232,11 +232,33 @@
 				},
 				password: {
 					required: "Please provide a password",
-					minlength: "Your password must be at least 5 characters long"
 				},
 				email: {
                     required : "Please enter a valid email address", 
                     remote : "Email Already Exists"
+                },
+			}
+		});
+
+
+        // =========== validate Login form on keyup and submit ============
+		$("#loginForm").validate({
+			rules: {
+				password: {
+					required: true,
+					minlength: 5
+				},
+				email: {
+					required: true,
+					email: true,
+				}
+			},
+			messages: {
+				password: {
+					required: "Please enter password",
+				},
+				email: {
+                    required : "Please enter email address", 
                 },
 			}
 		});

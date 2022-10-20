@@ -118,20 +118,20 @@
 			<div class="well" style="text-align: center">
 			<h5>ALREADY REGISTERED ?</h5>
 		
-			<form method="POST" action="{{ route('login') }}">
+			<form id="loginForm" method="POST" action="{{ route('login') }}">
         @csrf
 
         <div class="control-group">
 				{{-- <label class="control-label" for="inputEmail0">E-mail address</label> --}}
           <div class="controls">
-              <input id="" type="email" class="form-control"  name="email" required autocomplete="email" autofocus placeholder="Email Address" value="{{old('email')}}" >
+              <input id="email" type="email" class="form-control"  name="email" placeholder="Email Address" value="{{old('email')}}" >
           </div>
 			  </div>
 
         <div class="control-group">
           {{-- <label class="control-label" for="inputEmail0">Password</label> --}}
           <div class="controls">
-            <input id="password" type="password" class="form-control" name="password" required autocomplete="current-password" placeholder="Password">
+            <input id="password" type="password" class="form-control" name="password" placeholder="Password">
           </div>
 			  </div>
 
