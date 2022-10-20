@@ -493,7 +493,7 @@ class ProductController extends Controller
 
             // store product
             Cart::insert([
-                'session_id'        => $session_id ?? 0,
+                'session_id'        => $session_id,
                 'product_id'        => $request -> product_id,
                 'user_id'           => Auth::user() -> id ?? 0,
                 'size'              => $request -> size,

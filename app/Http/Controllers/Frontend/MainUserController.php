@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
+use Illuminate\Support\Facades\Session;
 
 class MainUserController extends Controller
 {
@@ -57,13 +59,21 @@ class MainUserController extends Controller
         // dd($request -> all()) -> toArray();
         if(Auth::attempt(['email' => $request -> email, 'password' => $request -> password])){
 
+            if(!empty(Session::get('session_id'))){
+
+                $session_id = Session::get('session_id');
+                $user_id = Auth::user() -> id;
+
+                Cart::where(['session_id' => $session_id]) -> update(['user_id' => $user_id]);
+            }
+
             // msg
             $notify = [
                 'message'       => 'Account Login Successfull',
                 'alert-type'    => "info"
             ];
 
-            return redirect() -> to('/') -> with($notify);
+            return redirect() -> to('/cart') -> with($notify);
             
         }else {
             // msg

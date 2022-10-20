@@ -27,8 +27,6 @@ class ProductController extends Controller
         return view('backend.product.product_view', compact('product'));
 
     }
-
-
     
     // Product active or inactive status
     public function ProductActiveInactive(Request $request){
@@ -153,8 +151,6 @@ class ProductController extends Controller
 
         }
 
-    
-       
         // get all sesction or brand
         $allData['section'] = CreateSection::with('getCategory') -> get();
         $allData['brand'] = ProductBrand::where('status', 1) -> get();
@@ -164,8 +160,6 @@ class ProductController extends Controller
 
         // filter Arrays
         $allFilters = Product::getAllFilters();
-
-
 
         return view('backend.product.product_add_edit', $allData, $allFilters);
 
@@ -258,8 +252,6 @@ class ProductController extends Controller
 
                     return redirect() -> back() -> with($notify);
                 }
-
-                    
 
             }
 
