@@ -276,6 +276,23 @@ class MainUserController extends Controller
         return view('frontend.user.my_account', compact('userDetails', 'country'));
 
     }
+
+
+
+    // user password check
+    public function PasswordCheck(Request $request){
+        
+        // password check
+        $user_id = Auth::user() -> id;
+        $userDetails = User::find($user_id);
+
+        if(Hash::check($request -> curr_pass, $userDetails -> password)){
+            return true;
+        }else {
+            return false;
+        }
+
+    }
     
 
     /**
@@ -350,14 +367,14 @@ class MainUserController extends Controller
     /**
      *  user password view
      */
-    public function PasswordChange(){
+    // public function PasswordChange(){
 
-        $id = Auth::user() -> id;
-        $user = User::find($id);
-        return view('frontend.user.password_change', [
-            "user"  => $user
-        ]);
-    }
+    //     $id = Auth::user() -> id;
+    //     $user = User::find($id);
+    //     return view('frontend.user.password_change', [
+    //         "user"  => $user
+    //     ]);
+    // }
 
     /**
      *  user password update
@@ -366,13 +383,12 @@ class MainUserController extends Controller
 
         // validaiton
         $this -> validate($request, [
-            'old_pass'      => 'required'
-        ], [
-            "old_pass.required"   => "Password Feild is require"
+            'current_password'      => 'required',
+            'new_password'          => 'required'
         ]);
 
         // checking password
-        if($request -> new_pass != $request -> password_confirmation){
+        if($request -> new_password != $request -> confirm_password){
             // toster msg
             $msg = [
                 'message'   => "Wrong Password",
@@ -385,16 +401,23 @@ class MainUserController extends Controller
         $hasPass = Auth::user() -> password;
 
         // password hash
-        if(Hash::check($request -> old_pass, $hasPass)){
+        if(Hash::check($request -> current_password, $hasPass)){
 
             // user find 
             $user = User::find(Auth::id());
 
             // user password updated
-            $user -> password  = Hash::make($request -> new_pass);
+            $user -> password  = Hash::make($request -> new_password);
             $user -> update();
             Auth::logout();
-            return redirect() -> route('login');
+            return redirect() -> to('/login');
+
+            // toster msg
+            $msg = [
+                'message'   => "Password Updated",
+                'alert-type'=> "success"
+            ];
+            return redirect() -> to('/login') -> with($msg);
         
         }else {
 

@@ -25,7 +25,7 @@
         @error('image')
           <span class="text-danger">
               <strong>{{ $message }}</strong>
-          </span>
+          </span> 
         @enderror
       </div>
 

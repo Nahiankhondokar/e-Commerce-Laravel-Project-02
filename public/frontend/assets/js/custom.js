@@ -286,6 +286,61 @@
 		});
 
 
+        // =========== user password update ============
+        $(document).on('keyup', '#current_pass', function(){
+            // get cart id
+            const curr_pass = $(this).val();
+            // alert(curr_pass); return false;
+
+            $.ajax({
+                url : '/user/password-check',
+                data : {curr_pass},
+                success : function (data){
+                    // alert(data)
+                    // console.log(data);
+                    if(data == true){
+                        $('#alert-msg').html(`<p style="color: green;">Password Match</p>`)
+                    }else {
+                        $('#alert-msg').html(`<p style="color: red;">Password Does Not Match</p>`)
+                    }
+                    
+                }
+            });
+            
+        });
+
+
+        // =========== user password change validation ============
+		$("#passUpdateForm").validate({
+			rules: {
+				current_password: {
+					required: true,
+				},
+				new_password: {
+					required: true,
+					minlength: 6
+				},
+				confirm_password: {
+					required: true,
+					minlength: 6
+				}
+			},
+			messages: {
+				current_password: {
+					required: "Current Password is required",
+				},
+				new_password: {
+					required: "New Password is required",
+					minlength: "Your phone number must have 6 digits",
+				},
+				confirm_password: {
+                    required : "Confirm Password is required", 
+                    minlength: "Your phone number must have 6 digits",
+                },
+			}
+		});
+        
+
 
 
     });

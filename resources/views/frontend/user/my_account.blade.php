@@ -16,7 +16,7 @@
                 <h5>Contact Details</h5><br/>
                     
                 <form id="UserContactForm" method="POST" action="{{ route('myaccount') }}">
-                @csrf
+                    @csrf
 
                     <div class="control-group">
                         {{-- <label class="control-label" for="inputEmail0">E-mail address</label> --}}
@@ -99,27 +99,28 @@
 			<div class="well" style="text-align: center">
                 <h5> Password Update </h5>
             
-                <form method="POST" action="{{ route('login') }}">
+                <form id="passUpdateForm" method="POST" action="{{ route('user.password.update') }}" autocomplete="false">
                     @csrf
 
                     <div class="control-group">
                         {{-- <label class="control-label" for="inputEmail0">Password</label> --}}
                         <div class="controls">
-                            <input id="" type="password" class="form-control" name="current_password" placeholder="Current Password">
+                            <input id="current_pass" type="password" class="form-control" name="current_password" placeholder="Current Password">
+                            <span id="alert-msg"></span>
                         </div>
                     </div>
 
                     <div class="control-group">
                         {{-- <label class="control-label" for="inputEmail0">Password</label> --}}
                         <div class="controls">
-                            <input id="" type="password" class="form-control" name="new_password" placeholder="New Password">
+                            <input id="new_password" type="text" class="form-control" name="new_password" placeholder="New Password">
                         </div>
                     </div>
 
                     <div class="control-group">
                         {{-- <label class="control-label" for="inputEmail0">Password</label> --}}
                         <div class="controls">
-                            <input id="" type="password" class="form-control" name="confirm_password" placeholder="Confirm Password">
+                            <input id="confirm_password" type="text" class="form-control" name="confirm_password" placeholder="Confirm Password">
                         </div>
                     </div>
 
