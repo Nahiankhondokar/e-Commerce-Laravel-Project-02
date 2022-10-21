@@ -180,6 +180,55 @@ class MainUserController extends Controller
             return "true";
         }
     }
+
+
+    // user forgot password
+    public function UserForgotPassword(Request $request){
+
+        if($request -> isMethod('post')){
+
+            // email check
+            $userCount = User::where('email', $request -> email) -> count();
+            if($userCount > 0){
+
+                // create random password & update
+                $random_pass = str_random(8);
+                User::where('email', $request -> email) -> update(['password' => Hash::make($random_pass)]);
+
+                // send mail to user with new password
+                $userInfo = User::select('name') -> where('email', $request -> email) -> first();
+                $email = $request -> email;
+                $message = [
+                    'name'      => $userInfo -> name,
+                    'email'     => $request -> email,
+                    'password'  => $random_pass,
+                ];
+                Mail::send('frontend.email.forgot_password', $message, function($msg) use($email){
+                    $msg -> to($email) -> subject('New Password');
+                });
+
+                // confirm massage
+                $notify = [
+                    'message'       => 'New Password Sent To Your Email',
+                    'alert-type'    => "success"
+                ];
+
+                return redirect() -> back() -> with($notify);
+
+
+            }else {
+                $notify = [
+                    'message'       => 'Email Does not Exists',
+                    'alert-type'    => "error"
+                ];
+
+                return redirect() -> to('/forgot-password') -> with($notify);
+            }
+
+        }
+        return view('frontend.forgot_password.forgot_password');
+
+    }
     
 
     /**

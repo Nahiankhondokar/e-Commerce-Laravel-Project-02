@@ -61,24 +61,17 @@
 		<li><a href="index.html">Home</a> <span class="divider">/</span></li>
 		<li class="active">Login or Registration</li>
     </ul>
-	<h3> Login or Registration</h3>	
+	<h3> Recover Your Password </h3>	
 	<hr class="soft"/>
 	
 	<div class="row">
 		<div class="span4">
 			<div class="well" style="text-align: center">
-        <h5>CREATE YOUR ACCOUNT</h5><br/>
-        Enter your e-mail address to create an account.<br/><br/>
+        <h5>FORGOT PASSWORD ? </h5><br/>
+        Enter your e-mail address to recover your password<br/><br/>
               
-        <form id="registerForm" method="POST" action="{{ route('user.register') }}">
+        <form method="POST" action="{{ route('forgot.password') }}">
           @csrf
-
-          <div class="control-group">
-            {{-- <label class="control-label" for="inputEmail0">E-mail address</label> --}}
-            <div class="controls">
-                <input type="text" class="span3"  name="name" id="name"  placeholder="Name" value="{{old('name')}}" >
-            </div>
-          </div>
 
           <div class="control-group">
             {{-- <label class="control-label" for="inputEmail1">Email</label> --}}
@@ -88,22 +81,8 @@
           </div>
 
           <div class="control-group">
-              {{-- <label class="control-label" for="inputEmail0">E-mail address</label> --}}
-              <div class="controls">
-                  <input type="text" class="span3"  name="phone" id="phone"  placeholder="Phone" value="{{old('phone')}}" >
-              </div>
-          </div>
-
-          <div class="control-group">
-            {{-- <label class="control-label" for="inputPassword1">Password</label> --}}
             <div class="controls">
-              <input type="password" name="password" id="password"  class="span3"  placeholder="Password">
-            </div>
-          </div>
-
-          <div class="control-group">
-            <div class="controls">
-              <button type="submit" class="btn block">Create Your Account</button>
+              <button type="submit" class="btn block">Submit</button>
             </div>
           </div>
         </form>
@@ -139,7 +118,7 @@
 
 			  <div class="controls">
           <button type="submit" class="btn">Sign in</button> <br>
-          <a href="{{ route('forgot.password') }}">Forget password?</a>
+          <a href="forgetpass.html">Forget password?</a>
 			  </div>
 			</form>
 

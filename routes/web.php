@@ -191,6 +191,9 @@ Route::match(['get', 'post'],'/check-email',[MainUserController::class, "UserEma
 // user account activate
 Route::match(['get', 'post'],'/confirm/{code}',[MainUserController::class, "UserAccountActivate"]) -> name('confirm');
 
+// user forgot password
+Route::match(['get', 'post'],'/forgot-password',[MainUserController::class, "UserForgotPassword"]) -> name('forgot.password');
+
 Route::group(['prefix' => 'user'], function(){
     Route::get('/logout', [MainUserController::class, "Logout"]) -> name('user.logout');
     Route::get('/profile', [MainUserController::class, "UserProfile"]) -> name('user.profile');
