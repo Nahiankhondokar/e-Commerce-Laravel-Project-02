@@ -229,6 +229,42 @@ class MainUserController extends Controller
         return view('frontend.forgot_password.forgot_password');
 
     }
+
+
+
+    // user details insert
+    public function UserInsertDetails(Request $request){
+
+        // user deatils 
+        $user_id = Auth::user() -> id;
+        $userDetails = User::find($user_id);
+
+        if($request -> isMethod('post')){
+            // dd($request -> all()) -> toArray();
+
+            $update = User::find($user_id);
+            $update -> name         = $request -> name;
+            $update -> phone        = $request -> phone;
+            $update -> country      = $request -> country;
+            $update -> city         = $request -> city;
+            $update -> address      = $request -> address;
+            $update -> pincode      = $request -> pincode;
+            $update -> update();
+
+
+            // msg
+            $notify = [
+                'message'       => 'Contact Details Updated',
+                'alert-type'    => "success"
+            ];
+
+            return redirect() -> back() -> with($notify);
+
+        }
+
+        return view('frontend.user.my_account', compact('userDetails'));
+
+    }
     
 
     /**

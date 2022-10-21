@@ -54,7 +54,7 @@
 		            <li><a href="#">Contact</a></li>
 		            <li class="divider-vertical"></li>
 					@if(Auth::check())
-					<li><a href="{{ route('user.profile') }}">Account</a></li>
+					<li><a href="{{ route('myaccount') }}">My Account</a></li>
 					<li><a href="{{ route('user.logout') }}">Logout</a></li>
 					@else 
 					<li><a href="{{ url('/login') }}">Login|Register</a></li>

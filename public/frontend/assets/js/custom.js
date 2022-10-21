@@ -264,6 +264,29 @@
 		});
 
 
+        // =========== user contact details form validation ============
+		$("#UserContactForm").validate({
+			rules: {
+				name: "required",
+				phone: {
+					required: true,
+					minlength: 11,
+                    maxlength: 11,
+                    digits : true
+				}
+			},
+			messages: {
+				name: "Please enter your name",
+				phone: {
+					required: "Please enter a phone",
+					minlength: "Your phone number must have 11 digits",
+                    maxlength: "Your phone number must have 11 digits",
+				},
+			}
+		});
+
+
+
 
     });
 })(jQuery);
