@@ -111,6 +111,13 @@
               </a>
             </li>
 
+            <li class="nav-item">
+              <a href="{{ route('coupon.view') }}" class="nav-link {{ ($route == 'coupon.view') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Coupon</p>
+              </a>
+            </li>
+
           </ul>
         </li>
 

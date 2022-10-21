@@ -495,6 +495,32 @@
       
 
 
+      //===================== Coupon Status UPdate Scripts ======================
+      $(document).on('click', '.couponActiveInactive', function(){
+
+        let coupon_id = $(this).attr('coupon_id');
+        // alert(coupon_id); return false;
+
+        $.ajax({
+          url : '/admin/coupon/active-inactive',
+          type : 'get',
+          data : {coupon_id},
+          success : function (data){
+            // alert(data);
+            if(data == 'active'){
+              $('#coupon-'+coupon_id).html('<a class="badge badge-success"  href="javascript:void(0)"><i class="fa fa-toggle-on" style="font-size : 20px"></i></a>');
+              $('#coupon_active-btn'+coupon_id).hide();
+            }else {
+              $('#coupon-'+coupon_id).html('<a class="badge badge-danger" href="javascript:void(0)"><i class="fa fa-toggle-off" style="font-size : 20px"></i></a>')
+              $('#coupon_inactive-btn'+coupon_id).hide();
+            }
+          }
+        });
+
+      });
+      
+
+
     //   // Add extra item in fee category amount page
     //   $(document).on('click', '.addEventMore', function(e){
     //     e.preventDefault();
