@@ -188,6 +188,9 @@ Route::post('/user-register', [MainUserController::class, "UserRegister"]) -> na
 // email check by js validation
 Route::match(['get', 'post'],'/check-email',[MainUserController::class, "UserEmailCheck"]);
 
+// user account activate
+Route::match(['get', 'post'],'/confirm/{code}',[MainUserController::class, "UserAccountActivate"]) -> name('confirm');
+
 Route::group(['prefix' => 'user'], function(){
     Route::get('/logout', [MainUserController::class, "Logout"]) -> name('user.logout');
     Route::get('/profile', [MainUserController::class, "UserProfile"]) -> name('user.profile');

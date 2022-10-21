@@ -44,25 +44,76 @@ class MainUserController extends Controller
             ]);
 
 
-            // send mail to user
+            // send mail to user for account activate
             $email = $request -> email;
             $message = [
                 'name'      => $request -> name,
                 'email'      => $request -> email,
                 'phone'      => $request -> phone,
+                'code'       => base64_encode($request -> email)
             ];
-            Mail::send('frontend.email.register', $message, function($msg) use($email){
+            Mail::send('frontend.email.confirmation', $message, function($msg) use($email){
                 $msg->to($email)-> subject('Welcome to E-commerce website');
             });
 
 
             // msg
             $notify = [
-                'message'       => 'Account Created Successfull',
-                'alert-type'    => "success"
+                'message'       => 'Account Created, Please Activate Your Account. Check Your Email',
+                'alert-type'    => "warning"
             ];
 
             return redirect() -> to('/login') -> with($notify);
+        }
+
+    }
+
+
+    // user account activate
+    public function UserAccountActivate($email){
+
+        $email = base64_decode($email);
+
+        // email check
+        $userCount = User::where('email', $email) -> count();
+        if($userCount > 0){
+
+            $userDetails = User::where('email', $email) -> first();
+            if($userDetails -> status == true){
+                // msg
+                $notify = [
+                    'message'       => 'Account Already Activated, Please Login',
+                    'alert-type'    => "warning"
+                ];
+
+                return redirect() -> to('/login') -> with($notify);
+            }else {
+
+                // user account acctivate
+                User::where('email', $email) -> update(['status' => 1]);
+
+                // send mail to user for account activate
+                $email = $userDetails -> email;
+                $message = [
+                    'name'      => $userDetails -> name,
+                    'email'      => $userDetails -> email,
+                    'phone'      => $userDetails -> phone
+                ];
+                Mail::send('frontend.email.register', $message, function($msg) use($email){
+                    $msg->to($email)-> subject('Welcome to E-commerce website');
+                });
+
+                // msg
+                $notify = [
+                    'message'       => 'Your Account Activated, Please Login',
+                    'alert-type'    => "success"
+                ];
+
+                return redirect() -> to('/login') -> with($notify);
+            }
+            
+        } else {
+            abort(404);
         }
 
     }
@@ -73,6 +124,22 @@ class MainUserController extends Controller
         // dd($request -> all()) -> toArray();
         if(Auth::attempt(['email' => $request -> email, 'password' => $request -> password])){
 
+            // account activation checking
+            $userStateus = User::where('email', $request -> email) -> first();
+            if($userStateus -> status == false){
+
+                Auth::logout();
+
+                // msg
+                $notify = [
+                    'message'       => 'Please Activate Your Account',
+                    'alert-type'    => "warning"
+                ];
+
+                return redirect() -> to('/login') -> with($notify);
+            }
+
+            // cart product checking
             if(!empty(Session::get('session_id'))){
 
                 $session_id = Session::get('session_id');
