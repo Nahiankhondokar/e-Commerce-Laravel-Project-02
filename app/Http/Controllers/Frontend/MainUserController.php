@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\Country;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
@@ -239,9 +240,19 @@ class MainUserController extends Controller
         $user_id = Auth::user() -> id;
         $userDetails = User::find($user_id);
 
+        $country = Country::where('status', 1) -> get();
+
         if($request -> isMethod('post')){
             // dd($request -> all()) -> toArray();
 
+            // validation 
+            $this -> validate($request, [
+                'name'      => 'required',
+                'phone'     => 'required'
+            ]);
+
+
+            // contact details updated
             $update = User::find($user_id);
             $update -> name         = $request -> name;
             $update -> phone        = $request -> phone;
@@ -262,7 +273,7 @@ class MainUserController extends Controller
 
         }
 
-        return view('frontend.user.my_account', compact('userDetails'));
+        return view('frontend.user.my_account', compact('userDetails', 'country'));
 
     }
     
