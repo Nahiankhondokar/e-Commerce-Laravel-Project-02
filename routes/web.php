@@ -195,7 +195,7 @@ Route::match(['get', 'post'],'/confirm/{code}',[MainUserController::class, "User
 Route::match(['get', 'post'],'/forgot-password',[MainUserController::class, "UserForgotPassword"]) -> name('forgot.password');
 
 // user details update routes
-Route::group(['prefix' => 'user'], function(){
+Route::group(['prefix' => 'user', 'middleware' => 'auth'], function(){
     // user insert details
     Route::match(['get', 'post'],'/my-account', [MainUserController::class, "UserInsertDetails"]) -> name('myaccount');
 
