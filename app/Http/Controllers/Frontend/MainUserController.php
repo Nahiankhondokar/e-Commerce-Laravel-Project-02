@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class MainUserController extends Controller
@@ -41,6 +42,19 @@ class MainUserController extends Controller
                 'phone'             => $request -> phone,
                 'password'          => Hash::make($request -> password)
             ]);
+
+
+            // send mail to user
+            $email = $request -> email;
+            $message = [
+                'name'      => $request -> name,
+                'email'      => $request -> email,
+                'phone'      => $request -> phone,
+            ];
+            Mail::send('frontend.email.register', $message, function($msg) use($email){
+                $msg->to($email)-> subject('Welcome to E-commerce website');
+            });
+
 
             // msg
             $notify = [
