@@ -527,11 +527,13 @@ class ProductController extends Controller
 
         // get all cart items
         $userCartItems = Cart::userCartItems();
+        $totalCartItem = totalCartItem();
 
         // stock checking
         $cartDetails = Cart::find($request -> cartId);
         $stockLimit = ProductAttribute::where('product_id', $cartDetails -> product_id) -> where('size', $cartDetails -> size) -> first() -> toArray();
         // dd($stockLimit);
+        // return $cartDetails -> size; die;
 
         // stock validation
         if($stockLimit['stock'] < $request -> new_qty){
@@ -542,7 +544,7 @@ class ProductController extends Controller
 
 
         // Size stock checking
-        if($stockLimit['size'] != $request -> size){
+        if($stockLimit['size'] != $cartDetails -> size){
             return response() -> json([
                 'status'        => false
             ]);
@@ -557,7 +559,11 @@ class ProductController extends Controller
         }
 
         // full page will reload the data again by ajax
-        return response() -> json(['view' => (String)View::make('frontend.product.append_cart_item') -> with(compact('userCartItems'))]);
+        return response() -> json([
+            'totalCartItem'   => $totalCartItem,
+            'view' => (String)View::make('frontend.product.append_cart_item') -> with(compact('userCartItems'))
+            
+        ]);
     }
 
 
@@ -570,9 +576,13 @@ class ProductController extends Controller
 
         // get all cart items
         $userCartItems = Cart::userCartItems();
+        $totalCartItem = totalCartItem();
 
         // full page will reload the data again by ajax
-        return response() -> json(['view' => (String)View::make('frontend.product.append_cart_item') -> with(compact('userCartItems'))]);
+        return response() -> json([
+            'totalCartItem'     => $totalCartItem,
+            'view' => (String)View::make('frontend.product.append_cart_item') -> with(compact('userCartItems'))
+        ]);
 
     }
 

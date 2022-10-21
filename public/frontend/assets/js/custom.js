@@ -158,11 +158,14 @@
                 url : '/update/cart-item-qty',
                 data : {cartId, new_qty}, 
                 success : function(data){
+                    // alert(data); return false;
                     if(data.status == false){
                         swal.fire('Product Stock is not available !');
                     }
                     // console.log(data);
+                    $('.totalCartItem').html(data.totalCartItem);
                     $('#appendCartItem').html(data.view);
+                    
                 }
             });
 
@@ -192,6 +195,7 @@
                         data : {cart_id},
                         success : function (data){
                             // console.log(data);
+                            $('.totalCartItem').html(data.totalCartItem);
                             $('#appendCartItem').html(data.view);
                             swal.fire('Cart Product Deleted');
                             
