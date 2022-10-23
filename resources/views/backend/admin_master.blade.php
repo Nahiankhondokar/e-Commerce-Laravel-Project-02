@@ -89,8 +89,11 @@
 <script src="{{ asset('backend/assets/plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
 <!-- jQuery Knob Chart -->
 <script src="{{ asset('backend/assets/plugins/jquery-knob/jquery.knob.min.js') }}"></script>
+
 <!-- daterangepicker -->
+<script src="{{ asset('backend/assets/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
 <script src="{{ asset('backend/assets/plugins/moment/moment.min.js') }}"></script>
+
 <script src="{{ asset('backend/assets/plugins/daterangepicker/daterangepicker.js') }}"></script>
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="{{ asset('backend/assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>

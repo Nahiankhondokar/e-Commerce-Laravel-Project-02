@@ -67,7 +67,7 @@ use App\Models\Product;
 			<td> ${{$total}}</td>
 		</tr>
 			<tr>
-			<td colspan="6" style="text-align:right">Vhaocer Discount:	</td>
+			<td colspan="6" style="text-align:right">Coupon Discount:	</td>
 			<td> Rs. 000</td>
 		</tr>
 			<tr>

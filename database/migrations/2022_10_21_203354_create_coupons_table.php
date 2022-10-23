@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('coupon_option');
             $table->string('coupon_code');
             $table->text('categories');
-            $table->text('users');
+            $table->text('users') -> nullable();
             $table->string('coupon_type') -> nullable();
             $table->string('amount_type') -> nullable();
             $table->float('amount') -> nullable();

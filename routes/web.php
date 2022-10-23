@@ -159,6 +159,10 @@ Route::group(['prefix'  => 'admin'], function(){
     Route::get('/coupon', [CouponController::class, "CouponView"]) -> name('coupon.view');
     Route::get('/coupon/active-inactive', [CouponController::class, "CouponActiveInactive"]);
 
+    Route::match(['get', 'post'], '/coupon/edit/add/{id?}', [CouponController::class, "CouponAddOrEdit"]) -> name('coupon.edit.add');
+
+    Route::get('/coupon/delete/{id}', [CouponController::class, "CouponDelete"]) -> name('coupon.delete');
+
 
 });
 
@@ -216,6 +220,9 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function(){
     Route::get('/profile/edit/{id}', [MainUserController::class, "UserProfileEdit"]) -> name('user.profile.edit');
 
     Route::post('/profile/update/{id}', [MainUserController::class, "UserProfileUpdate"]) -> name('user.profile.update');
+
+
+
 });
 
 

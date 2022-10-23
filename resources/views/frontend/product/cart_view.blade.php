@@ -54,18 +54,19 @@ use App\Models\Product;
 	
 	<table class="table table-bordered">
 		<tbody>
-				<tr>
+			<tr>
 				<td> 
-			<form class="form-horizontal">
-			<div class="control-group">
-			<label class="control-label"><strong> VOUCHERS CODE: </strong> </label>
-			<div class="controls">
-			<input type="text" class="input-medium" placeholder="CODE">
-			<button type="submit" class="btn"> ADD </button>
-			</div>
-			</div>
-			</form>
-			</td>
+					<form class="form-horizontal" method="post" id="applyCoupon" @if(Auth::check()) user="1" @endif>
+						@csrf
+						<div class="control-group">
+							<label class="control-label"><strong> COUPON CODE: </strong> </label>
+							<div class="controls">
+								<input type="text" name="code" id="code" class="input-medium" placeholder="Endter Coupon Code">
+								<button type="submit" class="btn"> ADD </button>
+							</div>
+						</div>
+					</form>
+				</td>
 			</tr>
 			
 		</tbody>
