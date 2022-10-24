@@ -68,11 +68,13 @@ use App\Models\Product;
 		</tr>
 			<tr>
 			<td colspan="6" style="text-align:right">Coupon Discount:	</td>
-			<td> Rs. 000</td>
+			<td class="couponDiscount">
+				$00
+			</td>
 		</tr>
 			<tr>
-			<td colspan="6" style="text-align:right"><strong>GRAND TOTAL (${{$total}}  - Rs.0 + Rs.0) =</strong></td>
-			<td class="label label-important" style="display:block"> <strong> ${{$total}} </strong></td>
+			<td colspan="6" style="text-align:right"><strong>GRAND TOTAL (${{$total}}  - <span class="couponDiscount"> $00</spanc> ) =</strong></td>
+			<td class="label label-important" style="display:block"> <strong class="grandTotal"> ${{$total}} </strong></td>
 		</tr>
 		</tbody>
 	</table>

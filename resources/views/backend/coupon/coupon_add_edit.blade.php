@@ -142,7 +142,7 @@
                     <select id="" class="form-control select2" name="users[]" multiple >
                         <option value="" disabled > -Select- </option>
                         @foreach($users as $item)
-                        <option value="{{ $item -> name }}" @if(in_array($item -> name, @$allUser)) selected="" @endif>{{ $item -> name }}</option>
+                        <option value="{{ $item -> email }}" @if(in_array($item -> email, @$allUser)) selected="" @endif>{{ $item -> email }}</option>
                         @endforeach
                       </select>
 

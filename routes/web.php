@@ -222,6 +222,8 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function(){
     Route::post('/profile/update/{id}', [MainUserController::class, "UserProfileUpdate"]) -> name('user.profile.update');
 
 
+    // apply coupon route
+    Route::post('/coupon-apply', [CouponController::class, "CouponApply"]) -> name('coupon.apply');
 
 });
 

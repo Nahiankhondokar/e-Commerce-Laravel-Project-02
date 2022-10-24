@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\Coupon;
 use App\Models\CreateSection;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
 
 class CouponController extends Controller
 {
@@ -150,6 +154,125 @@ class CouponController extends Controller
     }
 
     
+    // coupon apply
+    public function CouponApply (Request $request){
+
+        // coupon check
+        $couponCount = Coupon::where('coupon_code', $request -> code) -> count();
+        $userCartItems = Cart::userCartItems();
+        $totalCartItem = totalCartItem();
+
+        if($couponCount == 0){
+            // invalid couppon
+            return response() -> json([
+                'status'        => false,
+                'message'        => 'Invalid Coupon',
+                'totalCartItem' => $totalCartItem,
+                'view'          => (String)View::make('frontend.product.cart_view')->with(compact('userCartItems'))
+            ]);
+
+        }else{
+
+            $couponDetails = Coupon::where('coupon_code', $request -> code) -> first();
+            // coupon active or inactive checking
+            if($couponDetails -> status == false){
+                $message = 'Coupon is not active';
+            }
+
+            // coupon expire date checking
+            $expire = $couponDetails -> expire_date;
+            $current = date('Y-m-d');
+            if($current > $expire){
+                $message = 'Coupon is expired';
+            }
+
+            // get all cart product
+            $userCartItems = Cart::userCartItems(); // dd($userCartItems) -> toArray(); die; 
+
+            // product checking with coupon or without coupon
+            $catArr = explode(',', $couponDetails -> categories); 
+            // coupon checking for user
+            $userArr = explode(',', $couponDetails -> users);
+                        
+            // valid user checking for coupon
+            foreach($userArr as $key => $item){
+                $getUserId = User::select('id') -> where('email', $item) -> first();
+                $userID[] = $getUserId -> id;
+            }
+
+            // get total amount
+            $total_amount = 0;
+
+            foreach($userCartItems as $key => $item){
+                // product checking with coupon or without coupon
+                if(!in_array($item['get_product']['category_id'], $catArr)){
+                    $message = "Coupon is not valid for this product";
+                }
+                 // coupon checking for user
+                if(!in_array($item['user_id'], $userID)){
+                    $message = "Coupon is not valid for this user";
+                }
+
+                // get total amount
+                $atttrPrice = Product::getAttrDiscountPrice($item['product_id'], $item['size']);
+                $total_amount = $total_amount + ($atttrPrice['attrDiscountPrice'] * $item['quantity']);
+                // dd($total_amount);
+
+            }
+
+
+            // common error message return 
+            if(@$message){
+                $userCartItems = Cart::userCartItems();
+                $totalCartItem = totalCartItem();
+                return response() -> json([
+                    'status'            => false,
+                    'message'           => $message,
+                    'totalCartItem'     => $totalCartItem,
+                    'view'              => (String)View::make('frontend.product.cart_view')->with(compact('userCartItems'))
+                ]);
+            }else {
+
+                // coupno discount amount
+                if($couponDetails -> amount_type == 'Fixed'){
+                    $couponAmount = $couponDetails -> amount;
+                }else {
+                    $couponAmount = $total_amount * ($couponDetails -> amount/100);
+                }
+                $totalAmountAfterCouponDiscount = $total_amount - $couponAmount;
+
+                // dd($couponAmount);
+
+                // make session for coupon
+                Session::put('couponAmount', $couponAmount);
+                Session::put('couponCode', $request -> code);
+
+                // data
+                $userCartItems = Cart::userCartItems();
+                $totalCartItem = totalCartItem();
+
+                return response() -> json([
+                    'status'            => true,
+                    'message'           => 'Coupon Added Successfully',
+                    'couponDiscount'    =>  $couponAmount,
+                    'AfterCouponDiscount' => $totalAmountAfterCouponDiscount,
+                    'totalCartItem'     => $totalCartItem,
+                    'view'              => (String)View::make('frontend.product.append_cart_item')->with(compact('userCartItems'))
+                ]);
+
+            }
+
+        }
+
+
+        //  // msg
+        //  $notify = [
+        //     'message'       => "Coupon Deleted Succefully ",
+        //     'alert-type'    => "info"
+        // ];
+
+        // return redirect() -> route('coupon.view') -> with($notify);
+    }
 
 
 

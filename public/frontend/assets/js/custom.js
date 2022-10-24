@@ -345,7 +345,41 @@
 		});
         
 
-   
+        // =========== Coupn apply scripts ============
+        $(document).on('submit', '#applyCoupon', function (e){
+            e.preventDefault();
+
+            const user = $(this).attr('user');
+            const code = $('#code').val();
+            // alert(user);
+
+            if(user == 1){
+                $.ajax({
+                    url : '/user/coupon-apply', 
+                    type : 'post',
+                    data : { code },
+                    success : function(res){
+                        // alert(res.message);
+                        if(res.status == false){
+                            swal.fire(res.message);
+                        }
+
+                        if(res.status == true){
+                            $('.totalCartItem').html(res.totalCartItem);
+                            $('#appendCartItem').html(res.view);
+                            $('.couponDiscount').html('$'+res.couponDiscount);
+                            $('.grandTotal').html('$'+res.AfterCouponDiscount);
+                            // alert(res.AfterCouponDiscount);
+                            swal.fire(res.message);
+                        }
+                        
+                    }
+                });
+            }else {
+                swal.fire('Login First to Add Coupon');
+            }
+
+        });
 
 
     });
