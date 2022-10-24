@@ -371,6 +371,7 @@
                             $('.grandTotal').html('$'+res.AfterCouponDiscount);
                             // alert(res.AfterCouponDiscount);
                             swal.fire(res.message);
+                            $('#code').val('');
                         }
                         
                     }

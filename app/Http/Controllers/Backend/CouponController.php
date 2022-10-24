@@ -192,12 +192,14 @@ class CouponController extends Controller
             // product checking with coupon or without coupon
             $catArr = explode(',', $couponDetails -> categories); 
             // coupon checking for user
-            $userArr = explode(',', $couponDetails -> users);
+            if(!empty($couponDetails -> users)){
+                $userArr = explode(',', $couponDetails -> users);
                         
-            // valid user checking for coupon
-            foreach($userArr as $key => $item){
-                $getUserId = User::select('id') -> where('email', $item) -> first();
-                $userID[] = $getUserId -> id;
+                // valid user checking for coupon
+                foreach($userArr as $key => $item){
+                    $getUserId = User::select('id') -> where('email', $item) -> first();
+                    $userID[] = $getUserId -> id;
+                }
             }
 
             // get total amount
@@ -209,8 +211,10 @@ class CouponController extends Controller
                     $message = "Coupon is not valid for this product";
                 }
                  // coupon checking for user
-                if(!in_array($item['user_id'], $userID)){
-                    $message = "Coupon is not valid for this user";
+                if(!empty($couponDetails -> users)){
+                    if(!in_array($item['user_id'], $userID)){
+                        $message = "Coupon is not valid for this user";
+                    }
                 }
 
                 // get total amount
