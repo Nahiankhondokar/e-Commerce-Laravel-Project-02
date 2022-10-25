@@ -669,7 +669,35 @@ class ProductController extends Controller
      */
 
     // checkout page view
-    public function CheckoutView(){
+    public function CheckoutView(Request $request){
+
+        if($request -> isMethod('post')){
+            // dd(Session::get('grand_total'));
+
+            // validation
+            if(empty($request -> address_id)){
+                $message = "Delivery Address is empty";
+            }
+            
+            if(empty($request -> payment_method)){
+                $message = "Payment Method is empty";
+            }
+
+            // common return error message
+            if(@$message){
+                // message
+                $notify = [
+                    'message'       => $message,
+                    'alert-type'    => "error"
+                ];
+
+                return redirect() -> back() -> with($notify);
+            }
+
+
+        }
+
+
         $userCartItems = Cart::userCartItems();
         $deliveryAddress = DeliveryAddress::getDeliveryAddress();
         // echo '<pre>'; print_r($userCartItems); die;
