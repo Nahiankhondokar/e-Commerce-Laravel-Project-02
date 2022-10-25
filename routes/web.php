@@ -234,6 +234,9 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function(){
 
     Route::get('/delete-delivery-address/{id}', [FrontendProductController::class, "DeliveryAddressDelete"]) -> name('address.delete');
 
+
+    // thanks page after order 
+    Route::get('/thanks', [FrontendProductController::class, "ThanksForOrder"]) -> name('thanks');
 });
 
 

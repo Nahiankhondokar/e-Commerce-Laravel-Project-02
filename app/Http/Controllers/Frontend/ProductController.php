@@ -680,11 +680,23 @@ class ProductController extends Controller
 
             // validation
             if(empty($request -> address_id)){
-                $message = "Delivery Address is empty";
+                // message
+                $notify = [
+                    'message'       => 'Delivery Address is empty',
+                    'alert-type'    => "error"
+                ];
+
+                return redirect() -> back() -> with($notify);
             }
             
             if(empty($request -> payment_gateway)){
-                $message = "Payment Method is empty";
+                // message
+                $notify = [
+                    'message'       => 'Payment Method is required',
+                    'alert-type'    => "error"
+                ];
+
+                return redirect() -> back() -> with($notify);
             }
 
             // payment method checking
@@ -712,16 +724,18 @@ class ProductController extends Controller
             $order -> email         = $deliveryAddress['email'];
 
             $order -> shipping_charge   = 0;
-            $order -> coupon_code       = Session::get('couponCode');
-            $order -> coupon_amount       = Session::get('couponAmount');
+            $order -> coupon_code       = Session::get('couponCode') ?? null;
+            $order -> coupon_amount     = Session::get('couponAmount') ?? 0;
             $order -> order_status      = "New";
             $order -> payment_method    = $payment_method;
             $order -> grand_total       = Session::get('grand_total');
             $order -> save();
 
 
-            // get last order inserted id
+            // get last order inserted id instantly
             $order_id = DB::getPdo() -> lastInsertId();
+            // order id put in session
+            Session::put('order_id', $order_id);
 
             // get the all cart item
             $cartItem = Cart::where('user_id', Auth::id()) -> get() -> toArray();
@@ -748,35 +762,23 @@ class ProductController extends Controller
                 $orderProduct -> product_price = $getDiscountAttrPrice['attrDiscountPrice'];
                 $orderProduct -> save();
 
-                // delete all cart item after order is placed
-                Cart::where('user_id', Auth::id()) -> delete();
-
-
                 // if there has some isssu, then both tables will be empty.
                 DB::commit();
                 
             }
 
-            // common return error message
-            if(@$message){
-                // message
-                $notify = [
-                    'message'       => $message,
-                    'alert-type'    => "error"
-                ];
+            // message
+            $notify = [
+                'message'       => "Order has been placed successfully",
+                'alert-type'    => "success"
+            ];
 
-                return redirect() -> back() -> with($notify);
-            }else {
+            return redirect() -> route('thanks') -> with($notify);
 
-                 // message
-                 $notify = [
-                    'message'       => "Order has been placed successfully",
-                    'alert-type'    => "success"
-                ];
-
-                return redirect() -> back() -> with($notify);
-            }
-
+            //  // redirect to payment page
+            // if($request -> payment_gateway == 'COD'){
+                
+            // }
 
         }
 
@@ -788,6 +790,28 @@ class ProductController extends Controller
         return view('frontend.checkout.checkout_view', compact('userCartItems', 'deliveryAddress'));
     }
 
+
+
+    // thanks for order
+    public function ThanksForOrder(){
+
+        if(Session::has('order_id')){
+            // delete all cart item after order is placed
+            Cart::where('user_id', Auth::id()) -> delete();
+            return view('frontend.checkout.thank_you');
+
+             // session delete
+             Session::forget('grand_total');
+             Session::forget('couponAmount');
+             Session::forget('couponCode');
+             Session::forget('order_id');
+ 
+        }else {
+            return  redirect() -> route('cart.view');
+        }
+
+       
+    }
 
 
 
