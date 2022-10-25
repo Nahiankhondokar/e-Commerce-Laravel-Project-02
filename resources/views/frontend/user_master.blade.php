@@ -17,6 +17,10 @@
 	<link href="{{asset('frontend/assets/css/font-awesome.css')}}" rel="stylesheet" type="text/css">
 	<!-- Google-code-prettify -->
 	<link href="{{asset('frontend/assets/js/google-code-prettify/prettify.css')}}" rel="stylesheet"/>
+
+	<!-- Font Awesome --> 
+	<link rel="stylesheet" href="{{ asset('frontend/assets/fontawesome-free/css/all.min.css') }}">
+
 	<!-- fav and touch icons -->
 	<link rel="shortcut icon" href="{{asset('frontend/assets/images/ico/favicon.ico')}}">
 	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{asset('frontend/assets/images/ico/apple-touch-icon-144-precomposed.png')}}">

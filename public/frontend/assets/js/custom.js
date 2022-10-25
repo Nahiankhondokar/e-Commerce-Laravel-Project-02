@@ -14,6 +14,31 @@
         //     // alert()
         // });
 
+          
+        // sweet alert show befor delete
+        $(document).on('click', '#delete', function(e){
+            e.preventDefault();
+
+            let link = $(this).attr('href');
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = link;
+                }
+                })
+
+        });
+
+
+
 
         // product filtering system by ajax
         $(document).on('change', '#sort', function(){
@@ -381,6 +406,36 @@
             }
 
         });
+
+
+        // =========== Delivery Address form validation  ============
+        $("#DeliveryAddressForm").validate({
+			rules: {
+				name: "required",
+                address: "required",
+                city: "required",
+                country: "required",
+                pincode: "required",
+				phone: {
+					required: true,
+					minlength: 11,
+                    maxlength: 11,
+                    digits : true
+				}
+			},
+			messages: {
+				name: "Please enter your name",
+                address: "Please enter your address",
+                city: "Please enter your city",
+                country: "Please enter your country",
+                pincode: "Please enter your pincode",
+				phone: {
+					required: "Please enter a phone",
+					minlength: "Your phone number must have 11 digits",
+                    maxlength: "Your phone number must have 11 digits",
+				},
+			}
+		});
 
 
     });

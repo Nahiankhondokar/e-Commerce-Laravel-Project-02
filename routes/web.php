@@ -73,7 +73,6 @@ Route::get('/admin/logout', [AdminController::class, "destroy"]) -> name('admin.
 
 Route::group(['prefix'  => 'admin'], function(){
 
-
     // admin profile
     Route::get('/profile', [MainAdminController::class, "AdminProfile"]) -> name('admin.profile');
     Route::get('/profile/edit', [MainAdminController::class, "AdminProfileEdit"]) -> name('admin.profile.edit');
@@ -224,6 +223,16 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function(){
 
     // apply coupon route
     Route::post('/coupon-apply', [CouponController::class, "CouponApply"]) -> name('coupon.apply');
+
+
+
+    // check-out all routes
+    Route::match(['get', 'post'],'/checkout', [FrontendProductController::class, "CheckoutView"]) -> name('checkout');
+
+    // delivery address add or edit routes
+    Route::match(['get', 'post'],'/delivery/address/{id?}', [FrontendProductController::class, "DeliveryAddressAddEdit"]) -> name('delivery.address.add.edit');
+
+    Route::get('/delete-delivery-address/{id}', [FrontendProductController::class, "DeliveryAddressDelete"]) -> name('address.delete');
 
 });
 

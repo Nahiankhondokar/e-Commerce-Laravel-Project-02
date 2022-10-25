@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Models\ProductGallery;
 use App\Models\ProductAttribute;
 use App\Http\Controllers\Controller;
+use App\Models\Country;
+use App\Models\DeliveryAddress;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -585,5 +587,100 @@ class ProductController extends Controller
         ]);
 
     }
+
+
+    // delivery address add or edit
+    public function DeliveryAddressAddEdit($id=null, Request $request){
+
+        if($id == ''){
+            // add delivery address
+            $title = 'Add Delivery Address';
+            $address = new DeliveryAddress();
+            $message = "Delivery Address Added";
+        }else {
+            // edit delivery address
+            $title = 'Edit Delivery Address';
+            $address = DeliveryAddress::find($id);
+            $message = "Delivery Address Updated";
+        }
+
+
+        if($request -> isMethod('post')){
+
+            // validation 
+            $this -> validate($request, [
+                'name'      => 'required|regex:/^[a-zA-Z]+$/',
+                'phone'     => 'required', 
+                'address'   => 'required',
+                'city'      => 'required',
+                'country'   => 'required',
+                'pincode'   => 'required',
+            ]);
+
+            // contact details updated
+            $address -> name         = $request -> name;
+            $address -> user_id      = Auth::id();
+            $address -> phone        = $request -> phone;
+            $address -> country      = $request -> country;
+            $address -> city         = $request -> city;
+            $address -> address      = $request -> address;
+            $address -> pincode      = $request -> pincode;
+            $address -> save();
+
+
+            // msg
+            $notify = [
+                'message'       => $message,
+                'alert-type'    => "success"
+            ];
+
+            return redirect() -> to('/user/checkout') -> with($notify);
+
+        }
+
+        $country = Country::where('status', 1) -> get();
+        return view('frontend.deliveryAddress.address_add_edit',[
+            'title'             => $title, 
+            'country'           => $country, 
+            'edit_data'       => $address, 
+        ]);
+
+    }
+
+
+    // delivery address delete
+    public function DeliveryAddressDelete($id){
+
+        DeliveryAddress::find($id) -> delete();
+
+        // msg
+        $notify = [
+            'message'       => 'Delivery Address Delete',
+            'alert-type'    => "success"
+        ];
+
+        return redirect() -> back() -> with($notify);
+
+    }
+
+    
+    /**
+     *  check out page all function
+     */
+
+    // checkout page view
+    public function CheckoutView(){
+        $userCartItems = Cart::userCartItems();
+        $deliveryAddress = DeliveryAddress::getDeliveryAddress();
+        // echo '<pre>'; print_r($userCartItems); die;
+
+        return view('frontend.checkout.checkout_view', compact('userCartItems', 'deliveryAddress'));
+    }
+
+
+
+
+        
+
 
 }

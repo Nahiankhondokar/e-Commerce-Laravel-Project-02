@@ -69,7 +69,7 @@ use App\Models\Product;
 			  </tr>
             </table> -->		
 	<a href="{{ url('/') }}" class="btn btn-large"><i class="icon-arrow-left"></i> Continue Shopping </a>
-	<a href="login.html" class="btn btn-large pull-right">Next <i class="icon-arrow-right"></i></a>
+	<a href="{{ route('checkout') }}" class="btn btn-large pull-right">Next <i class="icon-arrow-right"></i></a>
 	
 </div>
 
