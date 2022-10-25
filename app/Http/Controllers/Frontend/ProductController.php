@@ -3,14 +3,17 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Models\Cart;
+use App\Models\Order;
+use App\Models\Country;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\OrderProduct;
 use Illuminate\Http\Request;
 use App\Models\ProductGallery;
-use App\Models\ProductAttribute;
-use App\Http\Controllers\Controller;
-use App\Models\Country;
 use App\Models\DeliveryAddress;
+use App\Models\ProductAttribute;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -621,6 +624,7 @@ class ProductController extends Controller
             $address -> name         = $request -> name;
             $address -> user_id      = Auth::id();
             $address -> phone        = $request -> phone;
+            $address -> email        = Auth::user() -> email;
             $address -> country      = $request -> country;
             $address -> city         = $request -> city;
             $address -> address      = $request -> address;
@@ -679,8 +683,78 @@ class ProductController extends Controller
                 $message = "Delivery Address is empty";
             }
             
-            if(empty($request -> payment_method)){
+            if(empty($request -> payment_gateway)){
                 $message = "Payment Method is empty";
+            }
+
+            // payment method checking
+            if($request -> payment_gateway == 'COD'){
+                $payment_method = 'COD';
+            }else {
+                $payment_method = 'Prepaid';
+            }
+
+            // get delivery address form address_id
+            $deliveryAddress = DeliveryAddress::where('id', $request -> address_id) -> first() -> toArray();
+
+            // if there has some isssu, then both tables will be empty.
+            DB::beginTransaction();
+
+            // store data to ordre table
+            $order = new Order();
+            $order -> user_id       = Auth::id();
+            $order -> name          = $deliveryAddress['name'];
+            $order -> address       = $deliveryAddress['address'];
+            $order -> city          = $deliveryAddress['city'];
+            $order -> country       = $deliveryAddress['country'];
+            $order -> phone         = $deliveryAddress['phone'];
+            $order -> pincode       = $deliveryAddress['pincode'];
+            $order -> email         = $deliveryAddress['email'];
+
+            $order -> shipping_charge   = 0;
+            $order -> coupon_code       = Session::get('couponCode');
+            $order -> coupon_amount       = Session::get('couponAmount');
+            $order -> order_status      = "New";
+            $order -> payment_method    = $payment_method;
+            $order -> grand_total       = Session::get('grand_total');
+            $order -> save();
+
+
+            // get last order inserted id
+            $order_id = DB::getPdo() -> lastInsertId();
+
+            // get the all cart item
+            $cartItem = Cart::where('user_id', Auth::id()) -> get() -> toArray();
+            foreach($cartItem as $item ){
+
+                // insert data to orderProduct table
+                $orderProduct = new OrderProduct();
+                $orderProduct -> user_id = $item['user_id'];
+                $orderProduct -> order_id = $order_id;
+                $orderProduct -> product_id = $item['product_id'];
+                $orderProduct -> product_size = $item['size'];
+                $orderProduct -> product_qty = $item['quantity'];
+
+                // get product details
+                $getProductDetails = Product::select('product_code', 'product_color', 'product_name') -> where('id', $item['product_id']) -> first() -> toArray();
+
+                $orderProduct -> product_code = $getProductDetails['product_code'];
+                $orderProduct -> product_color = $getProductDetails['product_color'];
+                $orderProduct -> product_name = $getProductDetails['product_name'];
+
+                // get cart item price after discount
+                $getDiscountAttrPrice = Product::getAttrDiscountPrice($item['product_id'], $item['size']); 
+
+                $orderProduct -> product_price = $getDiscountAttrPrice['attrDiscountPrice'];
+                $orderProduct -> save();
+
+                // delete all cart item after order is placed
+                Cart::where('user_id', Auth::id()) -> delete();
+
+
+                // if there has some isssu, then both tables will be empty.
+                DB::commit();
+                
             }
 
             // common return error message
@@ -689,6 +763,15 @@ class ProductController extends Controller
                 $notify = [
                     'message'       => $message,
                     'alert-type'    => "error"
+                ];
+
+                return redirect() -> back() -> with($notify);
+            }else {
+
+                 // message
+                 $notify = [
+                    'message'       => "Order has been placed successfully",
+                    'alert-type'    => "success"
                 ];
 
                 return redirect() -> back() -> with($notify);

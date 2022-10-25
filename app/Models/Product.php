@@ -103,9 +103,9 @@ class Product extends Model
         }
 
         return [
-            'attrDiscountPrice'     => $discountPrice,
-            'attrPrice'             => $attrPrice,
-            'discountAmount'        => $discountAmount
+            'attrDiscountPrice'     => $discountPrice, // this price is after discount
+            'attrPrice'             => $attrPrice, // only product price
+            'discountAmount'        => $discountAmount // discount amount
         ];
     }
            

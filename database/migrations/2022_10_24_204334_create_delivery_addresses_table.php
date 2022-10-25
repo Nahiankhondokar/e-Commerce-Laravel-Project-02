@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('city') -> nullable();
             $table->string('country') -> nullable();
             $table->string('phone') -> nullable();
+            $table->string('email') -> nullable();
             $table->string('pincode') -> nullable();
             $table->tinyInteger('status') -> default(1);
             $table->timestamps();

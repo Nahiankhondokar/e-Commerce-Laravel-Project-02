@@ -141,9 +141,9 @@ use App\Models\Product;
 					<td> 
 						<h4>Payment Methods</h4>
 						<div class="payment">
-							<input type="radio" name="payment_method" id="PAYPAL" style="float: left; margin-right: 5px;" value="PAYPAL">
+							<input type="radio" name="payment_gateway" id="PAYPAL" style="float: left; margin-right: 5px;" value="PAYPAL">
 							<label for="PAYPAL">PAYPAL</label>
-							<input type="radio" name="payment_method" id="COD" style="float: left; margin-right: 5px;">
+							<input type="radio" name="payment_gateway" id="COD" style="float: left; margin-right: 5px;">
 							<label for="COD">COD</label>
 						</div>
 					</td>
