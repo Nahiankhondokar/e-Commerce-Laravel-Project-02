@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Models\Cart;
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Country;
 use App\Models\Product;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -767,18 +769,34 @@ class ProductController extends Controller
                 
             }
 
-            // message
-            $notify = [
-                'message'       => "Order has been placed successfully",
-                'alert-type'    => "success"
-            ];
+            // redirect to payment page
+            if($request -> payment_gateway == 'COD'){
 
-            return redirect() -> route('thanks') -> with($notify);
+                // send mail
+                $orderDetails = Order::with('order_product') -> where('id', $order_id) -> first() -> toArray();
+                $userDetails = User::where('id', $orderDetails['user_id']) -> first() -> toArray();
 
-            //  // redirect to payment page
-            // if($request -> payment_gateway == 'COD'){
-                
-            // }
+                $email = Auth::user() -> email;
+                $messageData = [
+                    'name'      => Auth::user() -> name,
+                    'email'      => $email,
+                    'order_id'      => $order_id,
+                    'userDetails'      => $userDetails,
+                    'orderDetails'      => $orderDetails
+                ];
+
+                Mail::send('frontend.email.order', $messageData, function($msg) use($email) {
+                    $msg -> to($email) -> subject('Order Placed');
+                });
+
+                // message
+                $notify = [
+                    'message'       => "Order has been placed successfully",
+                    'alert-type'    => "success"
+                ];
+
+                return redirect() -> route('thanks') -> with($notify);
+            }
 
         }
 
