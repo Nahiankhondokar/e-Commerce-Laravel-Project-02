@@ -143,7 +143,7 @@ use App\Models\Product;
 						<div class="payment">
 							<input type="radio" name="payment_gateway" id="PAYPAL" style="float: left; margin-right: 5px;" value="PAYPAL">
 							<label for="PAYPAL">PAYPAL</label>
-							<input type="radio" name="payment_gateway" id="COD" style="float: left; margin-right: 5px;">
+							<input type="radio" name="payment_gateway" id="COD" style="float: left; margin-right: 5px;" value="COD">
 							<label for="COD">COD</label>
 						</div>
 					</td>

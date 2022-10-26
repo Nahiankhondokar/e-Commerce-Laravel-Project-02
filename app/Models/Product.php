@@ -108,6 +108,17 @@ class Product extends Model
             'discountAmount'        => $discountAmount // discount amount
         ];
     }
+
+
+
+    // get product main image
+    public static function getProductImage($product_id){
+
+        $mainImage = Product::select('main_image') -> where('id', $product_id) -> first() -> toArray();
+       
+        return $mainImage;
+    }
+          
            
 
 }

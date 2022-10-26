@@ -5,11 +5,13 @@ use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\MainAdminController;
+use App\Http\Controllers\Backend\OrderController as BackendOrderController;
 use App\Http\Controllers\Backend\ProductBrandController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SectionController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\MainUserController;
+use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
 use App\Http\Controllers\Frontend\UserController;
 use Illuminate\Support\Facades\Route;
@@ -163,6 +165,12 @@ Route::group(['prefix'  => 'admin'], function(){
     Route::get('/coupon/delete/{id}', [CouponController::class, "CouponDelete"]) -> name('coupon.delete');
 
 
+    // order all route
+    Route::get('/order', [BackendOrderController::class, "OrderViewAdmin"]) -> name('admin.order.view');
+    Route::get('/order-details/{id}', [BackendOrderController::class, "OrderDetailsAdmin"]) -> name('admin.order.details');
+    Route::post('/order-status', [BackendOrderController::class, "OrderStatusUpdateAdmin"]) -> name('order.status.update');
+
+
 });
 
 
@@ -237,6 +245,13 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function(){
 
     // thanks page after order 
     Route::get('/thanks', [FrontendProductController::class, "ThanksForOrder"]) -> name('thanks');
+
+
+    // Orders all routes
+    Route::get('/order', [OrderController::class, "OrderView"]) -> name('order.view');
+    Route::get('/order-details', [OrderController::class, "OrderDetails"]) -> name('order.details');
+
+
 });
 
 

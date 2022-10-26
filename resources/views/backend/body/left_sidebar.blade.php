@@ -118,6 +118,13 @@
               </a>
             </li>
 
+            <li class="nav-item">
+              <a href="{{ route('admin.order.view') }}" class="nav-link {{ ($route == 'admin.order.view') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Order Item</p>
+              </a>
+            </li>
+
           </ul>
         </li>
 

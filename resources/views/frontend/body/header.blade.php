@@ -51,7 +51,7 @@
 		            <input type="text" class="search-query span2" placeholder="Search"/>
 		          </form>
 		          <ul class="nav pull-right">
-		            <li><a href="#">Contact</a></li>
+		            <li><a href="{{ route('order.view') }}">Orders</a></li>
 		            <li class="divider-vertical"></li>
 					@if(Auth::check())
 					<li><a href="{{ route('myaccount') }}">My Account</a></li>
