@@ -28,7 +28,13 @@
     <div class="row">
         <div class="col-xs-12">
     		<div class="invoice-title">
-    			<h2>Invoice</h2><h3 class="pull-right">Order # {{ $orderDetails['id'] }}</h3>
+    			<h2>Invoice</h2>
+                <h3 class="pull-right">Order # {{ $orderDetails['id'] }}</h3>
+                <span>
+                    @php
+                        echo DNS1D::getBarcodeHTML($orderDetails['id'], 'C39');
+                    @endphp
+                </span>
     		</div>
     		<hr>
     		<div class="row">
