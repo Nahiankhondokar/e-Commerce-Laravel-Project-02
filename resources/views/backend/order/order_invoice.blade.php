@@ -94,10 +94,10 @@
     							@foreach($orderDetails['order_product'] as $item)
                                 <tr>
     								<td>
-                                        {{ $item['product_name'] }} <br>
-                                        {{ $item['product_size'] }}<br>
-                                        {{ $item['product_color'] }}<br>
-                                        {{ $item['product_code'] }}
+                                        Name : {{ $item['product_name'] }} <br>
+                                        Size : {{ $item['product_size'] }}<br>
+                                        Color : {{ $item['product_color'] }}<br>
+                                        Code : {{ $item['product_code'] }}
                                     </td>
     								<td class="text-center">${{ $item['product_price'] }}</td>
     								<td class="text-center">{{ $item['product_qty'] }}</td>
