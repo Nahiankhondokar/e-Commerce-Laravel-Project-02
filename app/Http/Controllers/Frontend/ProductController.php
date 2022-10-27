@@ -805,6 +805,17 @@ class ProductController extends Controller
         $deliveryAddress = DeliveryAddress::getDeliveryAddress();
         // echo '<pre>'; print_r($userCartItems); die;
 
+        // cart item checking
+        if(count($userCartItems) == 0){
+            // message
+            $notify = [
+                'message'       => "Your Cart is empty ! Please Add Product",
+                'alert-type'    => "warning"
+            ];
+
+            return redirect() -> back() -> with($notify);
+        }
+
         return view('frontend.checkout.checkout_view', compact('userCartItems', 'deliveryAddress'));
     }
 

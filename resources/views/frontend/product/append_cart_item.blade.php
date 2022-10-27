@@ -50,7 +50,7 @@ use App\Models\Product;
 			</td>
 			{{-- {{ print_r($discount) }} --}}
 			<td>${{ $getProductPrice }}</td>
-			<td>${{$discount['discountAmount']}}</td>
+			<td>${{$discount['discountAmount'] * $item['quantity'] }}</td>
 			<td>
 				{{$discount['attrDiscountPrice'] * $item['quantity']}}
 			</td>
