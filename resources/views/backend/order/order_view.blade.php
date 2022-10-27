@@ -25,16 +25,17 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
-            <table class="table table-striped table-bordered">
+            <table id="category" class="table table-striped table-bordered">
                 <thead>
                     <tr>
                     <th scope="col">Order ID</th>
                     <th scope="col">Customer Name</th>
                     <th scope="col">Customer Email</th>
-                    <th scope="col">Order Product Code</th>
-                    <th scope="col">Payment Method</th>
+                    <th scope="col">Product Code</th>
+                    <th scope="col">Payment</th>
                     <th scope="col">Grand Total</th>
-                    <th scope="col">Created On</th>
+                    <th scope="col">Created</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -58,9 +59,14 @@
                         <td>{{ $item['payment_method'] }}</td>
                         <td>${{ $item['grand_total'] }}</td>
                         <td>{{ date('d-m-Y', strtotime($item['created_at'])) }}</td>
-                        <td>
+                        <td>{{ $item['order_status'] }}</td>
+                        <td style="width: 10%">
                             <a title="Order Details" href="{{route('admin.order.details', $item['id'])}}" class="btn btn-sm btn-info"><i class="fa fa-eye" aria-hidden="true"></i>
                             </a>
+                            @if($item['order_status'] == 'Shipped' || $item['order_status'] == 'Deliverd')
+                            <a title="Invoice" href="{{route('order.invoice', $item['id'])}}" class="btn btn-sm btn-info"><i class="fa fa-print" aria-hidden="true"></i>
+                            </a>
+                            @endif
                         </td>
                         </tr>
                     @endforeach

@@ -81,4 +81,14 @@ class OrderController extends Controller
     }
 
 
+    // generate order invoice
+    public function OrderInvoiceNumver($id){
+
+        $orderDetails = Order::with('order_product') -> where('id', $id) -> first() -> toArray();
+        $userDetails = User::where('id', $orderDetails['user_id']) -> first() -> toArray();
+
+        return view('backend.order.order_invoice', compact('orderDetails', 'userDetails'));
+    }
+
+
 }

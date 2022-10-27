@@ -171,6 +171,10 @@ Route::group(['prefix'  => 'admin'], function(){
     Route::post('/order-status', [BackendOrderController::class, "OrderStatusUpdateAdmin"]) -> name('order.status.update');
 
 
+    // order invoice number
+    Route::get('/order-invoice/{id}', [BackendOrderController::class, "OrderInvoiceNumver"]) -> name('order.invoice');
+
+
 });
 
 
