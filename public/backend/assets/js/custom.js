@@ -538,6 +538,21 @@
       $("[data-mask]").inputmask();
 
 
+      // =========== order Curiere or Traking NO show/hide ============
+      $(document).on('change', '#order_status', function(){
+        // alert();
+        const status = $(this).val();
+        if(status == 'Shipped'){
+          $('#courier_name').css({'display' : 'block'});
+          $('#traking_number').css({'display' : 'block'});
+        } else {
+          $('#courier_name').css({'display' : 'none'});
+          $('#traking_number').css({'display' : 'none'});
+        }
+      });
+    
+
+
     //   // Add extra item in fee category amount page
     //   $(document).on('click', '.addEventMore', function(e){
     //     e.preventDefault();

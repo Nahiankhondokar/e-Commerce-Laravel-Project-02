@@ -30,6 +30,8 @@ class OrderController extends Controller
         $orderStatus = OrderStatus::where('status', 1) -> get() -> toArray();
         $orderLog = OrderLog::where('order_id', $id) -> orderBy('id', 'DESC') -> get() -> toArray();
 
+        // dd($orderLog) -> toArray();
+
         return view('backend.order.order_details', compact('orderDetails', 'userDetails', 'orderStatus', 'orderLog'));
     }
 
@@ -41,10 +43,15 @@ class OrderController extends Controller
         // status update
         Order::where('id', $request -> order_id) -> update(['order_status' => $request -> status]);
 
-         $orderDetails = Order::find($request -> order_id);
+        // order couiere or traking no udpate
+        $update = Order::find($request -> order_id);
+        $update -> courier_name = $request -> courier_name;
+        $update -> traking_number = $request -> traking_number;
+        $update -> update();
 
-
+        
         // **send main to customer
+        // $orderDetails = Order::find($request -> order_id);
         // $email = $orderDetails -> email; 
         // $messageData = [
         //     'name'      => $orderDetails -> name,

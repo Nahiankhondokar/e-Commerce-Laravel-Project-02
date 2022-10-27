@@ -54,6 +54,16 @@
                         <th>Coupon Amount</th>
                         <td>${{ $orderDetails['coupon_amount'] }}</td>
                     </tr>
+                    @if($orderDetails['courier_name'])
+                        <tr>
+                          <th>Couirer Name</th>
+                          <td>{{ $orderDetails['courier_name'] ?? 'None' }}</td>
+                        </tr>
+                        <tr>
+                          <th>Tranking Number</th>
+                          <td>{{ $orderDetails['traking_number']?? 'None' }}</td>
+                        </tr>
+                        @endif
                 </tbody>
             </table>
         </div>

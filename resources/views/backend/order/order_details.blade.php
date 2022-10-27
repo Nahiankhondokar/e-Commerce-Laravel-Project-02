@@ -125,19 +125,21 @@
                             <th>Coupon Amount</th>
                             <td>${{ $orderDetails['coupon_amount'] }}</td>
                         </tr>
+                        @if($orderDetails['courier_name'])
+                        <tr>
+                          <th>Couirer Name</th>
+                          <td>{{ $orderDetails['courier_name'] ?? 'None' }}</td>
+                        </tr>
+                        <tr>
+                          <th>Tranking Number</th>
+                          <td>{{ $orderDetails['traking_number']?? 'None' }}</td>
+                        </tr>
+                        @endif
                     </tbody>
                   </table>
                 </div>
                 <!-- /.card-body -->
-                <div class="card-footer clearfix">
-                  <ul class="pagination pagination-sm m-0 float-right">
-                    <li class="page-item"><a class="page-link" href="#">«</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">»</a></li>
-                  </ul>
-                </div>
+               
               </div>
               <!-- /.card -->
 
@@ -268,27 +270,32 @@
                             <tr>
                                 <form action="{{route('order.status.update')}}" method="POST">
                                     @csrf
-                                    <input type="hidden" name="order_id" id="" value="{{ $orderDetails['id'] }}">
-                                    <label for="">Update Status</label>
-                                    <select id="" class="form-control" name="status">
-                                        <option value="" disabled selected>-Select-</option>
-                                        @foreach($orderStatus as $item)
-                                            <option value="{{ $item['name'] }}" @if(@$orderDetails['order_status'] == $item['name'] ) selected  @endif >{{ $item['name'] }}</option>
-                                        @endforeach
-                                    </select>
+                                    <div style="display: flex; gap: 5px">
+                                      <input type="hidden" name="order_id" id="" value="{{ $orderDetails['id'] }}">
+                                      {{-- <label for="">Update Status</label> --}}
+                                      <select id="order_status" class="form-control" name="status">
+                                          <option value="" disabled selected>-Select-</option>
+                                          @foreach($orderStatus as $item)
+                                              <option value="{{ $item['name'] }}" @if(@$orderDetails['order_status'] == $item['name'] ) selected  @endif >{{ $item['name'] }}</option>
+                                          @endforeach
+                                      </select>
+                                      <br>
+                                      <input class="form-control" placeholder="Curiere Name" type="text" name="courier_name" id="courier_name" style="display: none"><br>
+                                      <input class="form-control" placeholder="Traking No" type="text" name="traking_number" id="traking_number" style="display: none"><br>
+                                    </div>
                                     <br>
                                     <input type="submit" value="Update" class="btn btn-primary btn-sm">
+                                    <br> <br>
                                 </form>
                             </tr>
                             {{-- <hr> --}}
+                            @foreach($orderLog as $item)
                             <tr>
-                              @foreach($orderLog as $item)
                                 <td>{{ $item['order_status'] }}</td>
-                                <td>{{ date('F j, Y, g:i a', strtotime($item['created_at'])) }}</td>
-                                <hr>
-                              @endforeach
-                              
+                                <td> -- </td>
+                                <td>{{ date('F j, Y', strtotime($item['created_at'])) }}</td>                               
                             </tr>
+                            @endforeach
                         </tbody>
                       </table>
                     </div>
