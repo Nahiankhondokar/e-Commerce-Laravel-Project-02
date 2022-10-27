@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Coupon;
 use App\Models\CreateSection;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 
@@ -222,6 +224,16 @@ class CouponController extends Controller
                 $total_amount = $total_amount + ($atttrPrice['attrDiscountPrice'] * $item['quantity']);
                 // dd($total_amount);
 
+            }
+
+            // single or multipel coupon status checking
+            if($couponDetails -> coupon_type == 'Single'){
+                // checking this coupon already applied or not in order table
+                $couponCount = Order::where('coupon_code', $request -> code) -> where('user_id', Auth::user() -> id) -> count();
+
+                if($couponCount > 0){
+                   $message = "You have used this coupon";
+                }
             }
 
 
