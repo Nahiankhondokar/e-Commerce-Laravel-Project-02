@@ -280,6 +280,15 @@
                                     <input type="submit" value="Update" class="btn btn-primary btn-sm">
                                 </form>
                             </tr>
+                            {{-- <hr> --}}
+                            <tr>
+                              @foreach($orderLog as $item)
+                                <td>{{ $item['order_status'] }}</td>
+                                <td>{{ date('F j, Y, g:i a', strtotime($item['created_at'])) }}</td>
+                                <hr>
+                              @endforeach
+                              
+                            </tr>
                         </tbody>
                       </table>
                     </div>

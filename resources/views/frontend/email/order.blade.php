@@ -410,141 +410,18 @@
 
 
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
 
-
-
-<div class="container">
-     
-    <div class="row pad-top-botm ">
-       <div class="col-lg-6 col-md-6 col-sm-6 ">
-          <img src="assets/img/logo.jpg" style="padding-bottom:20px;"> 
-       </div>
-        <div class="col-lg-6 col-md-6 col-sm-6">
-          
-             <strong>Brian Bossier Design</strong>
-            <br>
-                <i>Address :</i> Barrington, IL
-            <br>
-                89th street , Suite 69,
-            <br>
-                United States.
-            
-       </div>
-   </div>
-   <div class="row text-center contact-info">
-       <div class="col-lg-12 col-md-12 col-sm-12">
-           <hr>
-           <span>
-               <strong>Email : </strong>  brian@brianbossierdesign.com 
-           </span>
-           <span>
-               <strong>Call : </strong>  +1-623-777-9044 
-           </span>
-            <span>
-               <strong>Fax : </strong>  +012340-908- 890 
-           </span>
-           <hr>
-       </div>
-   </div>
-   <div class="row pad-top-botm client-info">
-       <div class="col-lg-6 col-md-6 col-sm-6">
-       <h4>  <strong>Client Information</strong></h4>
-         <strong> {{ $userDetails['name'] }} </strong>
-           <br>
-                <b>Address :</b> {{ $userDetails['address'] }}
-            <br>
-            {{ $userDetails['country'] }}
-           <br>
-           <b>Call :</b> {{ $userDetails['phone'] }}
-            <br>
-           <b>E-mail :</b>{{ $userDetails['email'] }}
-       </div>
-        <div class="col-lg-6 col-md-6 col-sm-6">
-          
-             <h4>  <strong>Payment Details </strong></h4>
-          <b>Bill Amount :  990 USD </b>
-            <br>
-             Bill Date :  01th August 2014
-            <br>
-             <b>Payment Status :  Paid </b>
-             <br>
-             Delivery Date :  10th August 2014
-            <br>
-             Purchase Date :  30th July 2014
-       </div>
-   </div>
-   <div class="row">
-       <div class="col-lg-12 col-md-12 col-sm-12">
-         <div class="table-responsive">
-            <table class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Code</th>
-                        <th>Color</th>
-                        <th>Size</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                    </tr>
-                    <thead>
-                    <tbody>
-                    @foreach($orderDetails['order_product'] as $item)
-                    <tr>
-                        <td>{{ $item['product_name'] }}</td>
-                        <td>{{ $item['product_code'] }}</td>
-                        <td>{{ $item['product_color'] }}</td>
-                        <td>{{ $item['product_size'] }}</td>
-                        <td>{{ $item['product_qty'] }}</td>
-                        <td>{{ $item['product_price'] }}</td>
-                    </tr>
-                    @endforeach
-                    </tbody>
-            <table/>
-                            
-           
-             </div>
-           <hr>
-            <div class="ttl-amts">
-                <h5>  Shipping Charge : ${{ $orderDetails['shipping_charge'] ?? 00 }}  </h5>
-           </div>
-           <hr>
-           <div class="ttl-amts">
-            <h5>  Coupon Discount : ${{ $orderDetails['coupon_amount'] ?? 00 }}  </h5>
-            </div>
-            <hr>
-           <div class="ttl-amts">
-            <h5>  Total Amount : ${{ $orderDetails['grand_total']}} </h5>
-          </div>
-       </div>
-   </div>
-    <div class="row">
-       <div class="col-lg-12 col-md-12 col-sm-12">
-          <strong> Important: </strong>
-           <ol>
-                <li>
-                  This is an electronic generated invoice so doesn't require any signature.
-
-               </li>
-               <li>
-                   Please read all terms and polices on  www.yourdomaon.com for returns, replacement and other issues.
-
-               </li>
-           </ol>
-           </div>
-       </div>
-    <div class="row pad-top-botm">
-       <div class="col-lg-12 col-md-12 col-sm-12">
-           <hr>
-           <a href="#" class="btn btn-primary btn-lg">Print Invoice</a>
-           &nbsp;&nbsp;&nbsp;
-            <a href="#" class="btn btn-success btn-lg">Download In Pdf</a>
-
-           </div>
-       </div>
-
-       <style>
+        
+    <style>
+        
     
-
         /* =============================================================
         GENERAL STYLES
         ============================================================ */
@@ -583,4 +460,143 @@
             padding-right:50px;
         }
     </style>
-</div>
+    
+</head>
+<body>
+
+    <div class="container">
+     
+        <div class="row pad-top-botm ">
+           <div class="col-lg-6 col-md-6 col-sm-6 ">
+              <img src="assets/img/logo.jpg" style="padding-bottom:20px;"> 
+           </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              
+                 <strong>Brian Bossier Design</strong>
+                <br>
+                    <i>Address :</i> Barrington, IL
+                <br>
+                    89th street , Suite 69,
+                <br>
+                    United States.
+                
+           </div>
+       </div>
+       <div class="row text-center contact-info">
+           <div class="col-lg-12 col-md-12 col-sm-12">
+               <hr>
+               <span>
+                   <strong>Email : </strong>  brian@brianbossierdesign.com 
+               </span>
+               <span>
+                   <strong>Call : </strong>  +1-623-777-9044 
+               </span>
+                <span>
+                   <strong>Fax : </strong>  +012340-908- 890 
+               </span>
+               <hr>
+           </div>
+       </div>
+       <div class="row pad-top-botm client-info">
+           <div class="col-lg-6 col-md-6 col-sm-6">
+           <h4>  <strong>Client Information</strong></h4>
+             <strong> {{ $userDetails['name'] }} </strong>
+               <br>
+                    <b>Address :</b> {{ $userDetails['address'] }}
+                <br>
+                {{ $userDetails['country'] }}
+               <br>
+               <b>Call :</b> {{ $userDetails['phone'] }}
+                <br>
+               <b>E-mail :</b>{{ $userDetails['email'] }}
+           </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              
+                 <h4>  <strong>Payment Details </strong></h4>
+              <b>Bill Amount :  990 USD </b>
+                <br>
+                 Bill Date :  01th August 2014
+                <br>
+                 <b>Payment Status :  Paid </b>
+                 <br>
+                 Delivery Date :  10th August 2014
+                <br>
+                 Purchase Date :  30th July 2014
+           </div>
+       </div>
+       <div class="row">
+           <div class="col-lg-12 col-md-12 col-sm-12">
+             <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Code</th>
+                            <th>Color</th>
+                            <th>Size</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>
+                        <thead>
+                        <tbody>
+                        @foreach($orderDetails['order_product'] as $item)
+                        <tr>
+                            <td>{{ $item['product_name'] }}</td>
+                            <td>{{ $item['product_code'] }}</td>
+                            <td>{{ $item['product_color'] }}</td>
+                            <td>{{ $item['product_size'] }}</td>
+                            <td>{{ $item['product_qty'] }}</td>
+                            <td>{{ $item['product_price'] }}</td>
+                        </tr>
+                        @endforeach
+                        </tbody>
+                <table/>
+                                
+               
+                 </div>
+               <hr>
+                <div class="ttl-amts">
+                    <h5>  Shipping Charge : ${{ $orderDetails['shipping_charge'] ?? 00 }}  </h5>
+               </div>
+               <hr>
+               <div class="ttl-amts">
+                <h5>  Coupon Discount : ${{ $orderDetails['coupon_amount'] ?? 00 }}  </h5>
+                </div>
+                <hr>
+               <div class="ttl-amts">
+                <h5>  Total Amount : ${{ $orderDetails['grand_total']}} </h5>
+              </div>
+           </div>
+       </div>
+        <div class="row">
+           <div class="col-lg-12 col-md-12 col-sm-12">
+              <strong> Important: </strong>
+               <ol>
+                    <li>
+                      This is an electronic generated invoice so doesn't require any signature.
+    
+                   </li>
+                   <li>
+                       Please read all terms and polices on  www.yourdomaon.com for returns, replacement and other issues.
+    
+                   </li>
+               </ol>
+               </div>
+           </div>
+        <div class="row pad-top-botm">
+           <div class="col-lg-12 col-md-12 col-sm-12">
+               <hr>
+               <a href="#" class="btn btn-primary btn-lg">Print Invoice</a>
+               &nbsp;&nbsp;&nbsp;
+                <a href="#" class="btn btn-success btn-lg">Download In Pdf</a>
+    
+               </div>
+           </div>
+
+    </div>
+    
+</body>
+</html>
+
+
+
