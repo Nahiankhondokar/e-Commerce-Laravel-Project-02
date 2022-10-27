@@ -174,6 +174,9 @@ Route::group(['prefix'  => 'admin'], function(){
     // order invoice number
     Route::get('/order-invoice/{id}', [BackendOrderController::class, "OrderInvoiceNumver"]) -> name('order.invoice');
 
+    // order PDF invoice 
+    Route::get('/print-pdf-invoice/{id}', [BackendOrderController::class, "OrderPDFInvoice"]) -> name('order.pdf');
+
 
 });
 
@@ -229,7 +232,6 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function(){
 
     Route::post('/password/update', [MainUserController::class, "PasswordUpdate"]) -> name('user.password.update');
     Route::get('/profile/edit/{id}', [MainUserController::class, "UserProfileEdit"]) -> name('user.profile.edit');
-
     Route::post('/profile/update/{id}', [MainUserController::class, "UserProfileUpdate"]) -> name('user.profile.update');
 
 

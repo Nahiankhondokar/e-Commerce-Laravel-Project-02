@@ -60,13 +60,17 @@
                         <td>${{ $item['grand_total'] }}</td>
                         <td>{{ date('d-m-Y', strtotime($item['created_at'])) }}</td>
                         <td>{{ $item['order_status'] }}</td>
-                        <td style="width: 10%">
+                        <td style="width: 12%">
                             <a title="Order Details" href="{{route('admin.order.details', $item['id'])}}" class="btn btn-sm btn-info"><i class="fa fa-eye" aria-hidden="true"></i>
                             </a>
                             @if($item['order_status'] == 'Shipped' || $item['order_status'] == 'Deliverd')
-                            <a title="Invoice" href="{{route('order.invoice', $item['id'])}}" class="btn btn-sm btn-info"><i class="fa fa-print" aria-hidden="true"></i>
+                            <a title="Invoice" href="{{route('order.invoice', $item['id'])}}" class="btn btn-sm btn-primary"><i class="fa fa-print" aria-hidden="true"></i>
                             </a>
                             @endif
+
+                            <a target="_blank" title="PDF" href="{{route('order.pdf', $item['id'])}}" class="btn btn-sm btn-warning"><i class="fa fa-file-pdf" aria-hidden="true"></i>
+                            </a>
+
                         </td>
                         </tr>
                     @endforeach

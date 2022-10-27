@@ -10,6 +10,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\App;
 
 class OrderController extends Controller
 {
@@ -90,5 +92,21 @@ class OrderController extends Controller
         return view('backend.order.order_invoice', compact('orderDetails', 'userDetails'));
     }
 
+
+    // PDF invoice
+    public function OrderPDFInvoice($id){
+
+        $data['orderDetails'] = Order::with('order_product') -> where('id', $id) -> first() -> toArray();
+        $data['userDetails'] = User::where('id', $data['orderDetails']['user_id']) -> first() -> toArray();
+
+        $pdf = Pdf::loadView('backend.pdf.pdf_invoice', $data);
+        return $pdf->download('backend.pdf.pdf_invoice');
+
+
+
+
+
+
+    }
 
 }
