@@ -99,7 +99,7 @@ class OrderController extends Controller
         $data['orderDetails'] = Order::with('order_product') -> where('id', $id) -> first() -> toArray();
         $data['userDetails'] = User::where('id', $data['orderDetails']['user_id']) -> first() -> toArray();
 
-        $pdf = Pdf::loadView('backend.pdf.pdf_invoice', $data);
+        $pdf = Pdf::loadView('backend.pdf.pdf_invoice', $data) -> setPaper('a4', 'landscape');
         return $pdf->download('backend.pdf.pdf_invoice');
 
 
