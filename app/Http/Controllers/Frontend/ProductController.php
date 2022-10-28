@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\OrderProduct;
 use Illuminate\Http\Request;
 use App\Models\ProductGallery;
+use App\Models\ShippingCharge;
 use App\Models\DeliveryAddress;
 use App\Models\ProductAttribute;
 use Illuminate\Support\Facades\DB;
@@ -30,6 +31,7 @@ class ProductController extends Controller
      */
     public function ProductListing(Request $request){
         Paginator::useBootstrap();
+        
         // filtering system by ajax
         if($request -> ajax()){
             // echo '<pre>'; print_r($request -> all()); die;
@@ -614,7 +616,7 @@ class ProductController extends Controller
 
             // validation 
             $this -> validate($request, [
-                'name'      => 'required|regex:/^[a-zA-Z]+$/',
+                'name'      => 'required',
                 'phone'     => 'required', 
                 'address'   => 'required',
                 'city'      => 'required',
@@ -800,11 +802,24 @@ class ProductController extends Controller
 
         }
 
-
+        // user or deliver data
         $userCartItems = Cart::userCartItems();
         $deliveryAddress = DeliveryAddress::getDeliveryAddress();
-        // echo '<pre>'; print_r($userCartItems); die;
+        
+        // shipping charge define
+        foreach($deliveryAddress as $key => $item){
+           $charges = ShippingCharge::getShippingCharge($item['country']); 
+           $deliveryAddress[$key]['shipping_charge'] = $charges;
+        }
 
+        // total price 
+        $totalAmount = 0;
+        foreach($userCartItems as $item){
+            $discount = Product::getAttrDiscountPrice($item['product_id'], $item['size']);
+            $totalAmount = $totalAmount + ($discount['attrDiscountPrice'] * $item['quantity']); 
+        }
+
+        // echo '<pre>'; print_r($charges); die;
         // cart item checking
         if(count($userCartItems) == 0){
             // message
@@ -816,7 +831,7 @@ class ProductController extends Controller
             return redirect() -> back() -> with($notify);
         }
 
-        return view('frontend.checkout.checkout_view', compact('userCartItems', 'deliveryAddress'));
+        return view('frontend.checkout.checkout_view', compact('userCartItems', 'deliveryAddress', 'totalAmount'));
     }
 
 

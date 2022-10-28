@@ -438,6 +438,22 @@
 		});
 
 
+        // =========== Shipping charges add ============
+        $('input[name="address_id"]').bind('change', function(){
+            const total_price = $(this).attr('total_price');
+            const coupon_amount = $(this).attr('coupon_amount');
+            const shipping_charge = $(this).attr('shipping_charge');
+            // alert(coupon_amount);
+
+            $('.shipping_charges').html(`$${shipping_charge}`);
+            const grandTotal = parseInt(total_price) + parseInt(shipping_charge) - parseInt(coupon_amount) ;
+            // alert( coupon_amount );
+            $('.grandTotal').text(`$${grandTotal}`);
+
+        });
+        
+
+
 
 
     });

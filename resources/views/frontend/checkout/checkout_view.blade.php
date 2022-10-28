@@ -31,7 +31,8 @@ use App\Models\Product;
 					<form class="">
 						<div class="controls">
 							@foreach($deliveryAddress as $item)
-							<input type="radio" name="address_id" id="{{$item['name']}}" style="float: left; margin-right: 5px;" value="{{$item['id']}}">
+							<input type="radio" name="address_id" id="{{$item['name']}}" style="float: left; margin-right: 5px;" value="{{$item['id']}}" shipping_charge={{$item['shipping_charge']}} coupon_amount="{{ Session::get('couponAmount') ?? 00 }}" total_price="{{$totalAmount}}">
+
 							 <label for="{{$item['name']}}">  {{  $item['name'] }}, {{ $item['address'] }}, {{ $item['city'] }}, {{ $item['country'] }}</label>
 							 <div>
 								<a style="color: rgb(66, 66, 39); font-size: 15px"  href="{{ route('delivery.address.add.edit', $item['id']) }}" ><i class="fa fa-edit"></i></a> &nbsp;
@@ -59,78 +60,85 @@ use App\Models\Product;
 			</tr>
 			</thead>
 			<tbody>
-			<?php $total = 0; ?>
-			
-			@foreach($userCartItems as $item)
-			<?php 
-				$getProductPrice = Cart::getProductPrice($item['product_id'], $item['size']);
-				$discount = Product::getAttrDiscountPrice($item['product_id'], $item['size']);
-	
-				// dd($discount) -> toArray();
-			?>
-			<tr>
-				<td> 
-					@if($item['get_product']['main_image'])
-					<img src="{{URL::to('')}}/media/backend/product/large/{{$item['get_product']['main_image']}}" alt="" style="width: 60px"/>
-					@else 
-					<img src="{{URL::to('')}}/media/no_image.jpg" alt="" style="width: 60px"/>
-					@endif
-				</td>
-				<td colspan="2">{{ $item['get_product']['product_name'] }}<br/>
-					Color : {{ $item['get_product']['product_color'] }} <br>
-					Size : {{ $item['size'] }}
-				</td>
-				<td>
-					{{$item['quantity']}}
-				</td>
-				{{-- {{ print_r($discount) }} --}}
-				<td>${{ $getProductPrice }}</td>
-				<td>${{ $discount['discountAmount'] * $item['quantity'] }}</td>
-				<td>
-					{{$discount['attrDiscountPrice'] * $item['quantity'] }}
-				</td>
+				<?php $total = 0; ?>
+				
+				@foreach($userCartItems as $item)
+				<?php 
+					$getProductPrice = Cart::getProductPrice($item['product_id'], $item['size']);
+					$discount = Product::getAttrDiscountPrice($item['product_id'], $item['size']);
+		
+					// dd($discount) -> toArray();
+				?>
+				<tr>
+					<td> 
+						@if($item['get_product']['main_image'])
+						<img src="{{URL::to('')}}/media/backend/product/large/{{$item['get_product']['main_image']}}" alt="" style="width: 60px"/>
+						@else 
+						<img src="{{URL::to('')}}/media/no_image.jpg" alt="" style="width: 60px"/>
+						@endif
+					</td>
+					<td colspan="2">{{ $item['get_product']['product_name'] }}<br/>
+						Color : {{ $item['get_product']['product_color'] }} <br>
+						Size : {{ $item['size'] }}
+					</td>
+					<td>
+						{{$item['quantity']}}
+					</td>
+					{{-- {{ print_r($discount) }} --}}
+					<td>${{ $getProductPrice }}</td>
+					<td>${{ $discount['discountAmount'] * $item['quantity'] }}</td>
+					<td>
+						{{$discount['attrDiscountPrice'] * $item['quantity'] }}
+					</td>
 				</tr>
 				<?php 
 				$total = $total + ($discount['attrDiscountPrice'] * $item['quantity']); 
 				?>
 					
-			@endforeach
+				@endforeach
 			
 			
-			<tr>
-				<td colspan="6" style="text-align:right">Sub Total Price:	</td>
-				<td> ${{$total}}</td>
-			</tr>
 				<tr>
-				<td colspan="6" style="text-align:right">Coupon Discount:	</td>
-				<td class="couponDiscount">
-					@if(Session::has('couponAmount'))
-					${{ Session::get('couponAmount') }}
-					@else 
-					$00
-					@endif
-				</td>
-			</tr>
+					<td colspan="6" style="text-align:right">Sub Total Price:	</td>
+					<td> ${{$total}}</td>
+				</tr>
+				<tr>
+					<td colspan="6" style="text-align:right">Coupon Discount:	</td>
+					<td class="couponDiscount">
+						@if(Session::has('couponAmount'))
+						${{ Session::get('couponAmount') }}
+						@else 
+						$00
+						@endif
+					</td>
+				</tr>
+				<tr>
+					<td colspan="6" style="text-align:right">Shipping Charge:	</td>
+					<td class="shipping_charges">$00</td>
+				</tr>
 				<tr>
 					<td colspan="6" style="text-align:right">
 						<strong>
-							GRAND TOTAL (${{$total}}  - <span class="couponDiscount"> 
+							GRAND TOTAL (${{$total}} + 
+								<span class="shipping_charges"> 
+									$00
+								</span> - <span class="couponDiscount"> 
 								@if(Session::has('couponAmount'))
 								${{ Session::get('couponAmount') }}
 								@else 
 								$00
-								@endif</spanc> ) =
+								@endif</spanc>  ) =
 						</strong>
 					</td>
-				<td class="label label-important" style="display:block"> 
-					<strong class="grandTotal"> 
-						${{$grand_total = $total - Session::get('couponAmount') }}  
-						@php
-							Session::put('grand_total', $grand_total);
-						@endphp
-					</strong>
-				</td>
-			</tr>
+					<td class="label label-important" style="display:block"> 
+						<strong class="grandTotal"> 
+							${{$grand_total = $total - Session::get('couponAmount') }}  
+							@php 
+								Session::put('grand_total', $grand_total);
+							@endphp
+						</strong>
+					</td>
+				</tr>
 			</tbody>
 		</table>
 			
