@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\OrderController as BackendOrderController;
 use App\Http\Controllers\Backend\ProductBrandController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SectionController;
+use App\Http\Controllers\Backend\ShippingController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\MainUserController;
 use App\Http\Controllers\Frontend\OrderController;
@@ -177,6 +178,14 @@ Route::group(['prefix'  => 'admin'], function(){
     // order PDF invoice 
     Route::get('/print-pdf-invoice/{id}', [BackendOrderController::class, "OrderPDFInvoice"]) -> name('order.pdf');
 
+
+
+    // Shipping Charges routes
+    Route::get('/shipping-charge', [ShippingController::class, "ShippingChargeView"]) -> name('shipping.view');
+    Route::get('/shipping/edit/{id}', [ShippingController::class, "ShippingChargeEdit"]) -> name('shipping.edit');
+
+    Route::post('/shipping/edit/update/{id}', [ShippingController::class, "ShippingChargeUpdate"]) -> name('shipping.update');
+    Route::get('/shippe/active-inactive', [ShippingController::class, "ShippingActiveInactive"]) -> name('shipping.status');
 
 });
 

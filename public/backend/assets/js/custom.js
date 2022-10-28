@@ -550,6 +550,29 @@
           $('#traking_number').css({'display' : 'none'});
         }
       });
+
+
+      //===================== section Scripts =====================
+      $(document).on('click', '.shippeActiveInactive', function(){
+        let text = $(this).text();
+        let shippe_id = $(this).attr('shippe_id');
+
+        $.ajax({
+          url : '/admin/shippe/active-inactive',
+          type : 'get',
+          data : {text, shippe_id},
+          success : function (data){
+            if(data == 'active'){
+              $('#shippe-'+shippe_id).html('<a class="badge badge-success"  href="javascript:void(0)">Active</a>');
+              $('#active-btn'+shippe_id).hide();
+            }else {
+              $('#shippe-'+shippe_id).html('<a class="badge badge-danger" href="javascript:void(0)">Inactive</a>')
+              $('#inactive-btn'+shippe_id).hide();
+            }
+          }
+        });
+
+      });
     
 
 

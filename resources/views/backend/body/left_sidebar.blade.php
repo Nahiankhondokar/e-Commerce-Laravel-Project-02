@@ -125,6 +125,13 @@
               </a>
             </li>
 
+            <li class="nav-item">
+              <a href="{{ route('shipping.view') }}" class="nav-link {{ ($route == 'shipping.view') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Shipping Charges</p>
+              </a>
+            </li>
+
           </ul>
         </li>
 
