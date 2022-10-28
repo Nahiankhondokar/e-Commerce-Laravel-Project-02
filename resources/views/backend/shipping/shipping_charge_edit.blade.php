@@ -46,11 +46,7 @@
 
                 <div class="form-group">
                     <label>Country Name</label><br>
-                    <select class="form-control" name="country" value="{{ $edit['country'] }}" >
-                        @foreach($shippingCharge as $item)
-                        <option value="{{ $item['country'] }}" @if($item['country'] == $edit['country']) selected @endif>{{ $item['country'] }}</option>
-                        @endforeach
-                    </select>
+                   <input type="text" class="form-control" value="{{ $edit['country'] }}" readonly>
                     <br>
                     @error('country')
                         <span class="text-danger">

@@ -24,7 +24,6 @@ class ShippingController extends Controller
     // shipping edit
     public function ShippingChargeUpdate($id, Request $request){
         $update = ShippingCharge::find($id);
-        $update -> country = $request -> country;
         $update -> shipping_charge = $request -> shipping_charge;
         $update -> update();
 
