@@ -679,6 +679,16 @@ class ProductController extends Controller
     // checkout page view
     public function CheckoutView(Request $request){
 
+        $userCartItems = Cart::userCartItems();
+        $deliveryAddress = DeliveryAddress::getDeliveryAddress();
+
+        // total price 
+        $totalAmount = 0;
+        foreach($userCartItems as $item){
+            $discount = Product::getAttrDiscountPrice($item['product_id'], $item['size']);
+            $totalAmount = $totalAmount + ($discount['attrDiscountPrice'] * $item['quantity']); 
+        }
+
         if($request -> isMethod('post')){
             // dd(Session::get('grand_total'));
 
@@ -713,6 +723,13 @@ class ProductController extends Controller
             // get delivery address form address_id
             $deliveryAddress = DeliveryAddress::where('id', $request -> address_id) -> first() -> toArray();
 
+            // shipping charge
+            $ShippingCharge = ShippingCharge::getShippingCharge($deliveryAddress['country']);
+
+            // calculate total price with shipping charge
+            $grand_total = $totalAmount + $ShippingCharge - Session::get('couponAmount');
+            Session::put('grand_total', $grand_total);
+
             // if there has some isssu, then both tables will be empty.
             DB::beginTransaction();
 
@@ -726,10 +743,12 @@ class ProductController extends Controller
             $order -> phone         = $deliveryAddress['phone'];
             $order -> pincode       = $deliveryAddress['pincode'];
             $order -> email         = $deliveryAddress['email'];
+            $order -> courier_name  = "None";
+            $order -> traking_number = 'None';
 
-            $order -> shipping_charge   = 0;
+            $order -> shipping_charge   = $ShippingCharge;
             $order -> coupon_code       = Session::get('couponCode') ?? null;
-            $order -> coupon_amount     = Session::get('couponAmount') ?? 0;
+            $order -> coupon_amount     = Session::get('couponAmount') ?? 00;
             $order -> order_status      = "New";
             $order -> payment_method    = $payment_method;
             $order -> grand_total       = Session::get('grand_total');

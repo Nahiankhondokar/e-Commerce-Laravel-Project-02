@@ -102,11 +102,6 @@ class OrderController extends Controller
         $pdf = Pdf::loadView('backend.pdf.pdf_invoice', $data) -> setPaper('a4', 'landscape');
         return $pdf->download('backend.pdf.pdf_invoice');
 
-
-
-
-
-
     }
 
 }
