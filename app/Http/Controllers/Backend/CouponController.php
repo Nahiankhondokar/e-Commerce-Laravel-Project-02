@@ -165,11 +165,28 @@ class CouponController extends Controller
         $totalCartItem = totalCartItem();
 
         if($couponCount == 0){
+            // Session forget
+            Session::forget('couponCode');
+            Session::forget('couponAmount');
+
+            $total_amount = 0;
+
+            foreach($userCartItems as $key => $item){
+
+                // get total amount
+                $atttrPrice = Product::getAttrDiscountPrice($item['product_id'], $item['size']);
+                $total_amount = $total_amount + ($atttrPrice['attrDiscountPrice'] * $item['quantity']);
+                // dd($total_amount);
+
+            }
+            
+
             // invalid couppon
             return response() -> json([
                 'status'        => false,
                 'message'        => 'Invalid Coupon',
-                'totalCartItem' => $totalCartItem,
+                'totalAmount'    => $total_amount,
+                'totalCartItem'  => $totalCartItem,
                 'view'          => (String)View::make('frontend.product.cart_view')->with(compact('userCartItems'))
             ]);
 
@@ -227,14 +244,14 @@ class CouponController extends Controller
             }
 
             // single or multipel coupon status checking
-            if($couponDetails -> coupon_type == 'Single'){
-                // checking this coupon already applied or not in order table
-                $couponCount = Order::where('coupon_code', $request -> code) -> where('user_id', Auth::user() -> id) -> count();
+            // if($couponDetails -> coupon_type == 'Single'){
+            //     // checking this coupon already applied or not in order table
+            //     $couponCount = Order::where('coupon_code', $request -> code) -> where('user_id', Auth::user() -> id) -> count();
 
-                if($couponCount > 0){
-                   $message = "You have used this coupon";
-                }
-            }
+            //     if($couponCount > 0){
+            //        $message = "You have used this coupon";
+            //     }
+            // }
 
 
             // common error message return 

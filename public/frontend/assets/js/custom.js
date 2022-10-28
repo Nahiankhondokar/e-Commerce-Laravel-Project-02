@@ -387,6 +387,8 @@
                         // alert(res.message);
                         if(res.status == false){
                             swal.fire(res.message);
+                            $('.couponDiscount').html('$00');
+                            $('.grandTotal').html('$'+ res.totalAmount );
                         }
 
                         if(res.status == true){
