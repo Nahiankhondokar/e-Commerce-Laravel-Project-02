@@ -21,11 +21,21 @@ class ShippingController extends Controller
         return view('backend.shipping.shipping_charge_edit', compact('edit', 'shippingCharge'));
     }
 
-    // shipping edit
+    // shipping Update
     public function ShippingChargeUpdate($id, Request $request){
-        $update = ShippingCharge::find($id);
-        $update -> shipping_charge = $request -> shipping_charge;
-        $update -> update();
+        
+        // get all data
+        $data = $request -> all();
+        // dd($data); die;
+
+        ShippingCharge::find($id) -> update([
+            // "country"               => $data['country'],
+            "0_500g"                => $data['0_500g'],
+            "501_1000g"             => $data['501_1000g'],
+            "1001_2000g"            => $data['1001_2000g'],
+            "2001_5000g"            => $data['2001_5000g'],
+            "above_5000g"           => $data['above_5000g']
+        ]);
 
         $msg = [
             'message'       => 'Shipping Details Updated',

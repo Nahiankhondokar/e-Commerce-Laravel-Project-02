@@ -30,41 +30,57 @@
                     <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Country</th>
-                    <th scope="col">Shipping Charges</th>
+                    <th scope="col">0 to 500g</th>
+                    <th scope="col">501 to 1000g</th>
+                    <th scope="col">1001 to 2000g</th>
+                    <th scope="col">2001g to 5000g</th>
+                    <th scope="col">Above 5000g</th>
                     <th scope="col">Status</th>
                     <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
         
-                    @foreach($shippingCharge as $item)
+                  @foreach($shippingCharge as $item)
                     <tr>
                         <th scope="row">{{ $item['id'] }}</th>
                         <td>
                             {{ $item['country'] }}
                         </td>
                         <td>
-                            ${{ $item['shipping_charge'] }}
+                            ${{ $item['0_500g'] }}
                         </td>
                         <td>
-                            @if($item['status'] == 1)
-                            <div class="shippeActiveInactive" id="shippe-{{$item['id']}}" shippe_id="{{ $item['id']}}">
-                            <a id="shippe_active-btn-{{$item['id']}}" class="badge badge-success" href="javascript:void(0)">Active</a>
-                            </div>
-                            @else 
-                            <div class="shippeActiveInactive" id="shippe-{{$item['id']}}" shippe_id="{{ $item['id'] }}">
-                            <a id="shippe_inactive-btn-{{$item['id']}}" class="badge badge-danger"  href="javascript:void(0)">Inactive</a>
-                            </div>
-                            @endif
+                          ${{ $item['501_1000g'] }}
+                        </td>
+                        <td>
+                          ${{ $item['1001_2000g'] }}
+                        </td>
+                        <td>
+                          ${{ $item['2001_5000g'] }}
+                        </td>
+                        <td>
+                          ${{ $item['above_5000g'] }}
+                        </td>
+                        <td>
+                          @if($item['status'] == 1)
+                          <div class="shippeActiveInactive" id="shippe-{{$item['id']}}" shippe_id="{{ $item['id'] }}">
+                          <a id="shippe_active-btn-{{$item['id']}}" class="badge badge-success" href="javascript:void(0)">Active</a>
+                          </div>
+                          @else 
+                          <div class="shippeActiveInactive" id="shippe-{{$item['id']}}" shippe_id="{{ $item['id'] }}">
+                          <a id="shippe_inactive-btn-{{$item['id']}}" class="badge badge-danger" href="javascript:void(0)">Inactive</a>
+                          </div>
+                          @endif
                         </td>
                         <td>
 
-                            <a title="Edit" href="{{route('shipping.edit', $item['id'])}}" class="btn btn-sm btn-info"><i class="fa fa-edit" aria-hidden="true"></i>
-                            </a>
+                          <a title="Edit" href="{{route('shipping.edit', $item['id'])}}" class="btn btn-sm btn-info"><i class="fa fa-edit" aria-hidden="true"></i>
+                          </a>
 
                         </td>
                         </tr>
-                    @endforeach
+                  @endforeach
                     
                 </tbody>
             </table>

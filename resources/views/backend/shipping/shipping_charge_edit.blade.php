@@ -44,30 +44,76 @@
 
               <div class="row">
 
-                <div class="form-group">
+                <div class="col-md-6">
+                  <div class="form-group">
                     <label>Country Name</label><br>
-                   <input type="text" class="form-control" value="{{ $edit['country'] }}" readonly>
+                  <input type="text" class="form-control" value="{{ $edit['country'] }}" readonly>
                     <br>
                     @error('country')
                         <span class="text-danger">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-                </div>
-                &nbsp;
-                <div class="form-group">
-                    <label>Shipping Charge</label><br>
-                    <input type="text" class="form-control" name="shipping_charge" value="{{ $edit['shipping_charge'] }}" > 
+                  </div>
+              
+                  <div class="form-group">
+                    <label>Shipping Charge(0 to 500g)$</label><br>
+                    <input type="text" class="form-control" name="0_500g" value="{{ $edit['0_500g'] }}" > 
                     <br>
-                    @error('shipping_charge')
+                    @error('0_500g')
                         <span class="text-danger">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
+                  </div>
+
+                  <div class="form-group">
+                    <label>Shipping Charge(501 to 1000g)$</label><br>
+                    <input type="text" class="form-control" name="501_1000g" value="{{ $edit['501_1000g'] }}" > 
+                    <br>
+                    @error('501_1000g')
+                        <span class="text-danger">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                  </div>
+
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Shipping Charge(1001to 2000g)$</label><br>
+                  <input type="text" class="form-control" name="1001_2000g" value="{{ $edit['1001_2000g'] }}" > 
+                  <br>
+                  @error('1001_2000g')
+                      <span class="text-danger">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                  @enderror
                 </div>
 
-                
+                <div class="form-group">
+                  <label>Shipping Charge(2001 to 5000g)$</label><br>
+                  <input type="text" class="form-control" name="2001_5000g" value="{{ $edit['2001_5000g'] }}" > 
+                  <br>
+                  @error('2001_5000g')
+                      <span class="text-danger">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                  @enderror
+                </div>
 
+                <div class="form-group">
+                  <label>Shipping Charge(Above to 5000g)$</label><br>
+                  <input type="text" class="form-control" name="above_5000g" value="{{ $edit['above_5000g'] }}" > 
+                  <br>
+                  @error('above_5000g')
+                      <span class="text-danger">
+                          <strong>{{ $message }}</strong>
+                      </span>
+                  @enderror
+                </div>
+              </div>
               </div>
 
                 <button type="submit" class="btn btn-primary">Update</button>
