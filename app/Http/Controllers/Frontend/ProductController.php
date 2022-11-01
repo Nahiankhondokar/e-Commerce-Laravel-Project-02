@@ -418,6 +418,8 @@ class ProductController extends Controller
 
     }
 
+
+
     // product details page show
     public function ProductDetailsPage($id){
         $productDetails = Product::find($id);
@@ -684,9 +686,11 @@ class ProductController extends Controller
 
         // total price 
         $totalAmount = 0;
+        $product_weight = 0;
         foreach($userCartItems as $item){
             $discount = Product::getAttrDiscountPrice($item['product_id'], $item['size']);
             $totalAmount = $totalAmount + ($discount['attrDiscountPrice'] * $item['quantity']); 
+            $product_weight = $product_weight + $item['get_product']['product_weight'];
         }
 
         if($request -> isMethod('post')){
@@ -724,7 +728,7 @@ class ProductController extends Controller
             $deliveryAddress = DeliveryAddress::where('id', $request -> address_id) -> first() -> toArray();
 
             // shipping charge
-            $ShippingCharge = ShippingCharge::getShippingCharge($deliveryAddress['country']);
+            $ShippingCharge = ShippingCharge::getShippingCharge($product_weight, $deliveryAddress['country']);
 
             // calculate total price with shipping charge
             $grand_total = $totalAmount + $ShippingCharge - Session::get('couponAmount');
@@ -824,21 +828,30 @@ class ProductController extends Controller
         // user or deliver data
         $userCartItems = Cart::userCartItems();
         $deliveryAddress = DeliveryAddress::getDeliveryAddress();
-        
-        // shipping charge define
-        foreach($deliveryAddress as $key => $item){
-           $charges = ShippingCharge::getShippingCharge($item['country']); 
-           $deliveryAddress[$key]['shipping_charge'] = $charges;
-        }
+
+        // dd($userCartItems) -> toArray(); die;
 
         // total price 
         $totalAmount = 0;
+        $product_weight = 0;
         foreach($userCartItems as $item){
+            // print_r($item); die;
             $discount = Product::getAttrDiscountPrice($item['product_id'], $item['size']);
             $totalAmount = $totalAmount + ($discount['attrDiscountPrice'] * $item['quantity']); 
+            $product_weight = $product_weight + $item['get_product']['product_weight'];
+
+            // echo $product_weight; die;
         }
 
-        // echo '<pre>'; print_r($charges); die;
+          
+        // shipping charge define
+        foreach($deliveryAddress as $key => $item){
+            $charges = ShippingCharge::getShippingCharge($product_weight, $item['country']); 
+
+            $deliveryAddress[$key]['shipping_charge'] = $charges;
+         }
+
+        // echo '<pre>'; print_r($deliveryAddress); die;
         // cart item checking
         if(count($userCartItems) == 0){
             // message

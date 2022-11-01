@@ -18,6 +18,7 @@ class DeliveryAddress extends Model
         $deliveryAddress = DeliveryAddress::where('user_id', $user_id) -> get() -> toArray();
 
         return $deliveryAddress;
+        
     }
     
 }
