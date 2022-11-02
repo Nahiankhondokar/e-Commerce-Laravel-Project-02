@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Termwind\Components\Raw;
 
 class PaypalController extends Controller
 {
@@ -58,6 +59,46 @@ class PaypalController extends Controller
     // paypal fail
     public function PaypalFail(){
         return view('frontend.paypal.fail');
+    }
+
+
+    
+    // paypal IPN (instant payment notification)
+    public function PaypalIPN(Request $request){
+        
+        $data = $request -> all();
+        if($data['payment_status'] == 'Completed'){
+            $order_id = Session::get('order_id');
+            Order::where('id', $order_id) -> update(['order_status' => 'Paid']);
+
+            // send mail
+            $orderDetails = Order::with('order_product') -> where('id', $order_id) -> first() -> toArray();
+            $userDetails = User::where('id', $orderDetails['user_id']) -> first() -> toArray();
+
+            $email = Auth::user() -> email;
+            $messageData = [
+                'name'              => Auth::user() -> name,
+                'email'             => $email,
+                'order_id'          => $order_id,
+                'userDetails'       => $userDetails,
+                'orderDetails'      => $orderDetails
+            ];
+
+            // Mail::send('frontend.email.order', $messageData, function($msg) use($email) {
+            //     $msg -> to($email) -> subject('Order Placed');
+            // });
+
+            // // message
+            // $notify = [
+            //     'message'       => "Paypal Payment Completed",
+            //     'alert-type'    => "success"
+            // ];
+
+            // return redirect() -> route('paypal.thanks') -> with($notify);
+
+
+        }
+
     }
 
 

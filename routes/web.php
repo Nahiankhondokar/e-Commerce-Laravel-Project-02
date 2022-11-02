@@ -269,9 +269,11 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function(){
 
 
     // Paypal payment route
-    Route::get('/paypal', [PaypalController::class, "ThanksToPaypal"]) -> name('paypal.thanks');
+    Route::get('/paypal', [PaypalController::class, "ThanksToPaypal"]) -> 
+    name('paypal.thanks');
     Route::get('/paypal/success', [PaypalController::class, "PaypalSuccess"]);
     Route::get('/paypal/fail', [PaypalController::class, "PaypalFail"]);
+    Route::post('/paypal/ipn', [PaypalController::class, "PaypalIPN"]);
 
 
 });

@@ -37,6 +37,7 @@ use App\Models\Product;
       <input type="hidden" name="email" value="{{$orderDetails['email']}}" />
       <input type="hidden" name="return" value="{{ url('paypal/success') }}" />
       <input type="hidden" name="cancel_return" value="{{ url('paypal/fail') }}" />
+      <input type="hidden" name="notify_url" value="{{ url('paypal/ipn') }}" />
       <input
           type="image"
           name="submit"
