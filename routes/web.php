@@ -13,6 +13,7 @@ use App\Http\Controllers\Backend\ShippingController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\MainUserController;
 use App\Http\Controllers\Frontend\OrderController;
+use App\Http\Controllers\Frontend\PaypalController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
 use App\Http\Controllers\Frontend\UserController;
 use Illuminate\Support\Facades\Route;
@@ -265,6 +266,10 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function(){
     // Orders all routes
     Route::get('/order', [OrderController::class, "OrderView"]) -> name('order.view');
     Route::get('/order-details', [OrderController::class, "OrderDetails"]) -> name('order.details');
+
+
+    // Paypal payment route
+    Route::get('/paypal', [PaypalController::class, "ThanksToPaypal"]) -> name('paypal.thanks');
 
 
 });

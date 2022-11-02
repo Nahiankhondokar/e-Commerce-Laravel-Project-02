@@ -161,7 +161,7 @@ use App\Models\Product;
 		</table>
 
 		<a href="{{ url('/cart') }}" class="btn btn-large"><i class="icon-arrow-left"></i> Back to Cart </a>
-		<button type="submit" class="btn btn-large pull-right">Place Order <i class="icon-arrow-right"></i></button>
+		<button type="submit" class="btn btn-large pull-right"> Place Order <i class="icon-arrow-right"></i></button>
 		
 
 	</form>

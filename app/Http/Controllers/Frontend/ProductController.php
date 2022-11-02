@@ -707,6 +707,7 @@ class ProductController extends Controller
                 return redirect() -> back() -> with($notify);
             }
             
+            // payment method checking
             if(empty($request -> payment_gateway)){
                 // message
                 $notify = [
@@ -810,9 +811,9 @@ class ProductController extends Controller
                     'orderDetails'      => $orderDetails
                 ];
 
-                Mail::send('frontend.email.order', $messageData, function($msg) use($email) {
-                    $msg -> to($email) -> subject('Order Placed');
-                });
+                // Mail::send('frontend.email.order', $messageData, function($msg) use($email) {
+                //     $msg -> to($email) -> subject('Order Placed');
+                // });
 
                 // message
                 $notify = [
@@ -821,6 +822,17 @@ class ProductController extends Controller
                 ];
 
                 return redirect() -> route('thanks') -> with($notify);
+            }else if($request -> payment_gateway == 'PAYPAL'){
+
+                // message
+                $notify = [
+                    'message'       => "Order has been placed successfully",
+                    'alert-type'    => "success"
+                ];
+                
+                return redirect() -> route('paypal.thanks') -> with($notify);
+
+
             }
 
         }
@@ -888,11 +900,7 @@ class ProductController extends Controller
 
        
     }
-
-
-    // 
-
-        
+  
 
 
 }
