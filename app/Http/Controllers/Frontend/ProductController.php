@@ -712,9 +712,7 @@ class ProductController extends Controller
                         'message'       => 'This '. $item['get_product']['product_name'] .' Product is not available',
                         'alert-type'    => "warning"
                     ];
- 
-                    return redirect() -> back() -> with($notify);
-
+                    return redirect() -> to('/cart')  -> with($notify);
                 }
 
                 // prevent to order out of stock product
@@ -729,10 +727,32 @@ class ProductController extends Controller
                         'message'       => 'This '. $item['get_product']['product_name'] .' Product is Out Of Stock',
                         'alert-type'    => "error"
                     ];
- 
-                    return redirect() -> to('cart') -> with($notify);
+                    return redirect() -> to('/cart') -> with($notify);
+                }
 
-                    
+                 // checking product attribute status
+                 $getAttributeCount = Product::getAttributeCount($item['product_id'], $item['size']);
+                 if($getAttributeCount == 0){
+ 
+                     // message
+                     $notify = [
+                         'message'       => 'This '. $item['get_product']['product_name'] .' Product is not available. Please Remove form the cart',
+                         'alert-type'    => "warning"
+                     ];
+                     return redirect() -> to('/cart') -> with($notify);
+                 }
+
+
+                // checking product category status
+                $getCategoryStatus = Product::getCategoryStatus($item['get_product']['category_id'] );
+                if($getCategoryStatus == 0){
+
+                    // message
+                    $notify = [
+                        'message'       => 'This '. $item['get_product']['product_name'] .' Product is not available. Please Remove form the cart',
+                        'alert-type'    => "warning"
+                    ];
+                    return redirect() -> to('/cart') -> with($notify);
                 }
                 
             }

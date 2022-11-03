@@ -128,12 +128,28 @@ class Product extends Model
     }
 
 
+    // get product status
+    public static function getCategoryStatus($category_id){
+        $getCategoryStatus = Category::select('status') -> where('id', $category_id) -> first() -> toArray();
+        return $getCategoryStatus['status'];
+    }
+
+
     // cart product stock check
     public static function getProductStockCheck($product_id, $size){
         $getProductStock = ProductAttribute::select('stock') -> where(['product_id' => $product_id, 'size' => $size]) -> first() -> toArray();
 
         return $getProductStock['stock'];
     }
+
+
+    // product attribute status check
+    public static function getAttributeCount($product_id, $size){
+        $getAttributeCount = ProductAttribute::where(['product_id' => $product_id, 'size' => $size, 'status' => 1]) -> count();
+
+        return $getAttributeCount;
+    }
+    
 
 
     // cart product delete
