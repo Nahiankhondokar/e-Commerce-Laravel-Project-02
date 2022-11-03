@@ -920,5 +920,21 @@ class ProductController extends Controller
     }
   
 
+    // postal code check
+    public function PostalCodeCheck(Request $request){
+        $data = $request -> all();
+
+        $cod_postalCode = DB::table('postal_codes') -> where('postal_code', $data['postal_code']) -> count();
+        $prepaid_postalCode = DB::table('prepaid_postal_codes') -> where('postal_code', $data['postal_code']) -> count();
+
+        // psotal code check
+        if( $cod_postalCode == 0 && $prepaid_postalCode == 0){
+            return 'error' ;
+        }else {
+            return 'valid' ;
+        }
+
+
+    }
 
 }

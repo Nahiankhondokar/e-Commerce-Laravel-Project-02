@@ -475,6 +475,22 @@
             $('.grandTotal').text(`$${grandTotal}`);
 
         });
+
+
+        // ============== Postal code checking ===============
+        $(document).on('click', '#postalCheckBtn', function (){
+            const postal_code = $('#postal_code').val();
+            // alert(postal_code);
+
+            $.ajax({
+                url : '/postal-code/check',
+                data : {postal_code}, 
+                success : function (data){
+                    swal.fire(data);
+                }
+            });
+
+        });
         
 
 

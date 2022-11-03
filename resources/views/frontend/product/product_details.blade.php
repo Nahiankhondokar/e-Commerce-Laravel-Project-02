@@ -72,19 +72,40 @@
                     <h4 id="getAttrPriceWithOutDiscount">${{ $productDetails -> product_price }} </h4>
                     @endif 
 
-                    <select name="size" id="getPrice" product_id="{{ $productDetails -> id }}" class="span2 pull-left" required>
+                    @error('quantity')
+                        <span class="text-danger" style="color: red">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                    @error('size')
+                    <span class="text-danger" style="color: red">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                    <select name="size" id="getPrice" product_id="{{ $productDetails -> id }}" class="span2 pull-left" >
 
                             <option value="">Select</option>
                             @foreach($productDetails -> getProductAttr as $item)
                             <option value="{{ $item -> size }}">{{ $item -> size }}</option>
                             @endforeach
 
-                        </select>
-                        <input type="number" class="span1" placeholder="Qty." name="quantity" required/>
+                        </select> 
+                        
+                        <input type="number" class="span1" placeholder="Qty." name="quantity" />
+                        
                         <button type="submit" class="btn btn-large btn-primary pull-right"> Add to cart <i class=" icon-shopping-cart"></i></button>
+                        <div class="postal-code-check d-flex">
+                            <strong>Delivery</strong><br>
+                            <div class="postal-input-tags">
+                                <input type="number" placeholder="Postal Code" name="postal_code" class="form-control" class="span1" id="postal_code">
+                                <input type="button" class="btn btn-sm" id="postalCheckBtn" value="Go">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </form>
+            
+            
         
             <hr class="soft clr"/>
             <p class="span6">

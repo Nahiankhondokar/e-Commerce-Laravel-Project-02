@@ -221,15 +221,19 @@ Route::get('/login', [MainUserController::class, "LoginRegPageView"]);
 Route::post('/login', [MainUserController::class, "LoginUser"]) -> name('login');
 Route::post('/user-register', [MainUserController::class, "UserRegister"]) -> name('user.register');
 // email check by js validation
-Route::match(['get', 'post'],'/check-email',[MainUserController::class, "UserEmailCheck"]);
+Route::match(['get', 'post'],'/check-email', [MainUserController::class, "UserEmailCheck"]);
 
 // user account activate
-Route::match(['get', 'post'],'/confirm/{code}',[MainUserController::class, "UserAccountActivate"]) -> name('confirm');
+Route::match(['get', 'post'],'/confirm/{code}', [MainUserController::class, "UserAccountActivate"]) -> name('confirm');
 
 // user forgot password
-Route::match(['get', 'post'],'/forgot-password',[MainUserController::class, "UserForgotPassword"]) -> name('forgot.password');
+Route::match(['get', 'post'],'/forgot-password', [MainUserController::class, "UserForgotPassword"]) -> name('forgot.password');
 
-// user details update routes
+// Postal Code 
+Route::get('/postal-code/check', [FrontendProductController::class, "PostalCodeCheck"]);
+
+
+// user details update routes Auth Middleware
 Route::group(['prefix' => 'user', 'middleware' => 'auth'], function(){
     // user insert details
     Route::match(['get', 'post'],'/my-account', [MainUserController::class, "UserInsertDetails"]) -> name('myaccount');
@@ -247,7 +251,6 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function(){
 
     // apply coupon route
     Route::post('/coupon-apply', [CouponController::class, "CouponApply"]) -> name('coupon.apply');
-
 
 
     // check-out all routes
