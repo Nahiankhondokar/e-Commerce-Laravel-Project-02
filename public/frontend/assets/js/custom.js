@@ -445,7 +445,29 @@
             const total_price = $(this).attr('total_price');
             const coupon_amount = $(this).attr('coupon_amount');
             const shipping_charge = $(this).attr('shipping_charge');
+            const cod_pincode_count = $(this).attr('cod_pincode_count');
+            const prepaid_pincode_count = $(this).attr('prepaid_pincode_count');
             // alert(coupon_amount);
+
+            // checking postal code & COD payment method
+            if(cod_pincode_count > 0){
+                // show code payment method
+                $('.cod_payment').show();
+                $('.err_msg').html('');
+            }else {
+                // hide code payment method
+                $('.cod_payment').hide();
+                $('.err_msg').html(`<p style="color: red">Invalid Postal Code</p>`);
+            }
+
+             // checking postal code & Prepaid payment method
+            if(prepaid_pincode_count > 0){
+                $('.prepaid_payment').show();
+                $('.err_msg').html('');
+            }else {
+                $('.prepaid_payment').hide();
+                $('.err_msg').html(`<p style="color: red">Invalid Postal Code</p>`);
+            }
 
             $('.shipping_charges').html(`$${shipping_charge}`);
             const grandTotal = parseInt(total_price) + parseInt(shipping_charge) - parseInt(coupon_amount) ;

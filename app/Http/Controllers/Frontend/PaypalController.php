@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\ProductAttribute;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -74,6 +75,17 @@ class PaypalController extends Controller
             // send mail
             $orderDetails = Order::with('order_product') -> where('id', $order_id) -> first() -> toArray();
             $userDetails = User::where('id', $orderDetails['user_id']) -> first() -> toArray();
+
+            // stock reduce
+            foreach($orderDetails as $item){
+                $getStock = ProductAttribute::where(['product_id' => $item['product_id'], 'size' => $item['size']]) -> first() -> toArray();
+                
+                // new stock after reduce cart quantity
+                $newStock = $getStock['stock'] - $item['quantity'];
+
+                // new stock update
+                ProductAttribute::where(['product_id' => $item['product_id'], 'size' => $item['size']]) -> update(['stock' => $newStock]);
+            }
 
             $email = Auth::user() -> email;
             $messageData = [

@@ -31,7 +31,7 @@ use App\Models\Product;
 					<form class="">
 						<div class="controls">
 							@foreach($deliveryAddress as $item)
-							<input type="radio" name="address_id" id="{{$item['name']}}" style="float: left; margin-right: 5px;" value="{{$item['id']}}" shipping_charge={{$item['shipping_charge']}} coupon_amount="{{ Session::get('couponAmount') ?? 00 }}" total_price="{{$totalAmount}}">
+							<input type="radio" name="address_id" id="{{$item['name']}}" style="float: left; margin-right: 5px;" value="{{$item['id']}}" shipping_charge={{$item['shipping_charge']}} coupon_amount="{{ Session::get('couponAmount') ?? 00 }}" total_price="{{$totalAmount}}" cod_pincode_count="{{$item['cod_pincode_count']}}" prepaid_pincode_count="{{$item['prepaid_pincode_count']}}">
 
 							 <label for="{{$item['name']}}">  {{  $item['name'] }}, {{ $item['address'] }}, {{ $item['city'] }}, {{ $item['country'] }}</label>
 							 <div>
@@ -149,10 +149,15 @@ use App\Models\Product;
 					<td> 
 						<h4>Payment Methods</h4>
 						<div class="payment">
-							<input type="radio" name="payment_gateway" id="PAYPAL" style="float: left; margin-right: 5px;" value="PAYPAL">
-							<label for="PAYPAL">PAYPAL</label>
-							<input type="radio" name="payment_gateway" id="COD" style="float: left; margin-right: 5px;" value="COD">
-							<label for="COD">COD</label>
+							<span class="prepaid_payment">
+								<input type="radio" name="payment_gateway" id="PAYPAL" style="float: left; margin-right: 5px;" value="PAYPAL" class="">
+								<label for="PAYPAL">PAYPAL</label>
+							</span>
+							<span class="cod_payment">
+								<input type="radio" name="payment_gateway" id="COD" style="float: left; margin-right: 5px;" value="COD" >
+								<label for="COD">COD</label>
+							</span>
+							<span class="err_msg"></span>
 						</div>
 					</td>
 				</tr>

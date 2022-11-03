@@ -790,6 +790,17 @@ class ProductController extends Controller
                 $orderProduct -> product_price = $getDiscountAttrPrice['attrDiscountPrice'];
                 $orderProduct -> save();
 
+
+                // product stock reduce after order
+                if($request -> payment_gateway == 'COD'){
+                    $getStock = ProductAttribute::where(['product_id' => $item['product_id'], 'size' => $item['size']]) -> first() -> toArray();
+                    $newStock = $getStock['stock'] - $item['quantity'];
+
+                    // new stock update
+                    ProductAttribute::where(['product_id' => $item['product_id'], 'size' => $item['size']]) -> update(['stock' => $newStock]);
+                }
+
+
                 // if there has some isssu, then both tables will be empty.
                 DB::commit();
                 
@@ -859,9 +870,16 @@ class ProductController extends Controller
         // shipping charge define
         foreach($deliveryAddress as $key => $item){
             $charges = ShippingCharge::getShippingCharge($product_weight, $item['country']); 
-
+            // add new item with previous array
             $deliveryAddress[$key]['shipping_charge'] = $charges;
+
+            // valid postal code checking for COD
+            $deliveryAddress[$key]['cod_pincode_count'] = DB::table('postal_codes') -> where('postal_code', $item['pincode']) -> count();
+            // valid postal code checking for Prepaid
+            $deliveryAddress[$key]['prepaid_pincode_count'] = DB::table('prepaid_postal_codes') -> where('postal_code', $item['pincode']) -> count();
+
          }
+         
 
         // echo '<pre>'; print_r($deliveryAddress); die;
         // cart item checking
