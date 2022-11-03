@@ -190,6 +190,11 @@ Route::group(['prefix'  => 'admin'], function(){
     Route::post('/shipping/edit/update/{id}', [ShippingController::class, "ShippingChargeUpdate"]) -> name('shipping.update');
     Route::get('/shippe/active-inactive', [ShippingController::class, "ShippingActiveInactive"]) -> name('shipping.status');
 
+
+    // all user route
+    Route::get('/view', [UserController::class, "getAllUser"]) -> name('user.view');
+    Route::get('/active-inactive', [UserController::class, "UserActiveInactive"]);
+
 });
 
 
@@ -205,7 +210,7 @@ Route::get('/', [IndexController::class, "IndexView"]);
 
 
 // product details page
-Route::get('/product/{id}', [FrontendProductController::class, "ProductDetailsPage"]) -> name('product.details');
+Route::get('/product/details/{id}', [FrontendProductController::class, "ProductDetailsPage"]) -> name('product.details');
 Route::get('/get-price-by-product-size', [FrontendProductController::class, "ProductWiseGetPrice"]);
 
 
@@ -279,11 +284,6 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function(){
     Route::get('/paypal/success', [PaypalController::class, "PaypalSuccess"]);
     Route::get('/paypal/fail', [PaypalController::class, "PaypalFail"]);
     Route::post('/paypal/ipn', [PaypalController::class, "PaypalIPN"]);
-
-
-    // all user route
-    Route::get('/view', [UserController::class, "getAllUser"]) -> name('user.view');
-    Route::get('/active-inactive', [UserController::class, "UserActiveInactive"]);
 
 
 

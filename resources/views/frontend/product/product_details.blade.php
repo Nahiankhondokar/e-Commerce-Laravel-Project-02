@@ -54,6 +54,25 @@
             <h3> {{ ucwords($productDetails -> product_name) }} </h3>
             <h5>- {{ ucwords(@$productDetails -> getBrand -> name ?? 'No Brand') }}</h5>
             <hr class="soft"/>
+
+            @if(count($groupCode) > 0)
+                <strong>More Colors</strong>
+                @foreach($groupCode as $item)
+                <div class="group-product">
+                    @if($item['main_image'])
+                    <a href="{{ route('product.details', $item['id']) }}">
+                        <img src="{{URL::to('')}}/media/backend/product/large/{{@$item['main_image']}}" alt="" style="width: 60px"/>
+                    </a>
+                    @else 
+                    <a href="{{ route('product.details', $item['id']) }}">
+                        <img src="{{URL::to('')}}/media/no_image.jpg" alt="" style="width: 60px"/>
+                    </a>
+                    @endif
+                    {{-- <p>{{ $item['product_name'] }}</p> --}}
+                </div>
+                @endforeach
+            @endif
+
             <h5> {{ $totalStock }} items in stock</h5>
             <form class="form-horizontal qtyFrm" action="{{ route('add.to.cart') }}" method="POST">
                 @csrf

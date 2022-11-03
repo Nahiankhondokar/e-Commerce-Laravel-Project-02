@@ -116,6 +116,18 @@
                     <label>Meta Keywords</label><br>
                     <textarea name="meta_keyword" id="" style="width: 100%;" rows="2" placeholder="Description. . ." >@if(!empty(@$edit_product -> meta_keyword)) {{ $edit_product -> meta_keyword }} @else {{ old('meta_keyword') }} @endif</textarea>
                   </div>
+
+                  <div class="form-group">
+                    <label>Group Code</label>
+                    <input type="text" class="form-control" name="group_code" placeholder="Group Code" @if(!empty(@$edit_product -> group_code)) value="{{ $edit_product -> group_code }}" @else value="{{ old('group_code') }}" @endif>
+
+                    @error('group_code')
+                        <span class="text-danger">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                  </div>
+
                 </div>
                 <!-- /.col -->
                 <div class="col-md-6">

@@ -121,6 +121,7 @@ class ProductController extends Controller
             $product -> section_id      = $cat_details -> section_id;
             $product -> product_code    = $request -> product_code;
             $product -> product_color   = $request -> product_color;
+            $product -> group_code      = $request -> group_code;
             $product -> product_price   = $request -> product_price;
             $product -> product_discount = $request -> product_discount ?? 0;
             $product -> product_weight  = $request -> product_weight;

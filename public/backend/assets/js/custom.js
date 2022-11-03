@@ -583,7 +583,7 @@
         // alert(user_id); return false;
 
         $.ajax({
-          url : '/user/active-inactive',
+          url : '/admin/active-inactive',
           type : 'get',
           data : {user_id},
           success : function (data){

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('brand_id');
             $table->string('product_code');
             $table->string('product_color');
+            $table->string('group_code');
             $table->double('product_price');
             $table->double('product_discount') -> nullable();
             $table->double('product_weight') -> nullable();
