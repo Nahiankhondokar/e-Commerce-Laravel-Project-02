@@ -695,6 +695,48 @@ class ProductController extends Controller
 
         if($request -> isMethod('post')){
             // dd(Session::get('grand_total'));
+            // dd($userCartItems) -> toArray(); die;
+
+            // Prevent disabled product to order
+            foreach($userCartItems as $key => $item){
+                // get product
+                $productStatus = Product::getProductStatus($item['product_id']);
+                // print_r($productStatus); 
+
+                // inactive product delete from cart
+                if($productStatus == false){
+                    Product::deleteCartProduct($item['product_id']);
+
+                    // message
+                    $notify = [
+                        'message'       => 'This '. $item['get_product']['product_name'] .' Product is not available',
+                        'alert-type'    => "warning"
+                    ];
+ 
+                    return redirect() -> back() -> with($notify);
+
+                }
+
+                // prevent to order out of stock product
+                $productStock = Product::getProductStockCheck($item['product_id'], $item['size']);
+                if($productStock == 0){
+                    
+                    // delete cart product
+                    Product::deleteCartProduct($item['product_id']);
+
+                    // message
+                    $notify = [
+                        'message'       => 'This '. $item['get_product']['product_name'] .' Product is Out Of Stock',
+                        'alert-type'    => "error"
+                    ];
+ 
+                    return redirect() -> to('cart') -> with($notify);
+
+                    
+                }
+                
+            }
+
 
             // validation
             if(empty($request -> address_id)){
