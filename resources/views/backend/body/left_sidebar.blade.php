@@ -132,6 +132,14 @@
               </a>
             </li>
 
+            <li class="nav-item">
+              <a href="{{ route('user.view') }}" class="nav-link {{ ($route == 'user.view') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>All User</p>
+              </a>
+            </li>
+
+
           </ul>
         </li>
 

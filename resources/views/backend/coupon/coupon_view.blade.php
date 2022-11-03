@@ -78,7 +78,7 @@
                         
                         <a title="Delete" id="delete" href="{{ route('coupon.delete', $item -> id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                       </td>
-                </tr>
+                  </tr>
                    @endforeach
                   </tbody>
                 </table>

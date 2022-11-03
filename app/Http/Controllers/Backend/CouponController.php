@@ -28,7 +28,7 @@ class CouponController extends Controller
 
 
 
-    // banner active or inactive status
+    // coupon active or inactive status
     public function CouponActiveInactive(Request $request){
 
         $status_data = Coupon::find($request -> coupon_id);

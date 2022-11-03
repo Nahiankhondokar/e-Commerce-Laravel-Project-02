@@ -8,6 +8,7 @@
       // Data Table js file
       $("#section").DataTable();
       $("#category").DataTable();
+      $("#dataTable").DataTable();
 
 
       //===================== section Scripts =====================
@@ -574,6 +575,31 @@
 
       });
     
+
+      //===================== User Status UPdate Scripts ======================
+      $(document).on('click', '.userActiveInactive', function(){
+
+        let user_id = $(this).attr('user_id');
+        // alert(user_id); return false;
+
+        $.ajax({
+          url : '/user/active-inactive',
+          type : 'get',
+          data : {user_id},
+          success : function (data){
+            // alert(data);
+            if(data == 'active'){
+              $('#user-'+user_id).html('<a class="badge badge-success"  href="javascript:void(0)"><i class="fa fa-toggle-on" style="font-size : 20px"></i></a>');
+              $('#user_active-btn'+user_id).hide();
+            }else {
+              $('#user-'+user_id).html('<a class="badge badge-danger" href="javascript:void(0)"><i class="fa fa-toggle-off" style="font-size : 20px"></i></a>')
+              $('#user_inactive-btn'+user_id).hide();
+            }
+          }
+        });
+
+      });
+      
 
 
     //   // Add extra item in fee category amount page

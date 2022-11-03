@@ -10,12 +10,14 @@ use App\Http\Controllers\Backend\ProductBrandController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SectionController;
 use App\Http\Controllers\Backend\ShippingController;
+use App\Http\Controllers\Backend\UserController;
+
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\MainUserController;
 use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\PaypalController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
-use App\Http\Controllers\Frontend\UserController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -277,6 +279,12 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function(){
     Route::get('/paypal/success', [PaypalController::class, "PaypalSuccess"]);
     Route::get('/paypal/fail', [PaypalController::class, "PaypalFail"]);
     Route::post('/paypal/ipn', [PaypalController::class, "PaypalIPN"]);
+
+
+    // all user route
+    Route::get('/view', [UserController::class, "getAllUser"]) -> name('user.view');
+    Route::get('/active-inactive', [UserController::class, "UserActiveInactive"]);
+
 
 
 });
