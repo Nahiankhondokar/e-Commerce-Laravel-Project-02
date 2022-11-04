@@ -131,6 +131,9 @@ class MainUserController extends Controller
 
                 Auth::logout();
 
+                // delete all session data
+                Session::flash();
+
                 // msg
                 $notify = [
                     'message'       => 'Please Activate Your Account',

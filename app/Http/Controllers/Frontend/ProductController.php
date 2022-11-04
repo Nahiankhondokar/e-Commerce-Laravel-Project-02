@@ -469,11 +469,18 @@ class ProductController extends Controller
                 'quantity'  => 'required'
             ]);
 
+            // validation
+            if($request -> quantity == 0){
+                $productQuantity = 1;
+            }else {
+                $productQuantity = $request -> quantity;
+            }
+
             // get product stock
             $getStock = ProductAttribute::where('product_id', $request -> product_id) -> where('size', $request -> size) -> first();
 
             // stock validation 
-            if($getStock -> stock < $request -> quantity){
+            if($getStock -> stock < $productQuantity){
                 // msg  
                 $notify = [
                     'message'       => 'Quantity is not available',
@@ -515,7 +522,7 @@ class ProductController extends Controller
                 'product_id'        => $request -> product_id,
                 'user_id'           => Auth::user() -> id ?? 0,
                 'size'              => $request -> size,
-                'quantity'          => $request -> quantity,
+                'quantity'          => $productQuantity,
             ]);
 
 
@@ -697,8 +704,9 @@ class ProductController extends Controller
         foreach($userCartItems as $item){
             $discount = Product::getAttrDiscountPrice($item['product_id'], $item['size']);
             $totalAmount = $totalAmount + ($discount['attrDiscountPrice'] * $item['quantity']); 
-            $product_weight = $product_weight + $item['get_product']['product_weight'];
+            $product_weight = $product_weight + ($item['get_product']['product_weight'] * $item['quantity']);
         }
+        // dd($product_weight);  die;
 
         if($request -> isMethod('post')){
             // dd(Session::get('grand_total'));
@@ -799,7 +807,7 @@ class ProductController extends Controller
 
             // shipping charge
             $ShippingCharge = ShippingCharge::getShippingCharge($product_weight, $deliveryAddress['country']);
-
+           
             // calculate total price with shipping charge
             $grand_total = $totalAmount + $ShippingCharge - Session::get('couponAmount');
             Session::put('grand_total', $grand_total);
@@ -930,7 +938,7 @@ class ProductController extends Controller
             // print_r($item); die;
             $discount = Product::getAttrDiscountPrice($item['product_id'], $item['size']);
             $totalAmount = $totalAmount + ($discount['attrDiscountPrice'] * $item['quantity']); 
-            $product_weight = $product_weight + $item['get_product']['product_weight'];
+            $product_weight = $product_weight + ($item['get_product']['product_weight'] * $item['quantity']);
 
             // echo $product_weight; die;
         }
