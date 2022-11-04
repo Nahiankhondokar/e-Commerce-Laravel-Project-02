@@ -1,0 +1,11 @@
+#searchBtn {
+    position: absolute;
+    right: 1px;
+    bottom: 2px;
+    background: transparent;
+    color: rgb(180, 179, 179);
+    border: 1px solid #e9e9e9;
+    border-radius: 12px;
+    padding: 2px 5px;
+    transition: 0.3s;
+}

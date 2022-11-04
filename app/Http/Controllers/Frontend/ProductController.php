@@ -30,6 +30,8 @@ class ProductController extends Controller
      * product filter combindly
      */
     public function ProductListing(Request $request){
+
+        // pagnation method
         Paginator::useBootstrap();
         
         // filtering system by ajax
@@ -378,7 +380,23 @@ class ProductController extends Controller
             $catCount = Category::where(['url' => $url, 'status' => 1]) -> count();
             $searchUrl = Category::where(['url' => $url, 'status' => 1]) -> first();
 
-            if($catCount > 0){
+            // search product
+            if(@$_REQUEST['search'] && !empty($_REQUEST['search'])){
+                $serch_product = $_REQUEST['search'];
+                $catDetails['category_name'] = $serch_product;
+                $catDetails['description'] = 'Result for Search '.$serch_product;
+                $catWiseProduct = Product::with('getBrand') -> where(function($query)use($serch_product){
+                    $query -> where('product_name', 'LIKE', '%'.$serch_product.'%') -> orWhere('product_code', 'LIKE', '%'.$serch_product.'%'); 
+                }) -> where('status', 1);
+
+                $catWiseProduct = $catWiseProduct -> get();
+
+                // product fabric filter option
+                $page_name = 'list';
+
+                return view('frontend.product.product_list', compact('catWiseProduct', 'catDetails', 'page_name'));
+
+            }else if($catCount > 0){
                 $catDetails = Category::select('id', 'category_name', 'url', 'description', 'parent_id') -> with('subcategories', function($query){
                     $query -> select('id', 'parent_id', 'description', 'category_name', 'parent_id') -> where('status', 1);
                 }) -> where(['url' => $url]) -> first() -> toArray();

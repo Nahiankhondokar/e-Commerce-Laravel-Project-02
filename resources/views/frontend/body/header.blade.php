@@ -47,8 +47,9 @@
 					@endforeach
 		            <li><a href="#">About</a></li>
 		          </ul>
-		          <form class="navbar-search pull-left" action="#">
-		            <input type="text" class="search-query span2" placeholder="Search"/>
+		          <form class="navbar-search pull-left" action="#" method="get">
+		            <input name="search" type="text" class="search-query span2" placeholder="Search" width="60%"/>
+					<button type="submit" id="searchBtn">Search</button>
 		          </form>
 		          <ul class="nav pull-right">
 		            <li><a href="{{ route('order.view') }}">Orders</a></li>

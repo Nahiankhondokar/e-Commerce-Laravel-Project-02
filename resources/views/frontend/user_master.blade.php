@@ -29,6 +29,9 @@
 	<link rel="apple-touch-icon-precomposed" href="{{asset('frontend/assets/images/ico/apple-touch-icon-57-precomposed.png')}}">
 	<style type="text/css" id="enject"></style>
 
+	<!-- CSS File -->
+	<link href="{{asset('frontend/assets/css/style.css')}}" rel="stylesheet"/>
+
 	{{-- Toster css file --}}
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
 	

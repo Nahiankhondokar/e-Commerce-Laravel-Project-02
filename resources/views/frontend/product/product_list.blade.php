@@ -19,6 +19,8 @@
         {{ (@$catDetails['description']) ? $catDetails['description'] : 'No Description Found' }}
     </p>
     <hr class="soft"/>
+
+    @if(!isset($_REQUEST['search']))
     <form class="form-horizontal span6" method="GET" name="sortProducts" id="sortProducts">
         <input type="hidden" name="url" id="url" value="{{ $catDetails['url'] }}">
         <div class="control-group">
@@ -37,6 +39,7 @@
             </select>
         </div>
     </form>
+    @endif
 
     <br class="clr"/>
     <div class="tab-content filter_products">
@@ -45,13 +48,14 @@
     <a href="compair.html" class="btn btn-large pull-right">Compare Product</a>
     <div class="pagination">
 
-        {{-- // pagination with product filtering  --}}
-        @if(isset($_GET['sort']) && !empty($_GET['sort']))
-            {{  $catWiseProduct->appends(['sort' => $_GET['sort']]) -> links() }}
-        @else 
-            {{ $catWiseProduct -> links() }}
+        @if(!isset($_REQUEST['search']))
+            {{-- // pagination with product filtering  --}}
+            @if(isset($_GET['sort']) && !empty($_GET['sort']))
+                {{  $catWiseProduct->appends(['sort' => $_GET['sort']]) -> links() }}
+            @else 
+                {{ $catWiseProduct -> links() }}
+            @endif
         @endif
-        
 
 
 

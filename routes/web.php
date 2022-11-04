@@ -208,6 +208,8 @@ foreach ($CatsUrl as $url) {
 }
 Route::get('/', [IndexController::class, "IndexView"]);
 
+// product search
+Route::get('/search', [FrontendProductController::class, "ProductListing"]);
 
 // product details page
 Route::get('/product/details/{id}', [FrontendProductController::class, "ProductDetailsPage"]) -> name('product.details');
