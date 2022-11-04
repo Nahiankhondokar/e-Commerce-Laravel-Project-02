@@ -583,7 +583,7 @@
         // alert(user_id); return false;
 
         $.ajax({
-          url : '/admin/active-inactive',
+          url : '/admin/user/active-inactive',
           type : 'get',
           data : {user_id},
           success : function (data){
@@ -594,6 +594,31 @@
             }else {
               $('#user-'+user_id).html('<a class="badge badge-danger" href="javascript:void(0)"><i class="fa fa-toggle-off" style="font-size : 20px"></i></a>')
               $('#user_inactive-btn'+user_id).hide();
+            }
+          }
+        });
+
+      });
+
+      
+      //===================== User Status UPdate Scripts ======================
+      $(document).on('click', '.CMSActiveInactive', function(){
+
+        let CMS_id = $(this).attr('CMS_id');
+        // alert(user_id); return false;
+
+        $.ajax({
+          url : '/admin/CMS/active-inactive',
+          type : 'get',
+          data : {CMS_id},
+          success : function (data){
+            // alert(data);
+            if(data == 'active'){
+              $('#CMS-'+CMS_id).html('<a class="badge badge-success"  href="javascript:void(0)"><i class="fa fa-toggle-on" style="font-size : 20px"></i></a>');
+              $('#CMS_active-btn'+CMS_id).hide();
+            }else {
+              $('#CMS-'+CMS_id).html('<a class="badge badge-danger" href="javascript:void(0)"><i class="fa fa-toggle-off" style="font-size : 20px"></i></a>')
+              $('#CMS_inactive-btn'+CMS_id).hide();
             }
           }
         });

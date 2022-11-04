@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\CMSController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\MainAdminController;
 use App\Http\Controllers\Backend\OrderController as BackendOrderController;
@@ -193,7 +194,12 @@ Route::group(['prefix'  => 'admin'], function(){
 
     // all user route
     Route::get('/view', [UserController::class, "getAllUser"]) -> name('user.view');
-    Route::get('/active-inactive', [UserController::class, "UserActiveInactive"]);
+    Route::get('/user/active-inactive', [UserController::class, "UserActiveInactive"]);
+
+
+    // all CMS route
+    Route::get('/CMS/View', [CMSController::class, "CMSView"]) -> name('cms.view');
+    Route::get('/CMS/active-inactive', [CMSController::class, "CMSActiveInactive"]);
 
 });
 
