@@ -113,7 +113,7 @@
                   <div class="form-group">
                     <label>Select Categories</label>
                     <select id="" class="form-control select2" name="categories[]" multiple >
-                        <option value="" disabled > -Select- </option>
+                        <option value="" disabled selected > -Select- </option>
                         @foreach($section as $item)
                         <optgroup label="{{ ucwords($item -> name) }}"></optgroup>
   
@@ -140,7 +140,7 @@
                   <div class="form-group">
                     <label>Select Users</label>
                     <select id="" class="form-control select2" name="users[]" multiple >
-                        <option value="" disabled > -Select- </option>
+                        <option value="" disabled selected> -Select- </option>
                         @foreach($users as $item)
                         <option value="{{ $item -> email }}" @if(in_array($item -> email, @$allUser)) selected="" @endif>{{ $item -> email }}</option>
                         @endforeach

@@ -28,8 +28,8 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">All CMS</h3>
-                <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#productBrandAdd">Add CMS</button>
+                <h3 class="card-title">All CMS Page</h3>
+                <a href="{{ route('cms.add.edit') }}" class="btn btn-info float-right">Add CMS Page</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -64,9 +64,9 @@
 
                     </td>
                      <td>
-                         <a title="Edit" href="{{ route('coupon.edit.add', $item -> id) }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
+                         <a title="Edit" href="{{ route('cms.add.edit', $item -> id) }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
                          
-                         <a title="Delete" id="delete" href="{{ route('coupon.delete', $item -> id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                         <a title="Delete" id="delete" href="{{ route('cms.delete', $item -> id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                        </td>
                    </tr>
                     @endforeach

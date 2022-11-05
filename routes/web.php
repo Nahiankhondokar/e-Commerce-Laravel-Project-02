@@ -200,6 +200,8 @@ Route::group(['prefix'  => 'admin'], function(){
     // all CMS route
     Route::get('/CMS/View', [CMSController::class, "CMSView"]) -> name('cms.view');
     Route::get('/CMS/active-inactive', [CMSController::class, "CMSActiveInactive"]);
+    Route::match(['get', 'post'],'/cms-page/add/edit/{id?}', [CMSController::class, "CMSPageAddEdit"]) -> name('cms.add.edit');
+    Route::get('/CMS/Page/delete/{id}', [CMSController::class, "CMSPageDelete"]) -> name('cms.delete');
 
 });
 
