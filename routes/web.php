@@ -12,7 +12,7 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SectionController;
 use App\Http\Controllers\Backend\ShippingController;
 use App\Http\Controllers\Backend\UserController;
-
+use App\Http\Controllers\Frontend\CMSController as FrontendCMSController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\MainUserController;
 use App\Http\Controllers\Frontend\OrderController;
@@ -39,7 +39,9 @@ use Illuminate\Support\Facades\Route;
 
 // category route manage
 use App\Models\Category;
+use App\Models\CMSPage;
 $CatsUrl = Category::select('url') -> where('status', 1) -> get() -> pluck('url');
+$CMSUrl = CMSPage::select('url') -> where('status', 1) -> get() -> pluck('url');
 // echo '<pre>'; print_r($CatsUrl); die;
 
 // admin auth route
@@ -214,6 +216,19 @@ Route::group(['prefix'  => 'admin'], function(){
 foreach ($CatsUrl as $url) {
     Route::get('/'.$url, [FrontendProductController::class, "ProductListing"]);
 }
+
+// category wise product get
+foreach ($CMSUrl as $url) {
+    Route::get('/'.$url, [FrontendCMSController::class, "CMSPageView"]);
+}
+
+// cms contact page route
+Route::match(['GET', 'POST'], '/contact', [FrontendCMSController::class, 'ContactPage']) -> name('contact');
+
+
+
+
+// home page route
 Route::get('/', [IndexController::class, "IndexView"]);
 
 // product search
@@ -248,6 +263,10 @@ Route::match(['get', 'post'],'/forgot-password', [MainUserController::class, "Us
 
 // Postal Code 
 Route::get('/postal-code/check', [FrontendProductController::class, "PostalCodeCheck"]);
+
+
+// 
+
 
 
 // user details update routes Auth Middleware
