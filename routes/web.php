@@ -211,6 +211,8 @@ Route::group(['prefix'  => 'admin'], function(){
     Route::get('/admin-subadmin/active-inactive', [AdminRoleController::class, "AdminSubAmdinActiveInactive"]);
 
     Route::get('/admin-subadmin/delete/{id}', [AdminRoleController::class, "AdminSubAmdinDelete"]) -> name('admin.subadmin.delete');
+    // admin role add or edit route
+    Route::match(['get', 'post'],'/admin-subadmin/add/edit/{id?}', [AdminRoleController::class, "AdminSubAmdinAddEdit"]) -> name('admin.role.add.edit');
 
 
 });
