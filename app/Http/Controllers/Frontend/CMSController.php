@@ -18,9 +18,14 @@ class CMSController extends Controller
         // url() -> current(); // get Full url
         // echo $currentRoute;
 
-        CMSPage::where(['url' => $currentRoute, 'status' => 1]) -> first();
+        $csmPage = CMSPage::where(['url' => $currentRoute, 'status' => 1]) -> first();
 
-        return view('frontend.cms.cms_view');
+        // seo items & page title
+        $meta_title = $csmPage -> title;
+        $meta_description = $csmPage -> meta_desc;
+        $meta_keywords = $csmPage -> meta_keyword;
+
+        return view('frontend.cms.cms_view', compact('meta_title', 'meta_description', 'meta_keywords', 'csmPage'));
 
     }
 

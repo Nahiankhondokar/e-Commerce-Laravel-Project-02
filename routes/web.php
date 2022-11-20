@@ -217,9 +217,9 @@ foreach ($CatsUrl as $url) {
     Route::get('/'.$url, [FrontendProductController::class, "ProductListing"]);
 }
 
-// category wise product get
+// cms pages view
 foreach ($CMSUrl as $url) {
-    Route::get('/'.$url, [FrontendCMSController::class, "CMSPageView"]);
+    Route::get('/'.$url, [FrontendCMSController::class, "CMSPageView"]) -> name('cms-page');
 }
 
 // cms contact page route

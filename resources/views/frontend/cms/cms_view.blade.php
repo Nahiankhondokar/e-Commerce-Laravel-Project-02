@@ -11,9 +11,9 @@
 <div class="span9">
     <ul class="breadcrumb">
 		<li><a href="index.html">Home</a> <span class="divider">/</span></li>
-		<li class="active">Terms and Conditions</li>
+		<li class="active">{{ $csmPage -> title}}</li>
     </ul>
-	<h3> Terms and Conditions</h3>	
+	<h3> {{ $csmPage -> title}}</h3>	
 	<hr class="soft"/>
 	<h5>Lorem ipsum dolor sit amet</h5><br/>
 	<p>

@@ -24,10 +24,15 @@ class IndexController extends Controller
         // echo '<pre>'; print_r($new_product_arr); die;
 
 
+        // seo items & page title
+        $meta_title = 'E-commerce Website';
+        $meta_description = 'This is an E-commerce Online Shop';
+        $meta_keywords = 'e-commerce, shop, webiste, course, laravel, php';
+
         // specify banners only show in home page
         $page_name = 'index';
 
-        return view('frontend.index', compact('page_name', 'featureItemChunk', 'featureItemCount', 'new_product_arr'));
+        return view('frontend.index', compact('page_name', 'featureItemChunk', 'featureItemCount', 'new_product_arr', 'meta_title', 'meta_description', 'meta_keywords'));
     }
 
 

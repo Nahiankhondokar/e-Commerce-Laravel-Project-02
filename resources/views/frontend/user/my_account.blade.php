@@ -52,14 +52,14 @@
                     <div class="control-group">
                         {{-- <label class="control-label" for="inputEmail0">E-mail address</label> --}}
                         <div class="controls">
-                            <input type="text" class="span3"  name="address" id="address"  placeholder="Address" value="{{old('address')}}" >
+                            <input type="text" class="span3"  name="address" id="address"  placeholder="Address" value="{{ $userDetails -> address }}" >
                         </div>
                     </div>
 
                     <div class="control-group">
                         {{-- <label class="control-label" for="inputEmail0">E-mail address</label> --}}
                         <div class="controls">
-                            <input type="text" class="span3"  name="city" id="city"  placeholder="City" value="{{old('city')}}" >
+                            <input type="text" class="span3"  name="city" id="city"  placeholder="City" value="{{ $userDetails -> city }}" >
                         </div>
                     </div>
 
@@ -79,7 +79,7 @@
                     <div class="control-group">
                         {{-- <label class="control-label" for="inputEmail0">E-mail address</label> --}}
                         <div class="controls">
-                            <input type="text" class="span3"  name="pincode" id="pincode"  placeholder="Pincode" value="{{old('pincode')}}" >
+                            <input type="text" class="span3"  name="pincode" id="pincode"  placeholder="Pincode" value="{{ $userDetails -> pincode }}" >
                         </div>
                     </div>
 

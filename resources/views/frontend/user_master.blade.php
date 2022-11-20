@@ -2,9 +2,25 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
+	@if (!empty($meta_title))
+	<title>{{ ucwords($meta_title) }}</title>
+	@else
 	<title>Stack Developers online Shopping cart</title>
+	@endif
+
+	@if (!empty($meta_description))
+	<meta name="description" content="{{$meta_description}}">
+	@else
+	<meta name="description" content="This is an e-commerce online">
+	@endif
+
+	@if (!empty($meta_keywords))
+	<meta name="keywords" content="{{$meta_keywords}}">
+	@else
+	<meta name="keywords" content="e-commerce, shop, webiste, course, laravel, php">
+	@endif
+
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="">
 	<meta name="author" content="">
 	
 	<!-- CSRF Token -->

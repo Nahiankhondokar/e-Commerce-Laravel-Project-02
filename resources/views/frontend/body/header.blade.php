@@ -45,7 +45,7 @@
 		            	</li>
 						@endif
 					@endforeach
-		            <li><a href="#">About</a></li>
+		            <li><a href="about-us">About</a></li>
 		          </ul>
 		          <form class="navbar-search pull-left" action="#" method="get">
 		            <input name="search" type="text" class="search-query span2" placeholder="Search" width="60%"/>

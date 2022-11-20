@@ -369,12 +369,20 @@ class ProductController extends Controller
 
                 $catDetails = $categoryDetails['catDetails'];
 
-                return view('frontend.product.ajax_product_listing', compact('catWiseProduct', 'breadcum', 'catDetails'));
+                // seo items & page title change
+                $meta_title = $categoryDetails['catDetails']['meta_title'];
+                $meta_description = $categoryDetails['catDetails']['meta_description'];
+                $meta_keywords = $categoryDetails['catDetails']['meta_keyword'];
+
+                return view('frontend.product.ajax_product_listing', compact('catWiseProduct', 'breadcum', 'catDetails', 'meta_title', 'meta_description', 'meta_keywords'));
             }else{
                 abort(404);
             }
             
         }else{
+            //filtergin system by php
+
+            // get uri
             $url = Route::getFacadeRoot() -> current() -> uri();
 
             $catCount = Category::where(['url' => $url, 'status' => 1]) -> count();
@@ -426,7 +434,10 @@ class ProductController extends Controller
                 // all static filter item from product model
                 $allFilters = Product::getAllFilters();
 
-                return view('frontend.product.product_list', compact('catWiseProduct', 'catDetails', 'breadcum', 'page_name'), $allFilters);
+                // seo items & page title change
+                $meta_title = $catDetails['category_name'];
+
+                return view('frontend.product.product_list', compact('catWiseProduct', 'catDetails', 'breadcum', 'page_name', 'meta_title'), $allFilters);
 
             }else{
                 abort(404);
@@ -455,7 +466,10 @@ class ProductController extends Controller
         // echo '<pre>'; print_r($relatedProduct); die;
         // dd($relatedProduct);
 
-        return view('frontend.product.product_details', compact('productDetails', 'productGalleris', 'totalStock', 'relatedProduct', 'groupCode'));
+        // seo items & page title change
+        $meta_title = $productDetails['product_name'];
+
+        return view('frontend.product.product_details', compact('productDetails', 'productGalleris', 'totalStock', 'relatedProduct', 'groupCode', 'meta_title'));
     }
 
 
@@ -561,7 +575,9 @@ class ProductController extends Controller
         $userCartItems = Cart::userCartItems();
         // echo '<pre>'; print_r($userCartItems); die;
 
-        return view('frontend.product.cart_view', compact('userCartItems'));
+        // seo items & page title change
+        $meta_title = 'Cart';
+        return view('frontend.product.cart_view', compact('userCartItems', 'meta_title'));
     }
 
 
@@ -988,7 +1004,10 @@ class ProductController extends Controller
             return redirect() -> back() -> with($notify);
         }
 
-        return view('frontend.checkout.checkout_view', compact('userCartItems', 'deliveryAddress', 'totalAmount'));
+        // page title change
+        $meta_title = 'Checkout';
+
+        return view('frontend.checkout.checkout_view', compact('userCartItems', 'deliveryAddress', 'totalAmount', 'meta_title'));
     }
 
 
@@ -999,7 +1018,10 @@ class ProductController extends Controller
         if(Session::has('order_id')){
             // delete all cart item after order is placed
             Cart::where('user_id', Auth::id()) -> delete();
-            return view('frontend.checkout.thank_you');
+            
+            // page title
+            $meta_title = 'Thansk For Shopping';
+            return view('frontend.checkout.thank_you', compact('meta_title'));
 
              // session delete
              Session::forget('grand_total');

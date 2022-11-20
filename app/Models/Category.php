@@ -29,7 +29,7 @@ class Category extends Model
 
     // get all filter product category
     public static function catDetails($url) {
-        $catDetails = Category::select('id', 'category_name', 'url', 'description', 'parent_id') -> with('subcategories', function($query){
+        $catDetails = Category::select('id', 'category_name', 'url', 'description', 'parent_id','meta_title', 'meta_description', 'meta_keyword') -> with('subcategories', function($query){
             $query -> select('id', 'parent_id', 'description', 'category_name', 'parent_id') -> where('status', 1);
         }) -> where(['url' => $url]) -> first() -> toArray();
 
