@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\AdminRoleController;
 use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CMSController;
@@ -204,6 +205,11 @@ Route::group(['prefix'  => 'admin'], function(){
     Route::get('/CMS/active-inactive', [CMSController::class, "CMSActiveInactive"]);
     Route::match(['get', 'post'],'/cms-page/add/edit/{id?}', [CMSController::class, "CMSPageAddEdit"]) -> name('cms.add.edit');
     Route::get('/CMS/Page/delete/{id}', [CMSController::class, "CMSPageDelete"]) -> name('cms.delete');
+
+    // Admin or SubAdmins all routes
+    Route::get('/admin-subadmin/view', [AdminRoleController::class, "AdminSubAmdinView"]) -> name('admin.subadmin.view');
+    Route::get('/admin-subadmin/active-inactive', [AdminRoleController::class, "AdminSubAmdinActiveInactive"]);
+
 
 });
 

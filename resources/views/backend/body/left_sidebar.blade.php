@@ -146,6 +146,13 @@
               </a>
             </li>
 
+            <li class="nav-item">
+              <a href="{{ route('admin.subadmin.view') }}" class="nav-link {{ ($route == 'admin.subadmin.view') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Admin/SubAdmin</p>
+              </a>
+            </li>
+
 
           </ul>
         </li>
