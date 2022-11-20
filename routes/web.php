@@ -210,6 +210,8 @@ Route::group(['prefix'  => 'admin'], function(){
     Route::get('/admin-subadmin/view', [AdminRoleController::class, "AdminSubAmdinView"]) -> name('admin.subadmin.view');
     Route::get('/admin-subadmin/active-inactive', [AdminRoleController::class, "AdminSubAmdinActiveInactive"]);
 
+    Route::get('/admin-subadmin/delete/{id}', [AdminRoleController::class, "AdminSubAmdinDelete"]) -> name('admin.subadmin.delete');
+
 
 });
 

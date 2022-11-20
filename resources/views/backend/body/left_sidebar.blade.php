@@ -146,13 +146,14 @@
               </a>
             </li>
 
+            @if(Auth::guard('admin') -> user() -> type == 'superadmin' || Auth::guard('admin') -> user() -> type == 'admin')
             <li class="nav-item">
               <a href="{{ route('admin.subadmin.view') }}" class="nav-link {{ ($route == 'admin.subadmin.view') ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Admin/SubAdmin</p>
               </a>
             </li>
-
+            @endif
 
           </ul>
         </li>

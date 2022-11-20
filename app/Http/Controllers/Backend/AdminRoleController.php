@@ -5,13 +5,18 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminRoleController extends Controller
 {
     // adimin or subadmin page view
     public function AdminSubAmdinView(){
-        $allAdmin = Admin::get();
-        return view('backend.admin.admin_role') -> with(compact('allAdmin'));
+        if(Auth::guard('admin') -> user() -> type == 'admin' || Auth::guard('admin') -> user() -> type == 'superadmin'){
+            $allAdmin = Admin::get();
+            return view('backend.admin.admin_role') -> with(compact('allAdmin'));
+        }else {
+            return redirect('admin/dashboard');
+        }
     }
 
 
@@ -35,6 +40,22 @@ class AdminRoleController extends Controller
         }
 
     }
+    
 
+    // product attribuet delete
+    public function AdminSubAmdinDelete($id){
+
+        $Admin = Admin::find($id);
+        $Admin -> delete();
+
+            // msg
+        $notify = [
+            'message'       => 'Admin Role Deleted',
+            'alert-type'    => "info"
+        ];
+
+        return redirect() -> back() -> with($notify);
+    
+    }
 
 }

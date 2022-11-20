@@ -41,9 +41,8 @@
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Type</th>
-                    <th>Status</th>
+                    {{-- <th>Status</th> --}}
                     <th>Action</th>
-                    {{-- <th>Action</th> --}}
 
                   </tr>
                   </thead>
@@ -55,7 +54,7 @@
                      <td>{{ $item -> email }}</td>
                      <td>{{ $item -> phone }}</td>
                      <td>{{ $item -> type }}</td>
-                     <td>
+                     {{-- <td>
                          @if($item -> status == 1)
                          <div class="AdminActiveInactive" id="admin-{{$item -> id}}" admin_id="{{$item -> id}}">
                              <a id="admin_active-btn-{{$item -> id}}" class="badge badge-success"  href="javascript:void(0)"><i class="fa fa-toggle-on" style="font-size : 20px"></i></a>
@@ -66,12 +65,14 @@
                          </div>
                          @endif
  
-                     </td>
+                     </td> --}}
                      <td>
+                        @if($item -> type != 'superadmin')
                          <a title="Edit" href="{{ route('coupon.edit.add', $item -> id) }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
                          
-                         <a title="Delete" id="delete" href="{{ route('coupon.delete', $item -> id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                         <a title="Delete" id="delete" href="{{ route('admin.subadmin.delete', $item -> id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                        </td>
+                       @endif
                    </tr>
                     @endforeach
                   </tbody>
