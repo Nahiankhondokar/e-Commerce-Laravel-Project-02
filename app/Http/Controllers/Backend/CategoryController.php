@@ -21,7 +21,11 @@ class CategoryController extends Controller
         // admin category permission
         $catPermission = AdminRole::where(['admin_id' => Auth::guard('admin') -> user() -> id, 'module' => 'categories']) -> count(); 
         // dd($catPermission); die;
-        if($catPermission == 0){
+        if(Auth::guard('admin') -> user() -> type == 'superadmin'){
+            $catModule['view_access'] = 1;
+            $catModule['edit_access'] = 1;
+            $catModule['full_access'] = 1;
+        }else if($catPermission == 0){
             // msg
             $notify = [
                 'message'       => "You Can not Access Category",

@@ -30,7 +30,11 @@ class ProductController extends Controller
         // admin product permission
         $productPermission = AdminRole::where(['admin_id' => Auth::guard('admin') -> user() -> id, 'module' => 'product']) -> count(); 
         // dd($catPermission); die;
-        if($productPermission == 0){
+        if(Auth::guard('admin') -> user() -> type == 'superadmin'){
+            $productModule['view_access'] = 1;
+            $productModule['edit_access'] = 1;
+            $productModule['full_access'] = 1;
+        }else if($productPermission == 0){
             // msg
             $notify = [
                 'message'       => "You Can not Access Product",

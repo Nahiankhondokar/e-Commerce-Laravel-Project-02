@@ -103,7 +103,7 @@
                 <input type="checkbox" id="proview" {{@$proView}} name="product[view]" value="1">
                 <label for="proview">View Access</label>
                 <input type="checkbox" id="proedit" {{@$proEdit}} name="product[edit]" value="1">
-                <label for="proedit">Edit Access</label>
+                <label for="proedit">View/Edit Access</label>
                 <input type="checkbox" id="profull" {{@$proFull}} name="product[full]" value="1">
                 <label for="profull">Full Access</label>
               </div>
@@ -136,7 +136,7 @@
                 <input type="checkbox" id="couview" {{@$couponView}} name="coupon[view]" value="1">
                 <label for="couview">View Access</label>
                 <input type="checkbox" id="couedit" {{@$couponEdit}} name="coupon[edit]" value="1">
-                <label for="couedit">Edit Access</label>
+                <label for="couedit">View/Edit Access</label>
                 <input type="checkbox" id="coufull" {{@$couponFull}} name="coupon[full]" value="1">
                 <label for="coufull">Full Access</label>
               </div>
@@ -170,7 +170,7 @@
                 <input type="checkbox" id="orderview" {{@$orderView}} name="order[view]" value="1">
                 <label for="orderview">View Access</label>
                 <input type="checkbox" id="orderedit" {{@$orderEdit}} name="order[edit]" value="1">
-                <label for="orderedit">Edit Access</label>
+                <label for="orderedit">View/Edit Access</label>
                 <input type="checkbox" id="orderfull" {{@$orderFull}} name="order[full]" value="1">
                 <label for="orderfull">Full Access</label>
               </div>

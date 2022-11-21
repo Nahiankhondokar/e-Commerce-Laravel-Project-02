@@ -27,7 +27,11 @@ class CouponController extends Controller
         // admin coupon permission
         $couponPermission = AdminRole::where(['admin_id' => Auth::guard('admin') -> user() -> id, 'module' => 'coupon']) -> count(); 
         // dd($catPermission); die;
-        if($couponPermission == 0){
+        if(Auth::guard('admin') -> user() -> type == 'superadmin'){
+            $couponModule['view_access'] = 1;
+            $couponModule['edit_access'] = 1;
+            $couponModule['full_access'] = 1;
+        }else if($couponPermission == 0){
             // msg
             $notify = [
                 'message'       => "You Can not Access Coupon",
