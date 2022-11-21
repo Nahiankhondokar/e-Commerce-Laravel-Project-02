@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\AdminRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -49,7 +50,7 @@ class AdminRoleController extends Controller
         $Admin = Admin::find($id);
         $Admin -> delete();
 
-            // msg
+        // msg
         $notify = [
             'message'       => 'Admin Role Deleted',
             'alert-type'    => "info"
@@ -167,5 +168,65 @@ class AdminRoleController extends Controller
 
     }
     
+
+    // admin permission define
+    public function roleUpdate($id, Request $request){
+
+        // update admin permission
+        if($request -> isMethod('post')){
+            // dd($request -> all()); die;
+            $data = $request-> all();
+            // make token unset
+            unset($data['_token']);
+
+            // previous permission delete
+            AdminRole::where('admin_id', $id) -> delete();
+
+            // permissions
+            foreach ($data as $key => $value) {
+                if(@$value['view']){
+                    $view = $value['view'];
+                }else {
+                    $view = 0;
+                }
+
+                if(@$value['edit']){
+                    $edit = $value['edit'];
+                }else {
+                    $edit = 0;
+                }
+
+                if(@$value['full']){
+                    $full = $value['full'];
+                }else {
+                    $full = 0;
+                }
+
+                // permission insert
+                AdminRole::where('admin_id', $id) -> insert([
+                    'admin_id'          => $id,
+                    'view_access'       => $view,
+                    'edit_access'       => $edit,
+                    'full_access'       => $full,
+                    'module'            => $key
+                ]);
+            }
+
+            // msg
+            $notify = [
+                'message'       => 'Permission Updated',
+                'alert-type'    => "info"
+            ];
+
+            return redirect() -> back() -> with($notify);
+
+        }
+
+        $admin_details = Admin::find($id);
+        $title = "Admin Roles Update of ".$admin_details->name.'||'.$admin_details->type;
+        $admin_id = $id;
+        $adminRoles = AdminRole::where('admin_id', $id) -> get() -> toArray();
+        return view('backend.admin.update_admin_role', compact('title', 'admin_id', 'adminRoles'));
+    }
 
 }

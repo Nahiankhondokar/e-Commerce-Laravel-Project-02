@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\AdminRole;
 use App\Models\Cart;
 use App\Models\Coupon;
 use App\Models\CreateSection;
@@ -22,7 +23,21 @@ class CouponController extends Controller
         $coupon = Coupon::all();
         // $data = json_decode(json_encode($allData));
         // echo "<pre>"; print_r($data);
-        return view('backend.coupon.coupon_view', compact('coupon'));
+
+        // admin coupon permission
+        $couponPermission = AdminRole::where(['admin_id' => Auth::guard('admin') -> user() -> id, 'module' => 'coupon']) -> count(); 
+        // dd($catPermission); die;
+        if($couponPermission == 0){
+            // msg
+            $notify = [
+                'message'       => "You Can not Access Coupon",
+                'alert-type'    => "error"
+            ];
+            return redirect() -> back() -> with($notify);
+        }else {
+            $couponModule = AdminRole::where(['admin_id' => Auth::guard('admin') -> user() -> id, 'module' => 'coupon']) -> first() -> toArray(); 
+        }
+        return view('backend.coupon.coupon_view', compact('coupon', 'couponModule'));
 
     }
 

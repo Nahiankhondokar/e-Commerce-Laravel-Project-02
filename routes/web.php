@@ -214,6 +214,10 @@ Route::group(['prefix'  => 'admin'], function(){
     // admin role add or edit route
     Route::match(['get', 'post'],'/admin-subadmin/add/edit/{id?}', [AdminRoleController::class, "AdminSubAmdinAddEdit"]) -> name('admin.role.add.edit');
 
+    // admin roles define
+    Route::match(['get', 'post'],'/role-update/add/edit/{id?}', [AdminRoleController::class, "roleUpdate"]) -> name('role.add.edit');
+
+
 
 });
 

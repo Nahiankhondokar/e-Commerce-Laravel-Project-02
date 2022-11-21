@@ -53,22 +53,37 @@
                       <td>{{ ucwords($item -> parentCategory -> category_name ?? 'Root') }}</td>
                       <td>{{ ucwords($item -> section -> name) }}</td>
                       <td>{{ $item -> url }}</td>
+                     
                       <td>
-                        @if($item -> status == 1)
-                        <div class="categoryActiveInactive" id="category-{{$item -> id}}" category_id="{{ $item -> id }}">
-                          <a id="cat_active-btn-{{$item -> id}}" class="badge badge-success" href="javascript:void(0)">Active</a>
-                        </div>
+                        @if($catModule['edit_access'] == 1 || $catModule['full_access'] == 1)
+                          @if($item -> status == 1)
+                          <div class="categoryActiveInactive" id="category-{{$item -> id}}" category_id="{{ $item -> id }}">
+                            <a id="cat_active-btn-{{$item -> id}}" class="badge badge-success" href="javascript:void(0)">Active</a>
+                          </div>
+                          @else 
+                          <div class="categoryActiveInactive" id="category-{{$item -> id}}" category_id="{{ $item -> id }}">
+                            <a id="cat_inactive-btn-{{$item -> id}}" class="badge badge-danger"  href="javascript:void(0)">Inactive</a>
+                          </div>
+                          @endif
                         @else 
-                        <div class="categoryActiveInactive" id="category-{{$item -> id}}" category_id="{{ $item -> id }}">
-                          <a id="cat_inactive-btn-{{$item -> id}}" class="badge badge-danger"  href="javascript:void(0)">Inactive</a>
-                        </div>
+                        <span style="color: red">No Access</span>
                         @endif
-
-                        <td>
-                          <a href="{{ route('category.edit', $item -> id) }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
-                          <a id="delete" href="{{ route('category.delete', $item -> id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                        </td>
                       </td>
+                       
+                      <td>
+                        @if($catModule['edit_access'] == 1 || $catModule['full_access'] == 1)
+                          <a href="{{ route('category.edit', $item -> id) }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
+
+                          @if($catModule['full_access'] == 1)
+                          <a id="delete" href="{{ route('category.delete', $item -> id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                          @endif
+
+                        @else 
+                          <span style="color: red">No Access</span>
+
+                        @endif
+                      </td>
+                      
                     </tr>
                   @endforeach
                   </tbody>

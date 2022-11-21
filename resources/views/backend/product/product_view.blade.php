@@ -75,26 +75,38 @@
 
                       
                       <td>
-                        @if($item -> status == 1)
-                        <div class="productActiveInactive" id="product-{{$item -> id}}" product_id="{{ $item -> id }}">
-                          <a id="product_active-btn-{{$item -> id}}" class="badge badge-success" href="javascript:void(0)">Active</a>
-                        </div>
+                        @if($productModule['edit_access'] == 1 || $productModule['full_access'] == 1)
+                          @if($item -> status == 1)
+                          <div class="productActiveInactive" id="product-{{$item -> id}}" product_id="{{ $item -> id }}">
+                            <a id="product_active-btn-{{$item -> id}}" class="badge badge-success" href="javascript:void(0)">Active</a>
+                          </div>
+                          @else 
+                          <div class="productActiveInactive" id="product-{{$item -> id}}" product_id="{{ $item -> id }}">
+                            <a id="product_inactive-btn-{{$item -> id}}" class="badge badge-danger"  href="javascript:void(0)">Inactive</a>
+                          </div>
+                          @endif
                         @else 
-                        <div class="productActiveInactive" id="product-{{$item -> id}}" product_id="{{ $item -> id }}">
-                          <a id="product_inactive-btn-{{$item -> id}}" class="badge badge-danger"  href="javascript:void(0)">Inactive</a>
-                        </div>
+                          <span style="color: red">No Access</span>
+
                         @endif
 
                       </td>
 
                       <td width="140px">
-                        <a title="Product Attribute" href="{{ route('product.add.edit.attr', $item -> id) }}" class="btn btn-sm btn-info"><i class="fa fa-plus"></i></a>
+                        @if($productModule['edit_access'] == 1 || $productModule['full_access'] == 1)
+                          <a title="Product Attribute" href="{{ route('product.add.edit.attr', $item -> id) }}" class="btn btn-sm btn-info"><i class="fa fa-plus"></i></a>
 
-                        <a title="Add Gallery" href="{{ route('product.gallery.add', $item -> id) }}" class="btn btn-sm btn-primary"><i class="fa fa-image"></i></a>
+                          <a title="Add Gallery" href="{{ route('product.gallery.add', $item -> id) }}" class="btn btn-sm btn-primary"><i class="fa fa-image"></i></a>
 
-                        <a title="Edit" href="{{ route('product.add.edit', $item -> id) }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
-                        
-                        <a title="Delete" id="delete" href="{{ route('category.delete', $item -> id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                          <a title="Edit" href="{{ route('product.add.edit', $item -> id) }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
+
+                          @if($productModule['full_access'] == 1)
+                          <a title="Delete" id="delete" href="{{ route('category.delete', $item -> id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                          @endif
+
+                        @else 
+                          <span style="color: red">No Access</span>
+                        @endif
                       </td>
 
                     </tr>

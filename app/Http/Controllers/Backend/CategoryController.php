@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\AdminRole;
 use App\Models\Category;
 use App\Models\CreateSection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -15,7 +17,22 @@ class CategoryController extends Controller
         $allData = Category::with(['section', 'parentCategory', 'subcategories']) -> get();
         // $data = json_decode(json_encode($allData));
         // echo "<pre>"; print_r($data);
-        return view('backend.category.category_view', compact('allData'));
+
+        // admin category permission
+        $catPermission = AdminRole::where(['admin_id' => Auth::guard('admin') -> user() -> id, 'module' => 'categories']) -> count(); 
+        // dd($catPermission); die;
+        if($catPermission == 0){
+            // msg
+            $notify = [
+                'message'       => "You Can not Access Category",
+                'alert-type'    => "error"
+            ];
+            return redirect() -> back() -> with($notify);
+        }else {
+            $catModule = AdminRole::where(['admin_id' => Auth::guard('admin') -> user() -> id, 'module' => 'categories']) -> first() -> toArray(); 
+        }
+
+        return view('backend.category.category_view', compact('allData', 'catModule'));
 
     }
 

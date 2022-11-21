@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\AdminRole;
 use App\Models\Category;
 use App\Models\CreateSection;
 use App\Models\Product;
@@ -10,6 +11,7 @@ use App\Models\ProductAttribute;
 use App\Models\ProductBrand;
 use App\Models\ProductGallery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Image;
 
 class ProductController extends Controller
@@ -24,7 +26,21 @@ class ProductController extends Controller
 
         // $data = json_decode(json_encode($product));
         // echo "<pre>"; print_r($data);
-        return view('backend.product.product_view', compact('product'));
+
+        // admin product permission
+        $productPermission = AdminRole::where(['admin_id' => Auth::guard('admin') -> user() -> id, 'module' => 'product']) -> count(); 
+        // dd($catPermission); die;
+        if($productPermission == 0){
+            // msg
+            $notify = [
+                'message'       => "You Can not Access Product",
+                'alert-type'    => "error"
+            ];
+            return redirect() -> back() -> with($notify);
+        }else {
+            $productModule = AdminRole::where(['admin_id' => Auth::guard('admin') -> user() -> id, 'module' => 'product']) -> first() -> toArray(); 
+        }
+        return view('backend.product.product_view', compact('product', 'productModule'));
 
     }
     

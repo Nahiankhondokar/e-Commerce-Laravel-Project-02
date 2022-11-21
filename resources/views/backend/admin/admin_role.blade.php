@@ -70,7 +70,7 @@
                      <td>
                       @if(!empty($item -> profile_photo_path))
 
-                        <img style="width: 40px" src="{{URL::to('')}}/media/backend/admin/{{$item -> profile_photo_path}}" alt="">
+                        <img style="width: 40px; height: 40px; border-radius: 50%;" src="{{URL::to('')}}/media/backend/admin/{{$item -> profile_photo_path}}" alt="">
 
                       @else
                         <img style="width: 40px" src="{{URL::to('')}}/media/no_image.jpg" alt="">
@@ -78,6 +78,8 @@
                     </td>
                      <td>
                         @if($item -> type != 'superadmin')
+                        <a title="Role" href="{{ route('role.add.edit', $item -> id) }}" class="btn btn-sm btn-warning"><i class="fa fa-lock"></i></a>
+
                          <a title="Edit" href="{{ route('admin.role.add.edit', $item -> id) }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
                          
                          <a title="Delete" id="delete" href="{{ route('admin.subadmin.delete', $item -> id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
