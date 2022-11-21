@@ -155,6 +155,14 @@
             </li>
             @endif
 
+            
+            <li class="nav-item">
+              <a href="{{ route('currencie.view') }}" class="nav-link {{ ($route == 'currencie.view') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Currency Convert</p>
+              </a>
+            </li>
+
           </ul>
         </li>
 

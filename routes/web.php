@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CMSController;
 use App\Http\Controllers\Backend\CouponController;
+use App\Http\Controllers\Backend\CurrencieController;
 use App\Http\Controllers\Backend\MainAdminController;
 use App\Http\Controllers\Backend\OrderController as BackendOrderController;
 use App\Http\Controllers\Backend\ProductBrandController;
@@ -217,6 +218,9 @@ Route::group(['prefix'  => 'admin'], function(){
     // admin roles define
     Route::match(['get', 'post'],'/role-update/add/edit/{id?}', [AdminRoleController::class, "roleUpdate"]) -> name('role.add.edit');
 
+
+    // currencie all routes
+    Route::get('/currencie/view', [CurrencieController::class, "CurrencieView"]) -> name('currencie.view');
 
 
 });
