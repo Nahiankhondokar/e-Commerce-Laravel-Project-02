@@ -742,6 +742,27 @@ class ProductController extends Controller
         }
         // dd($product_weight);  die;
 
+
+        // Minimun cart amount validation
+        if($totalAmount<500){
+            // message
+            $notify = [
+                'message'       => 'Minimun Amount Shoud Be $500',
+                'alert-type'    => "warning"
+            ];
+            return redirect() -> back()  -> with($notify);
+        }
+
+        // Maximum cart amount validation
+        if($totalAmount > 50000){
+            // message
+            $notify = [
+                'message'       => 'Maximum Amount Shoud Be $50000',
+                'alert-type'    => "warning"
+            ];
+            return redirect() -> back()  -> with($notify);
+        }
+
         if($request -> isMethod('post')){
             // dd(Session::get('grand_total'));
             // dd($userCartItems) -> toArray(); die;

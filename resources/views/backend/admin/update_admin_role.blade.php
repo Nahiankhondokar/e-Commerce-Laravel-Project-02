@@ -103,7 +103,7 @@
                 <input type="checkbox" id="proview" {{@$proView}} name="product[view]" value="1">
                 <label for="proview">View Access</label>
                 <input type="checkbox" id="proedit" {{@$proEdit}} name="product[edit]" value="1">
-                <label for="proedit">View/Edit Access</label>
+                <label for="proedit">View/Edit Access</label>''
                 <input type="checkbox" id="profull" {{@$proFull}} name="product[full]" value="1">
                 <label for="profull">Full Access</label>
               </div>
