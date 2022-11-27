@@ -29,11 +29,11 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">All Currencie</h3>
-                {{-- <a href="{{ route('cms.add.edit') }}" class="btn btn-info float-right">Add Currencie</a> --}}
+                <a href="{{ route('currencie.add.edit') }}" class="btn btn-info float-right">Add Currencie</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table class="table table-bordered table-striped" id="dataTable">
+                <table class="table table-bordered table-striped">
                   <thead>
                   <tr>
                     <th>SR</th>
@@ -64,7 +64,7 @@
 
                     </td>
                      <td>
-                         <a title="Edit" href="{{ route('cms.add.edit', $item -> id) }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
+                         <a title="Edit" href="{{ route('currencie.add.edit', $item -> id) }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
                          
                          <a title="Delete" id="delete" href="{{ route('cms.delete', $item -> id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                        </td>
