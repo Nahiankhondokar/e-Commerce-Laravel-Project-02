@@ -53,12 +53,12 @@
                      <td>{{ $item -> currnecie_rate }}</td>
                      <td>
                         @if($item -> status == 1)
-                        <div class="CMSActiveInactive" id="CMS-{{$item -> id}}" CMS_id="{{$item -> id}}">
-                            <a id="CMS_active-btn-{{$item -> id}}" class="badge badge-success"  href="javascript:void(0)"><i class="fa fa-toggle-on" style="font-size : 20px"></i></a>
+                        <div class="currencieAtiveInactive" id="currencie-{{$item -> id}}" currencie_id="{{$item -> id}}">
+                            <a id="currencie_active-btn-{{$item -> id}}" class="badge badge-success"  href="javascript:void(0)"><i class="fa fa-toggle-on" style="font-size : 20px"></i></a>
                         </div>
                         @else 
-                        <div class="CMSActiveInactive" id="CMS-{{$item -> id}}" CMS_id="{{$item -> id}}">
-                            <a id="CMS_active-btn-{{$item -> id}}" class="badge badge-danger"  href="javascript:void(0)"><i class="fa fa-toggle-on" style="font-size : 20px"></i></a>
+                        <div class="currencieAtiveInactive" id="currencie-{{$item -> id}}" currencie_id="{{$item -> id}}">
+                            <a id="currencie_active-btn-{{$item -> id}}" class="badge badge-danger"  href="javascript:void(0)"><i class="fa fa-toggle-on" style="font-size : 20px"></i></a>
                         </div>
                         @endif
 

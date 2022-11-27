@@ -638,6 +638,32 @@
             });
         });
 
+        //===================== Currencie Status UPdate Scripts ======================
+        $(document).on("click", ".currencieAtiveInactive", function () {
+            let currencie_id = $(this).attr("currencie_id");
+            // alert(admin_id); return false;
+
+            $.ajax({
+                url: "/admin/currencie/active-inactive",
+                type: "get",
+                data: { currencie_id },
+                success: function (data) {
+                    // alert(data);
+                    if (data == "active") {
+                        $("#currencie-" + currencie_id).html(
+                            '<a class="badge badge-success"  href="javascript:void(0)"><i class="fa fa-toggle-on" style="font-size : 20px"></i></a>'
+                        );
+                        $("#currencie_active-btn" + currencie_id).hide();
+                    } else {
+                        $("#currencie-" + currencie_id).html(
+                            '<a class="badge badge-danger" href="javascript:void(0)"><i class="fa fa-toggle-off" style="font-size : 20px"></i></a>'
+                        );
+                        $("#currencie_inactive-btn" + currencie_id).hide();
+                    }
+                },
+            });
+        });
+
         //   // Add extra item in fee category amount page
         //   $(document).on('click', '.addEventMore', function(e){
         //     e.preventDefault();

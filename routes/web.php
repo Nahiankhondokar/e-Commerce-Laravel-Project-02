@@ -221,7 +221,7 @@ Route::group(['prefix'  => 'admin'], function(){
 
     // currencie all routes
     Route::get('/currencie/view', [CurrencieController::class, "CurrencieView"]) -> name('currencie.view');
-
+    Route::get('/currencie/active-inactive', [CurrencieController::class, "CurrencieActiveInactive"]);
 
 });
 

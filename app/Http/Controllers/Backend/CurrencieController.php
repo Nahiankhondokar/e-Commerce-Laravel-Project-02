@@ -13,4 +13,25 @@ class CurrencieController extends Controller
         $allCurrencie = Currencie::get();
         return view('backend.currencie.currencie_view') -> with(compact('allCurrencie'));
     }
+
+
+    // Currencie active or inactive status
+    public function CurrencieActiveInactive(Request $request){
+
+        $status_data = Currencie::find($request -> currencie_id);
+
+        if($status_data -> status == 1){
+            $update = Currencie::find($request -> currencie_id);
+            $update -> status = 0;
+            $update -> update();
+            return 'inactive';
+
+        }else {
+            $update = Currencie::find($request -> currencie_id);
+            $update -> status = 1;
+            $update -> update();
+            return 'active';
+        }
+
+    }
 }
