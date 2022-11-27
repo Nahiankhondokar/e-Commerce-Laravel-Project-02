@@ -57,11 +57,11 @@ class CurrencieController extends Controller
         // request method checking
         if($request -> isMethod('post')){
             // dd($request -> all()); die;
-            
+
             // validation
             $this -> validate($request, [
                 'currnecie_code'   => 'required',
-                'currnecie_rate'   => 'required'
+                'currnecie_rate'   => 'required|integer'
             ]);
 
             // data insert
@@ -84,6 +84,21 @@ class CurrencieController extends Controller
             'edit_data'     => $edit_data,
             'title'         => $title,
         ]);
+    }
+
+
+    // Currencie Delete
+    public function CurrencieDelete ($id) {
+
+        Currencie::find($id) -> delete();
+
+        // msg
+        $notify = [
+            'message'       => 'Currencie Deleted',
+            'alert-type'    => "info"
+        ];
+
+        return redirect() -> back() -> with($notify);
     }
 
 }

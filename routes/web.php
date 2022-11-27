@@ -224,6 +224,7 @@ Route::group(['prefix'  => 'admin'], function(){
     Route::get('/currencie/active-inactive', [CurrencieController::class, "CurrencieActiveInactive"]);
 
     Route::match(['get', 'post'],'/currencie/add/edit/{id?}', [CurrencieController::class, "CurrencieAddEdit"]) -> name('currencie.add.edit');
+    Route::get('/currencie/delete/{id}', [CurrencieController::class, "CurrencieDelete"]) -> name('currencie.delete');
 
 
 });

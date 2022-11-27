@@ -66,7 +66,7 @@
                      <td>
                          <a title="Edit" href="{{ route('currencie.add.edit', $item -> id) }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
                          
-                         <a title="Delete" id="delete" href="{{ route('cms.delete', $item -> id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                         <a title="Delete" id="delete" href="{{ route('currencie.delete', $item -> id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
                        </td>
                    </tr>
                     @endforeach

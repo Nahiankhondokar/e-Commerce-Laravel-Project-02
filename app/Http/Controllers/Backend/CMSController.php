@@ -95,7 +95,7 @@ class CMSController extends Controller
     }
 
 
-    // cms view
+    // cms delete
     public function CMSPageDelete ($id) {
 
         CMSPage::find($id) -> delete();
