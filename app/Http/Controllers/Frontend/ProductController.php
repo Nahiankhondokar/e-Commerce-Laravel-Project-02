@@ -16,6 +16,7 @@ use App\Models\DeliveryAddress;
 use App\Models\ProductAttribute;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Currencie;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -455,6 +456,9 @@ class ProductController extends Controller
         $productGalleris = ProductGallery::where('product_id', $id) -> where('status', 1) -> get() -> pluck('images');
         $totalStock = ProductAttribute::where('product_id', $id) -> sum('stock');
 
+        // all currencie
+        $all_currencie = Currencie::where('status', 1) -> get() -> toArray();
+
         // group code
         $groupCode = [];
         if(@$productDetails -> group_code){
@@ -469,7 +473,7 @@ class ProductController extends Controller
         // seo items & page title change
         $meta_title = $productDetails['product_name'];
 
-        return view('frontend.product.product_details', compact('productDetails', 'productGalleris', 'totalStock', 'relatedProduct', 'groupCode', 'meta_title'));
+        return view('frontend.product.product_details', compact('productDetails', 'productGalleris', 'totalStock', 'relatedProduct', 'groupCode', 'meta_title', 'all_currencie'));
     }
 
 
@@ -483,9 +487,20 @@ class ProductController extends Controller
             // $getPrice = ProductAttribute::where('product_id', $request -> product_id) -> where('size', $request -> size) -> first();
 
             $getDiscount = Product::getAttrDiscountPrice($request -> product_id, $request -> size);
-
+            // all currencie
+            $all_currencie = Currencie::where('status', 1) -> get() -> toArray();
+            $currencie = '';
+            foreach($all_currencie as $item){
+                $currencie .= '<br>';
+                $currencie .= $item['currnecie_code'];
+                $currencie .= round($getDiscount['attrPrice'] -> price / $item['currnecie_rate'], 2);
+            }
+            
             // dd($getPrice);
-            return $getDiscount;
+            return [
+                "currencie"     => $currencie,
+                "getDiscount"   => $getDiscount,
+            ];
         }
 
     }

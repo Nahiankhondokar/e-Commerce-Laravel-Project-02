@@ -84,12 +84,18 @@
                     @endphp
                     {{-- <h3>Product Price</h3> --}}
                     @if($discount > 0)
-                    <h4 class="getAttrPriceWithDiscount"><del>${{ $productDetails -> product_price }}</del> - ${{ $discount }} 
+                    <h5 class="getAttrPriceWithDiscount"><del>${{ $productDetails -> product_price }}</del> - ${{ $discount }} 
                         
-                    </h4>
+                    </h5>
                     @else
-                    <h4 id="getAttrPriceWithOutDiscount">${{ $productDetails -> product_price }} </h4>
+                    <h5 id="getAttrPriceWithOutDiscount">${{ $productDetails -> product_price }} </h5>
                     @endif 
+
+                    <h5 class="currencie_items">
+                        @foreach($all_currencie as $item)
+                        {{ $item['currnecie_code'] }}  {{ round($productDetails -> product_price/$item['currnecie_rate'], 2) }}<br>
+                        @endforeach
+                    </h5>
 
                     @error('quantity')
                         <span class="text-danger" style="color: red">
