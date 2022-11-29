@@ -307,7 +307,7 @@
                     <div class="row">
                         <div class="span4">
                             <h4>Write Your Review</h4>
-                            <form action="{{ route('add.rating') }}" method="post">
+                            <form action="{{ route('add.rating') }}" method="post" name="ratingForm" id="ratingForm">
                                 @csrf
                                 <div class="rate">
                                     <input type="radio" id="star5" name="rate" value="5" />
@@ -321,7 +321,13 @@
                                     <input type="radio" id="star1" name="rate" value="1" />
                                     <label for="star1" title="text">1 star</label>
                                 </div>
-                                <textarea name="" id="" cols="0" rows="0" placeholder="Write Your Review"></textarea> <br>
+                                <div class="form-group">
+                                    <textarea name="review" cols="0" rows="0" placeholder="Write Your Review" style="width: 100%" required></textarea> 
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <input type="hidden" name="product_id" value="{{ $productDetails -> id }}">
+                                </div>
                                 <input type="submit" value="Submit" class="btn btn-info btn-sm">
                             </form>
                         </div>

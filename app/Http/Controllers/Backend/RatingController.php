@@ -47,9 +47,50 @@ class RatingController extends Controller
                 'alert-type'    => "warning"
             ];
             return redirect() -> back() -> with($notify);
+        }else {
+                // dd($request -> all()); die;
+            $user_id = Auth::guard('web') -> user() -> id;
+                // dd($user_id);die;
+
+            // rating validation
+            $ratings = Rating::where(['user_id' => $user_id, 'product_id' => $request -> product_id]) -> count();
+            if($ratings > 0){
+                // msg
+                $notify = [
+                    'message'       => "Your rating already exists for this product",
+                    'alert-type'    => "warning"
+                ];
+                return redirect() -> back() -> with($notify);
+            }else {
+
+                // validation
+                if(!$request -> rate || !$request -> review){
+                    // msg
+                    $notify = [
+                        'message'       => "Ratign & Reviews are required",
+                        'alert-type'    => "error"
+                    ];
+                    return redirect() -> back() -> with($notify);
+                }
+
+                // insert new rating
+                Rating::insert([
+                    'user_id'       => $user_id,
+                    'product_id'    => $request -> product_id,
+                    'review'        => $request -> review,
+                    'rating'        => $request -> rate
+                ]);
+    
+                // msg
+                $notify = [
+                    'message'       => "Review is submited",
+                    'alert-type'    => "success"
+                ];
+                return redirect() -> back() -> with($notify);
+            }
         }
 
-        
+
 
     }
 
