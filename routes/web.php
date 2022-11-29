@@ -14,13 +14,15 @@ use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SectionController;
 use App\Http\Controllers\Backend\ShippingController;
 use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Backend\RatingController;
+
 use App\Http\Controllers\Frontend\CMSController as FrontendCMSController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\MainUserController;
 use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\PaypalController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
-use App\Http\Controllers\RatingController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -82,7 +84,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin']], function(){
  */
 Route::get('/admin/logout', [AdminController::class, "destroy"]) -> name('admin.logout');
 
-Route::group(['prefix'  => 'admin'], function(){
+Route::group(['prefix'  => 'admin', 'middleware' => 'auth'], function(){
 
     // admin profile
     Route::get('/profile', [MainAdminController::class, "AdminProfile"]) -> name('admin.profile');
@@ -252,9 +254,6 @@ foreach ($CMSUrl as $url) {
 // cms contact page route
 Route::match(['GET', 'POST'], '/contact', [FrontendCMSController::class, 'ContactPage']) -> name('contact');
 
-
-
-
 // home page route
 Route::get('/', [IndexController::class, "IndexView"]);
 
@@ -291,8 +290,8 @@ Route::match(['get', 'post'],'/forgot-password', [MainUserController::class, "Us
 // Postal Code 
 Route::get('/postal-code/check', [FrontendProductController::class, "PostalCodeCheck"]);
 
-
-// 
+// rating routes
+Route::post('/add-rating', [RatingController::class, "AddRating"]) -> name('add.rating');
 
 
 

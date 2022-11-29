@@ -149,6 +149,8 @@
                 @if(@$productDetails -> product_video)
                 <li><a href="#video" data-toggle="tab">Product Video</a></li>
                 @endif
+                <li><a href="#review" data-toggle="tab">Product Review</a></li>
+
             </ul>
             <div id="myTabContent" class="tab-content">
                 <div class="tab-pane fade active in" id="home">
@@ -300,6 +302,32 @@
                     <video src="{{ url('media/backend/product/videos/'.$productDetails -> product_video) }}" type="video/mp4" controls="" width="640" height="480"></video>
                 </div>
                 @endif
+
+                <div class="tab-pane fade" id="review">
+                    <div class="row">
+                        <div class="span4">
+                            <h4>Write Your Review</h4>
+                            <form action="{{ route('add.rating') }}" method="post">
+                                @csrf
+                                <div class="rate">
+                                    <input type="radio" id="star5" name="rate" value="5" />
+                                    <label for="star5" title="text">5 stars</label>
+                                    <input type="radio" id="star4" name="rate" value="4" />
+                                    <label for="star4" title="text">4 stars</label>
+                                    <input type="radio" id="star3" name="rate" value="3" />
+                                    <label for="star3" title="text">3 stars</label>
+                                    <input type="radio" id="star2" name="rate" value="2" />
+                                    <label for="star2" title="text">2 stars</label>
+                                    <input type="radio" id="star1" name="rate" value="1" />
+                                    <label for="star1" title="text">1 star</label>
+                                </div>
+                                <textarea name="" id="" cols="0" rows="0" placeholder="Write Your Review"></textarea> <br>
+                                <input type="submit" value="Submit" class="btn btn-info btn-sm">
+                            </form>
+                        </div>
+                        <div class="span4">hi</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

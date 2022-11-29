@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 
+use App\Http\Controllers\Controller;
 use App\Models\Rating;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RatingController extends Controller
 {
@@ -35,5 +37,20 @@ class RatingController extends Controller
     }
 
 
+    // add rating
+    public function AddRating(Request $request){
+
+        if(!Auth::check()){
+            // msg
+            $notify = [
+                'message'       => "You can not review without login",
+                'alert-type'    => "warning"
+            ];
+            return redirect() -> back() -> with($notify);
+        }
+
+        
+
+    }
 
 }

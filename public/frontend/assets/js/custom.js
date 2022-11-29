@@ -482,5 +482,7 @@
                 },
             });
         });
+
+        // ============== Product Rating & Review Scripts ===============
     });
 })(jQuery);
