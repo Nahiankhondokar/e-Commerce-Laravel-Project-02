@@ -20,7 +20,7 @@ use App\Http\Controllers\Frontend\MainUserController;
 use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\PaypalController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
-
+use App\Http\Controllers\RatingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -225,6 +225,11 @@ Route::group(['prefix'  => 'admin'], function(){
 
     Route::match(['get', 'post'],'/currencie/add/edit/{id?}', [CurrencieController::class, "CurrencieAddEdit"]) -> name('currencie.add.edit');
     Route::get('/currencie/delete/{id}', [CurrencieController::class, "CurrencieDelete"]) -> name('currencie.delete');
+
+
+    // rating all routes
+    Route::get('/rating/view', [RatingController::class, "RatingView"]) -> name('rating.view');
+    Route::get('/rating/active-inactive', [RatingController::class, "RatingActiveInactive"]);
 
 
 });

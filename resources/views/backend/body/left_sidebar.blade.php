@@ -159,6 +159,13 @@
               </a>
             </li>
 
+            <li class="nav-item">
+              <a href="{{ route('rating.view') }}" class="nav-link {{ ($route == 'rating.view') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Ratings</p>
+              </a>
+            </li>
+
           </ul>
         </li>
 

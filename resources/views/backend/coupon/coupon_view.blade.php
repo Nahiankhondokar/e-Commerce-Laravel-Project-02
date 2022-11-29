@@ -49,46 +49,46 @@
                   <tbody id="">
                    @foreach($coupon as $key => $item)
                    <tr>
-                    <td>{{ $key + 1 }}</td>
-                    <td>{{ $item -> coupon_option }}</td>
-                    <td>{{ $item -> coupon_type }}</td>
-                    <td>{{ $item -> amount }}
-                        @if($item -> amount_type == 'Percentage')
-                        %
-                        @else
-                        $
-                        @endif
-                    </td>
-                    <td>{{ $item -> users }}</td>
-                    <td>{{ $item -> expire_date }}</td>
-                    <td>
-                      @if($couponModule['edit_access'] == 1 || $couponModule['full_access'] == 1)
-                        @if($item -> status == 1)
-                        <div class="couponActiveInactive" id="coupon-{{$item -> id}}" coupon_id="{{$item -> id}}">
-                            <a id="coupon_active-btn-{{$item -> id}}" class="badge badge-success"  href="javascript:void(0)"><i class="fa fa-toggle-on" style="font-size : 20px"></i></a>
-                        </div>
-                        @else 
-                        <div class="couponActiveInactive" id="coupon-{{$item -> id}}" coupon_id="{{$item -> id}}">
-                            <a id="coupon_active-btn-{{$item -> id}}" class="badge badge-danger"  href="javascript:void(0)"><i class="fa fa-toggle-on" style="font-size : 20px"></i></a>
-                        </div>
-                        @endif
-                      @else 
-                        <span style="color: red">No Access</span>
-                      @endif
-                    </td>
-                    <td>
-                      @if($couponModule['edit_access'] == 1 || $couponModule['full_access'] == 1)
-                        <a title="Edit" href="{{ route('coupon.edit.add', $item -> id) }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
-                        
-                        @if($couponModule['full_access'] == 1)
-                          <a title="Delete" id="delete" href="{{ route('coupon.delete', $item -> id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-                        @endif
-                      @else 
-                        <span style="color: red">No Access</span>
-                      @endif
-                  </tr>
+                      <td>{{ $key + 1 }}</td>
+                      <td>{{ $item -> coupon_option }}</td>
+                      <td>{{ $item -> coupon_type }}</td>
+                      <td>{{ $item -> amount }}
+                          @if($item -> amount_type == 'Percentage')
+                          %
+                          @else
+                          $
+                          @endif
                       </td>
-
+                      <td>{{ $item -> users }}</td>
+                      <td>{{ $item -> expire_date }}</td>
+                      <td>
+                        @if($couponModule['edit_access'] == 1 || $couponModule['full_access'] == 1)
+                          @if($item -> status == 1)
+                          <div class="couponActiveInactive" id="coupon-{{$item -> id}}" coupon_id="{{$item -> id}}">
+                              <a id="coupon_active-btn-{{$item -> id}}" class="badge badge-success"  href="javascript:void(0)"><i class="fa fa-toggle-on" style="font-size : 20px"></i></a>
+                          </div>
+                          @else 
+                          <div class="couponActiveInactive" id="coupon-{{$item -> id}}" coupon_id="{{$item -> id}}">
+                              <a id="coupon_active-btn-{{$item -> id}}" class="badge badge-danger"  href="javascript:void(0)"><i class="fa fa-toggle-on" style="font-size : 20px"></i></a>
+                          </div>
+                          @endif
+                        @else 
+                          <span style="color: red">No Access</span>
+                        @endif
+                      </td>
+                      <td>
+                        @if($couponModule['edit_access'] == 1 || $couponModule['full_access'] == 1)
+                          <a title="Edit" href="{{ route('coupon.edit.add', $item -> id) }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
+                          
+                          @if($couponModule['full_access'] == 1)
+                            <a title="Delete" id="delete" href="{{ route('coupon.delete', $item -> id) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                          @endif
+                        @else 
+                          <span style="color: red">No Access</span>
+                        @endif
+                    
+                      </td>
+                    </tr>
                       
                    @endforeach
                   </tbody>

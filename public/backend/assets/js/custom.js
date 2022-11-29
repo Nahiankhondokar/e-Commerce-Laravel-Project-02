@@ -612,27 +612,27 @@
             });
         });
 
-        //===================== Admin or SubAdmin Status UPdate Scripts ======================
-        $(document).on("click", ".AdminActiveInactive", function () {
-            let admin_id = $(this).attr("admin_id");
+        //===================== Rating Status UPdate Scripts ======================
+        $(document).on("click", ".ratingActiveInactive", function () {
+            let rating_id = $(this).attr("rating_id");
             // alert(admin_id); return false;
 
             $.ajax({
-                url: "/admin/admin-subadmin/active-inactive",
+                url: "/admin/rating/active-inactive",
                 type: "get",
-                data: { admin_id },
+                data: { rating_id },
                 success: function (data) {
                     // alert(data);
                     if (data == "active") {
-                        $("#admin-" + admin_id).html(
+                        $("#rating-" + rating_id).html(
                             '<a class="badge badge-success"  href="javascript:void(0)"><i class="fa fa-toggle-on" style="font-size : 20px"></i></a>'
                         );
-                        $("#admin_active-btn" + admin_id).hide();
+                        $("#rating_active-btn" + rating_id).hide();
                     } else {
-                        $("#admin-" + admin_id).html(
+                        $("#rating-" + rating_id).html(
                             '<a class="badge badge-danger" href="javascript:void(0)"><i class="fa fa-toggle-off" style="font-size : 20px"></i></a>'
                         );
-                        $("#admin_inactive-btn" + admin_id).hide();
+                        $("#rating_inactive-btn" + rating_id).hide();
                     }
                 },
             });
