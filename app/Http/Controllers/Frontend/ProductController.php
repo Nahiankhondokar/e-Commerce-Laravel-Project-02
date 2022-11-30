@@ -9,6 +9,7 @@ use App\Models\Country;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\OrderProduct;
+use App\Models\Rating;
 use Illuminate\Http\Request;
 use App\Models\ProductGallery;
 use App\Models\ShippingCharge;
@@ -459,6 +460,16 @@ class ProductController extends Controller
         // all currencie
         $all_currencie = Currencie::where('status', 1) -> get() -> toArray();
 
+        // get all rating data
+        $ratings = Rating::with('getUser') -> where('status', 1) -> where('product_id', $id) -> orderBy('id', 'desc') -> get() -> toArray();
+            // dd($ratings); die;
+
+        // get average rating
+        $ratingCount = Rating::where('status', 1) -> where('product_id', $id) -> count();
+        $ratingSum = Rating::where('status', 1) -> where('product_id', $id) -> sum('rating');
+        $averageRating = $ratingSum / $ratingCount;
+
+
         // group code
         $groupCode = [];
         if(@$productDetails -> group_code){
@@ -473,7 +484,7 @@ class ProductController extends Controller
         // seo items & page title change
         $meta_title = $productDetails['product_name'];
 
-        return view('frontend.product.product_details', compact('productDetails', 'productGalleris', 'totalStock', 'relatedProduct', 'groupCode', 'meta_title', 'all_currencie'));
+        return view('frontend.product.product_details', compact('productDetails', 'productGalleris', 'totalStock', 'relatedProduct', 'groupCode', 'meta_title', 'all_currencie', 'ratings', 'averageRating', 'ratingCount'));
     }
 
 

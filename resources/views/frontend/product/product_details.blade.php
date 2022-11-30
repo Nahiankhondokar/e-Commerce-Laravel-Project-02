@@ -1,5 +1,6 @@
 @php
     use App\Models\Product;
+    use Carbon\Carbon;
 @endphp
 
 
@@ -53,6 +54,13 @@
         <div class="span6">
             <h3> {{ ucwords($productDetails -> product_name) }} </h3>
             <h5>- {{ ucwords(@$productDetails -> getBrand -> name ?? 'No Brand') }}</h5>
+            <?php
+                $count = 0;
+                while($count < $averageRating){
+            ?>
+            <span>&#9733;</span> 
+            <?php $count++; } ?>
+            ({{ $ratingCount }})
             <hr class="soft"/>
 
             @if(count($groupCode) > 0)
@@ -331,7 +339,29 @@
                                 <input type="submit" value="Submit" class="btn btn-info btn-sm">
                             </form>
                         </div>
-                        <div class="span4">hi</div>
+                        <div class="span4">
+                            <h3>User Reviews</h3>
+                            @if(count($ratings) > 0)
+                                @foreach($ratings as $item)
+                                    <div>
+                                        <?php
+                                            $count = 0;
+                                            while($count < $item['rating']){
+                                        ?>
+                                        <span>&#9733;</span>
+                                        <?php $count++; } ?>
+
+                                        <p>By {{ $item['get_user']['name'] }}</p>
+                                        <p> {{ Carbon::parse($item['created_at'])->diffForHumans(); }}</p>
+                                        <p>--{{ $item['review'] }}</p>
+                                        
+                                    </div>
+                                    <hr>
+                                @endforeach
+                            @else 
+                                <b style="color: red">No Reviews are available</b>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>

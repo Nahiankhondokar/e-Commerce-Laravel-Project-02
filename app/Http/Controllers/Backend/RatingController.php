@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Rating;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,7 +38,7 @@ class RatingController extends Controller
     }
 
 
-    // add rating
+    // add rating from frontend
     public function AddRating(Request $request){
 
         if(!Auth::check()){
@@ -78,7 +79,8 @@ class RatingController extends Controller
                     'user_id'       => $user_id,
                     'product_id'    => $request -> product_id,
                     'review'        => $request -> review,
-                    'rating'        => $request -> rate
+                    'rating'        => $request -> rate,
+                    'created_at'    => Carbon::now()
                 ]);
     
                 // msg
