@@ -135,7 +135,7 @@
                             </div>
                         </div>
                         <br>
-                        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                        <!-- social media share icons Addthis package -->
                         <div class="addthis_inline_share_toolbox"></div>
                     </div>
                 </div>

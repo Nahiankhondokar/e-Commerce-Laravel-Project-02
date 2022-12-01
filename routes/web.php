@@ -84,7 +84,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin:admin']], function(){
  */
 Route::get('/admin/logout', [AdminController::class, "destroy"]) -> name('admin.logout');
 
-Route::group(['prefix'  => 'admin', 'middleware' => 'auth'], function(){
+Route::group(['prefix'  => 'admin'], function(){
 
     // admin profile
     Route::get('/profile', [MainAdminController::class, "AdminProfile"]) -> name('admin.profile');
@@ -232,6 +232,10 @@ Route::group(['prefix'  => 'admin', 'middleware' => 'auth'], function(){
     // rating all routes
     Route::get('/rating/view', [RatingController::class, "RatingView"]) -> name('rating.view');
     Route::get('/rating/active-inactive', [RatingController::class, "RatingActiveInactive"]);
+
+
+    // graph or charts all routes
+    Route::get('/user-charts', [UserController::class, "ViewUserChart"]) -> name('user.report');
 
 
 });

@@ -29,7 +29,8 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">All Product User</h3>
-                <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#productBrandAdd">Add User</button>
+                <button type="button" class="btn btn-info float-right" >Add User</button> &nbsp; &nbsp;
+                <a href="{{ route('user.report') }}" class="btn btn-primary float-right">User Reports</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
