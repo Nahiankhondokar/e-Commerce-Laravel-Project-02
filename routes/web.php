@@ -234,8 +234,11 @@ Route::group(['prefix'  => 'admin'], function(){
     Route::get('/rating/active-inactive', [RatingController::class, "RatingActiveInactive"]);
 
 
-    // graph or charts all routes
+    // user graph or charts all routes
     Route::get('/user-charts', [UserController::class, "ViewUserChart"]) -> name('user.report');
+
+    // order coloum bar charts all routes
+    Route::get('/order-charts', [BackendOrderController::class, "ViewOrderChart"]) -> name('order.report');
 
 
 });

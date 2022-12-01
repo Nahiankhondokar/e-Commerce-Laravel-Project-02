@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
 
 class OrderController extends Controller
@@ -103,5 +104,25 @@ class OrderController extends Controller
         return $pdf->download('backend.pdf.pdf_invoice');
 
     }
+
+
+
+    // oder charts
+    public function ViewOrderChart(){
+
+        $current_month_order = Order::whereYear('created_at', Carbon::now() -> year) -> whereMonth('created_at', Carbon::now() -> month) -> count();
+        $last_1_month_order = Order::whereYear('created_at', Carbon::now() -> year) -> whereMonth('created_at', Carbon::now() -> subMonth(1)) -> count();
+        $last_2_month_order = Order::whereYear('created_at', Carbon::now() -> year) -> whereMonth('created_at', Carbon::now() -> subMonth(2)) -> count();
+        $last_3_month_order = Order::whereYear('created_at', Carbon::now() -> year) -> whereMonth('created_at', Carbon::now() -> subMonth(3)) -> count();
+
+        $orderCount = array($current_month_order, $last_1_month_order, $last_2_month_order, $last_3_month_order);
+
+        // dd($orderCount); die;
+
+        // dd($current_month_user); die;
+        return view('backend.order.view_order_chart', compact('orderCount'));
+    }
+
+
 
 }
