@@ -55,12 +55,12 @@
             <h3> {{ ucwords($productDetails -> product_name) }} </h3>
             <h5>- {{ ucwords(@$productDetails -> getBrand -> name ?? 'No Brand') }}</h5>
             <?php
-                $count = 0;
-                while($count < $averageRating){
+                @$count = 0;
+                while($count < @$averageRating){
             ?>
             <span>&#9733;</span> 
             <?php $count++; } ?>
-            ({{ $ratingCount }})
+            ({{ ($averageRating) ? $averageRating : "No Rating";}})
             <hr class="soft"/>
 
             @if(count($groupCode) > 0)

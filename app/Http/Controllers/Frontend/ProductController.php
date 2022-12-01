@@ -467,7 +467,13 @@ class ProductController extends Controller
         // get average rating
         $ratingCount = Rating::where('status', 1) -> where('product_id', $id) -> count();
         $ratingSum = Rating::where('status', 1) -> where('product_id', $id) -> sum('rating');
-        $averageRating = $ratingSum / $ratingCount;
+        if(@$ratingCount > 0){
+            $averageRating = $ratingSum / $ratingCount;
+        }else {
+            $averageRating = 0;
+        }
+        // dd($averageRating); die;
+        
 
 
         // group code
