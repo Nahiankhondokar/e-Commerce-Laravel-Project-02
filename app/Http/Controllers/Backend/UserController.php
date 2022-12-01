@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -53,6 +54,17 @@ class UserController extends Controller
 
         // dd($current_month_user); die;
         return view('backend.user.view_user_chart', compact('userCount'));
+    }
+
+
+
+    // user countries show on pie-chart
+    public function ViewUserCountries(){
+
+        $userCountryCount= User::select('country', DB::raw('count(country) as count')) -> groupBy('country') -> get() -> toArray();
+
+        // dd($current_month_user); die;
+        return view('backend.user.view_user_countries_chart', compact('userCountryCount'));
     }
     
 

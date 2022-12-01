@@ -237,6 +237,9 @@ Route::group(['prefix'  => 'admin'], function(){
     // user graph or charts all routes
     Route::get('/user-charts', [UserController::class, "ViewUserChart"]) -> name('user.report');
 
+    // user countries pie-chart routes
+    Route::get('/user-countries-charts', [UserController::class, "ViewUserCountries"]) -> name('user.countries.report');
+    
     // order coloum bar charts all routes
     Route::get('/order-charts', [BackendOrderController::class, "ViewOrderChart"]) -> name('order.report');
 

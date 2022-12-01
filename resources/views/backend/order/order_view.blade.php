@@ -24,7 +24,8 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <a href="{{ route('order.report') }}" class="btn btn-primary float-right mr-1">Order Reports</a> 
+          <a href="{{ route('order.report') }}" class="btn btn-primary float-right">Order Reports</a> 
+          <br><br>
           <div class="col-md-12">
             <table id="category" class="table table-striped table-bordered">
                 <thead>
