@@ -103,6 +103,9 @@
 {{-- Toster js file --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-62df8b6973625adf"></script>
+
   {{-- // Toster --}}
   <script>
     

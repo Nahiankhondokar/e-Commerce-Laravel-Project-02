@@ -101,7 +101,7 @@
 
                     <h5 class="currencie_items">
                         @foreach($all_currencie as $item)
-                        {{ $item['currnecie_code'] }}  {{ round($productDetails -> product_price/$item['currnecie_rate'], 2) }}<br>
+                        {{ $item['currnecie_code'] }}  {{ round($productDetails -> product_price/$item['currnecie_rate'], 2) }} &nbsp; &nbsp;
                         @endforeach
                     </h5>
 
@@ -125,7 +125,7 @@
                         </select> 
                         
                         <input type="number" class="span1" placeholder="Qty." name="quantity" />
-                        
+            
                         <button type="submit" class="btn btn-large btn-primary pull-right"> Add to cart <i class=" icon-shopping-cart"></i></button>
                         <div class="postal-code-check d-flex">
                             <strong>Delivery</strong><br>
@@ -134,6 +134,9 @@
                                 <input type="button" class="btn btn-sm" id="postalCheckBtn" value="Go">
                             </div>
                         </div>
+                        <br>
+                        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                        <div class="addthis_inline_share_toolbox"></div>
                     </div>
                 </div>
             </form>
