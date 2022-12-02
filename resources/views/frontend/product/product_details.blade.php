@@ -1,6 +1,7 @@
 @php
     use App\Models\Product;
     use Carbon\Carbon;
+    use App\Models\Wishlist;
 @endphp
 
 
@@ -126,7 +127,17 @@
                         
                         <input type="number" class="span1" placeholder="Qty." name="quantity" />
             
-                        <button type="submit" class="btn btn-large btn-primary pull-right"> Add to cart <i class=" icon-shopping-cart"></i></button>
+                        <button type="submit" class="btn btn-large btn-primary pull-right"> Add to cart <i class=" icon-shopping-cart"></i></button> 
+
+                        @if(Auth::check())
+                        @php
+                            $wishlistCount = Wishlist::getWishlistData($productDetails -> id);
+                        @endphp
+                            <a href="" class="btn btn-large btn-primary pull-right" style="margin-right: 5px">Wishlist <i @if($wishlistCount > 0) class="icon-heart" @else class="icon-heart-empty" @endif ></i></a>
+                        @else 
+                            <a href="" class="btn btn-large btn-primary pull-right" id="wishlistUserLogin" style="margin-right: 5px">Wishlist <i class=" icon-heart-empty"></i></a>
+                        @endif
+
                         <div class="postal-code-check d-flex">
                             <strong>Delivery</strong><br>
                             <div class="postal-input-tags">

@@ -483,6 +483,12 @@
             });
         });
 
+        // ============== Postal code checking ===============
+        $(document).on("click", "#wishlistUserLogin", function (e) {
+            e.preventDefault();
+            swal.fire("Login first for wishlist");
+        });
+
         // ============== Product Rating & Review Scripts ===============
     });
 })(jQuery);

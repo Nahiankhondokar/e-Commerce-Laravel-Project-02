@@ -29,7 +29,8 @@ class DatabaseSeeder extends Seeder
         // $this->call([OrderStatusSeeder::class]);
         // $this->call([CMSPageSeeder::class]);
         // $this->call([CurrencieSeeder::class]);
-        $this->call([RatingSeeder::class]);
+        // $this->call([RatingSeeder::class]);
+        $this->call([WishlistSeeder::class]);
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
