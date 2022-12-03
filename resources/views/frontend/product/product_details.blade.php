@@ -133,7 +133,7 @@
                         @php
                             $wishlistCount = Wishlist::getWishlistData($productDetails -> id);
                         @endphp
-                            <a href="" class="btn btn-large btn-primary pull-right" style="margin-right: 5px">Wishlist <i @if($wishlistCount > 0) class="icon-heart" @else class="icon-heart-empty" @endif ></i></a>
+                            <a href="" class="btn btn-large btn-primary pull-right" style="margin-right: 5px" id="updateWishlist" product_id="{{$productDetails -> id}}"> Wishlist <i @if($wishlistCount > 0) class="icon-heart" @else class="icon-heart-empty" @endif ></i></a>
                         @else 
                             <a href="" class="btn btn-large btn-primary pull-right" id="wishlistUserLogin" style="margin-right: 5px">Wishlist <i class=" icon-heart-empty"></i></a>
                         @endif

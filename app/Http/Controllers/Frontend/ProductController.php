@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Country;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Wishlist;
 use App\Models\OrderProduct;
 use App\Models\Rating;
 use Illuminate\Http\Request;
@@ -1104,6 +1105,34 @@ class ProductController extends Controller
             return 'valid' ;
         }
 
+
+    }
+
+
+    // wishlist product
+    public function WishlistProduct($product_id){
+
+        // get data
+        $wishlistProduct = Wishlist::where(['user_id'=>Auth::user() -> id, 'product_id'=>$product_id]) -> count();
+            // dd($wishlistProduct); die;
+
+        // wishlist add or remove
+        if($wishlistProduct == 0){
+            // wishlist add
+            $wishlist = new Wishlist();
+            $wishlist -> user_id    = Auth::user() -> id;
+            $wishlist -> product_id = $product_id;
+            $wishlist -> save();
+            return response() -> json([
+                'action'    => 'add'
+            ]);
+        }else {
+            // remove wishlist
+            Wishlist::where(['user_id'=>Auth::user() -> id, 'product_id'=>$product_id]) -> delete();
+            return response() -> json([
+                'action'    => 'remove'
+            ]);
+        }
 
     }
 

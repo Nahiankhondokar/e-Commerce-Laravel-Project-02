@@ -489,6 +489,28 @@
             swal.fire("Login first for wishlist");
         });
 
-        // ============== Product Rating & Review Scripts ===============
+        // ============== Wishlist Scripts ===============
+        $(document).on("click", "#updateWishlist", function (e) {
+            e.preventDefault();
+            const product_id = $(this).attr("product_id");
+            // alert(product_id);
+
+            $.ajax({
+                url: "/user/product-wishlist/" + product_id,
+                success: function (data) {
+                    if (data["action"] == "add") {
+                        $("a#updateWishlist").html(
+                            `Wishlist <i class="icon-heart"></i>`
+                        );
+                        swal.fire("Added To Wishlist");
+                    } else {
+                        $("a#updateWishlist").html(
+                            `Wishlist <i class="icon-heart-empty"></i>`
+                        );
+                        swal.fire("Remove From Wishlist");
+                    }
+                },
+            });
+        });
     });
 })(jQuery);
