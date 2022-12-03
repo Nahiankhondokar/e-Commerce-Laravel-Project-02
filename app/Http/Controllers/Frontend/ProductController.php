@@ -1109,7 +1109,7 @@ class ProductController extends Controller
     }
 
 
-    // wishlist product
+    // Add or Remove wishlist product
     public function WishlistProduct($product_id){
 
         // get data
@@ -1134,6 +1134,21 @@ class ProductController extends Controller
             ]);
         }
 
+    }
+
+
+    // Show wishlist product to user
+    public function ViewWishlistProduct(){
+
+        // get data
+        $wishlistProduct = Wishlist::with(['getProductDetails'=>function($query){
+            $query->select('id', 'product_name', 'product_code', 'product_price', 'product_color', 'main_image');
+        }, 'getUserDetails' => function ($query){
+            $query -> select('id', 'name');
+        }]) -> where('user_id', Auth::user() -> id) -> get() -> toArray();
+            // dd($wishlistProduct); die;
+        return view('frontend.wishlist.view_wishlist', compact('wishlistProduct'));
+        
     }
 
 }

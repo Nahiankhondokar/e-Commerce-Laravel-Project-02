@@ -353,6 +353,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function(){
 
     // Product wishlist routes
     Route::get('/product-wishlist/{product_id}', [FrontendProductController::class, "WishlistProduct"]) -> name('wishlist');
+    Route::get('/view-wishlist', [FrontendProductController::class, "ViewWishlistProduct"]) -> name('wishlist.view');
 
 
 

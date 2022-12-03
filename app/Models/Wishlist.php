@@ -18,4 +18,17 @@ class Wishlist extends Model
 
         return $wishlistCount;
     }
+
+
+    // get user details
+    public function getUserDetails(){
+        return $this -> belongsTo(User::class, 'user_id');
+    }
+
+    // get user details
+    public function getProductDetails(){
+        return $this -> belongsTo(Product::class, 'product_id');
+    }
+
+
 }

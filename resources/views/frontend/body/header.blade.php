@@ -53,6 +53,7 @@
 		          </form>
 		          <ul class="nav pull-right">
 		            <li><a href="{{ route('order.view') }}">Orders</a></li>
+					<li><a href="{{ route('wishlist.view') }}">Wishlist</a></li>
 		            <li class="divider-vertical"></li>
 					@if(Auth::check())
 					<li><a href="{{ route('myaccount') }}">My Account</a></li>

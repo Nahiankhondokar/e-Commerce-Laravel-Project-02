@@ -489,7 +489,7 @@
             swal.fire("Login first for wishlist");
         });
 
-        // ============== Wishlist Scripts ===============
+        // ============== Update Wishlist Scripts ===============
         $(document).on("click", "#updateWishlist", function (e) {
             e.preventDefault();
             const product_id = $(this).attr("product_id");
