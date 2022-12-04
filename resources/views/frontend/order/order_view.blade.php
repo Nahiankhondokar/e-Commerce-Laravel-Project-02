@@ -36,7 +36,7 @@
                 <td>${{ $item['grand_total'] }}</td>
                 <td>{{ date('d-m-Y', strtotime($item['created_at'])) }}</td>
                 <td>
-                    <a href="{{route('order.details')}}" class="btn btn-sm btn-info"><i class="fa fa-eye" aria-hidden="true"></i>
+                    <a href="{{route('order.details', $item['id'])}}" class="btn btn-sm btn-info"><i class="fa fa-eye" aria-hidden="true"></i>
                     </a>
                 </td>
               </tr>

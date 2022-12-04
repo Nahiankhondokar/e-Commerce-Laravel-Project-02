@@ -1,9 +1,11 @@
 <?php
 
 use App\Models\Cart;
+use App\Models\Wishlist;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
+// get all cart item
 function totalCartItem(){
     if(Auth::check()){
         $user_id = Auth::id();
@@ -14,6 +16,16 @@ function totalCartItem(){
     }
 
     return $totalCartItem;
+}
+
+// get all wishlist item
+function totalWishlistItem(){
+    if(Auth::check()){
+        $user_id = Auth::id();
+        $totalWishlistItem = Wishlist::where('user_id', $user_id) -> count();
+    }
+
+    return $totalWishlistItem;
 }
 
 ?>

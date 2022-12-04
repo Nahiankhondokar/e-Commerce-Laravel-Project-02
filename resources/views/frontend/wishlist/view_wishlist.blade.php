@@ -13,11 +13,11 @@ use App\Models\Product;
 		<li><a href="index.html">Home</a> <span class="divider">/</span></li>
 		<li class="active">Wishlist</li>
     </ul>
-	<h3>  Wishlist [ <small><span class="totalCartItem">{{ count($wishlistProduct) }}</span> Item(s) </small>]<a href="{{ url('/') }}" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a></h3>	
+	<h3>  Wishlist [ <small><span class="totalWishlistItem">{{ totalWishlistItem() }}</span> Item(s) </small>]<a href="{{ url('/') }}" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a></h3>	
 	<hr class="soft"/>
 		
 			
-	<div>
+	<div id="appendWishlistItem">
 		@include('frontend.wishlist.append_wishlist_item')
 	</div>
 		

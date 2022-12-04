@@ -22,15 +22,14 @@ class Order extends Model
         return $this -> hasMany(OrderProduct::class, 'order_id');
     }
 
-    /**
-     * third party will deliver customer product from your store
-     * api details of shiprocket
-     */
-    public function push_order($order_id){
-        $order_details = Order::with('order_item') -> where('id', $order_id) -> first() -> toArray();
-        // dd($order_details); die;
 
+    // order status
+    public static function getOrderStatus ($order_id){
+        $orderStatus = Order::select('order_status') -> where('id', $order_id) -> first();
+
+        return $orderStatus;
     }
+
 
 
 }

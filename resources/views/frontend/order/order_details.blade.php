@@ -1,5 +1,6 @@
 @php
     use App\Models\Product;
+    use App\Models\Order;
 @endphp
 
 @extends('frontend.user_master')
@@ -12,7 +13,14 @@
 		<li><a href="index.html">Home</a> <span class="divider">/</span></li>
 		<li class="active">My Orders</li>
     </ul>
-	<h3> Orders Details </h3>	
+    <?php $orderStatus = Order::getOrderStatus($orderDetails['id']); ?>
+	<h3> Orders Details 
+        @if($orderStatus['order_status'] == 'New' )
+            <a href="{{route('order.cancel', $orderDetails['id'])}}" class="btn btn-danger" style="float: right" id="orderCancel">Cancel Order</a>
+        @endif
+        	
+    </h3>
+    
 	<hr class="soft"/>
 	
     <div class="row">

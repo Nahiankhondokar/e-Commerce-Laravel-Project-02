@@ -340,7 +340,10 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function(){
 
     // Orders all routes
     Route::get('/order', [OrderController::class, "OrderView"]) -> name('order.view');
-    Route::get('/order-details', [OrderController::class, "OrderDetails"]) -> name('order.details');
+    Route::get('/order-details/{id}', [OrderController::class, "OrderDetails"]) -> name('order.details');
+
+    // cancel order route
+    Route::get('/order-cancel/{id}', [OrderController::class, "OrderCancel"]) -> name('order.cancel');
 
 
     // Paypal payment route
@@ -354,6 +357,8 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function(){
     // Product wishlist routes
     Route::get('/product-wishlist/{product_id}', [FrontendProductController::class, "WishlistProduct"]) -> name('wishlist');
     Route::get('/view-wishlist', [FrontendProductController::class, "ViewWishlistProduct"]) -> name('wishlist.view');
+
+    Route::get('/delete-wishlist/{id}', [FrontendProductController::class, "DeleteWishlistProduct"]) -> name('wishlist.delete');
 
 
 

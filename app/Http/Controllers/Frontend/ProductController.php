@@ -509,9 +509,10 @@ class ProductController extends Controller
             $all_currencie = Currencie::where('status', 1) -> get() -> toArray();
             $currencie = '';
             foreach($all_currencie as $item){
-                $currencie .= '<br>';
+                $currencie .= '<span style="padding-right: 10px">';
                 $currencie .= $item['currnecie_code'];
                 $currencie .= round($getDiscount['attrPrice'] -> price / $item['currnecie_rate'], 2);
+                $currencie .= '</span>';
             }
             
             // dd($getPrice);
@@ -1148,6 +1149,27 @@ class ProductController extends Controller
         }]) -> where('user_id', Auth::user() -> id) -> get() -> toArray();
             // dd($wishlistProduct); die;
         return view('frontend.wishlist.view_wishlist', compact('wishlistProduct'));
+        
+    }
+
+
+    // Show wishlist product to user
+    public function DeleteWishlistProduct($id){
+
+        // get data
+        Wishlist::find($id) -> delete();
+        $wishlistProduct = Wishlist::with(['getProductDetails'=>function($query){
+            $query->select('id', 'product_name', 'product_code', 'product_price', 'product_color', 'main_image');
+        }, 'getUserDetails' => function ($query){
+            $query -> select('id', 'name');
+        }]) -> get() -> toArray();
+
+        $totalWishlistItem = totalWishlistItem();
+
+        return response() -> json([
+            'view' => (String)View::make('frontend.wishlist.append_wishlist_item') -> with(compact('wishlistProduct')),
+            'totalWishlistItem'     => $totalWishlistItem
+        ]);
         
     }
 

@@ -17,9 +17,14 @@ class OrderController extends Controller
     }
 
     // order details
-    public function OrderDetails(){
+    public function OrderDetails($id){
 
-        $orderDetails = Order::with('order_product') -> where('user_id', Auth::user() -> id) -> first() -> toArray();
+        $orderDetails = Order::with('order_product') -> where('user_id', Auth::user() -> id) -> where('id', $id) -> first() -> toArray();
         return view('frontend.order.order_details', compact('orderDetails'));
+    }
+
+    // order cancel
+    public function OrderCancel($id){
+        
     }
 }
