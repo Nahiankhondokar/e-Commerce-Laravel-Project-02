@@ -30,7 +30,8 @@ class DatabaseSeeder extends Seeder
         // $this->call([CMSPageSeeder::class]);
         // $this->call([CurrencieSeeder::class]);
         // $this->call([RatingSeeder::class]);
-        $this->call([WishlistSeeder::class]);
+        // $this->call([WishlistSeeder::class]);
+        $this->call([ReturnProductSeeder::class]);
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
