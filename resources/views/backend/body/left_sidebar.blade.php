@@ -15,8 +15,11 @@
   <div class="sidebar">
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      @php
+          $image = Auth::guard('admin') -> user() -> profile_photo_path;
+      @endphp
       <div class="image">
-        <img src="{{ asset('media/backend/admin/'.Auth::guard('admin') -> user() -> profile_photo_path) }}" class="img-circle elevation-2" alt="User Image">
+        <img src="{{ asset('media/backend/admin/'.@$image) }}" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
         <a href="#" class="d-block">{{ @Auth::guard('admin') -> user() -> name }}</a>

@@ -52,13 +52,27 @@ class OrderController extends Controller
          * have to provide couriere name or tracking numer
          */
        if($request -> status == 'Shipped'){
-        $update -> courier_name = $request -> courier_name;
-        $update -> traking_number = $request -> traking_number;
-        $update -> update();
+
+            // validation
+            if( !$request -> courier_name || !$request -> traking_number){
+                // msg
+                $notify = [
+                    'message'       => "Courier & Tracking number are requierd",
+                    'alert-type'    => "error"
+                ];
+
+                return redirect() -> back() -> with($notify);
+
+            }
+
+            $update -> courier_name = $request -> courier_name;
+            $update -> traking_number = $request -> traking_number;
+            $update -> update();
+
        }else {
-        $update -> courier_name = $request -> courier_name ?? 'None';
-        $update -> traking_number = $request -> traking_number ?? 'None';
-        $update -> update();
+            $update -> courier_name = $request -> courier_name ?? 'None';
+            $update -> traking_number = $request -> traking_number ?? 'None';
+            $update -> update();
        }
 
         // status update

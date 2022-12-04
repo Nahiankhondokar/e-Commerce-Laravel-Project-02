@@ -119,7 +119,7 @@
 
                   <div class="form-group">
                     <label>Group Code</label>
-                    <input type="text" class="form-control" name="group_code" placeholder="Group Code" @if(!empty(@$edit_product -> group_code)) value="{{ $edit_product -> group_code }}" @else value="{{ old('group_code') }}" @endif>
+                    <input type="text" class="form-control" name="group_code" placeholder="Group Code" @if(!empty(@$edit_product -> group_code)) value="{{ $edit_product -> group_code }}" @else value="{{ old('group_code') }}" @endif required>
 
                     @error('group_code')
                         <span class="text-danger">

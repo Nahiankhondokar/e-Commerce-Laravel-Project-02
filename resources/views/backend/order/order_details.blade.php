@@ -280,11 +280,11 @@
                                           @endforeach
                                       </select>
                                       <br>
-                                      <input class="form-control" placeholder="Curiere Name" type="text" name="courier_name" id="courier_name" style="display: none" required><br>
-                                      <input class="form-control" placeholder="Traking No" type="text" name="traking_number" id="traking_number" style="display: none" required><br>
+                                      <input class="form-control" placeholder="Curiere Name" type="text" name="courier_name" id="courier_name" style="display: none" ><br>
+                                     
+                                      <input class="form-control" placeholder="Traking No" type="text" name="traking_number" id="traking_number" style="display: none" ><br>
+                                      <button type="submit" class="btn btn-primary">Update</button>
                                     </div>
-                                    <br>
-                                    <input type="submit" value="Update" class="btn btn-primary btn-sm">
                                     <br> <br>
                                 </form>
                             </tr>
@@ -339,6 +339,7 @@
                           <th scope="col">Product Size</th>
                           <th scope="col">Product Color</th>
                           <th scope="col">Product Quantity</th>
+                          <th scope="col">Rreturn Status</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -361,6 +362,7 @@
                               <td>{{ $item['product_size'] }}</td>
                               <td>{{ $item['product_color'] }}</td>
                               <td>{{ $item['product_qty'] }}</td>
+                              <td style="color: red">{{ $item['return_order_status'] ?? 'None' }}</td>
                             </tr>
                           @endforeach
                         

@@ -20,7 +20,6 @@ class ReturnProductSeeder extends Seeder
                 'id'            => 1, 
                 'order_id'      => 1,
                 'user_id'       => 1,
-                'product_id'    => 1,
                 'product_code'  => 'ASDG342',
                 'product_size'  => 'small',
                 'return_reason' => "Damage product"
@@ -29,7 +28,6 @@ class ReturnProductSeeder extends Seeder
                 'id'            => 2, 
                 'order_id'      => 2,
                 'user_id'       => 2,
-                'product_id'    => 3,
                 'product_code'  => 'AFDF234',
                 'product_size'  => 'medium',
                 'return_reason' => "Item Arrive Too Late"

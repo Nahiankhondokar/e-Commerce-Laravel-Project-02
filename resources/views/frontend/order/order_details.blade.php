@@ -133,6 +133,7 @@
                     <th scope="col">Product Size</th>
                     <th scope="col">Product Color</th>
                     <th scope="col">Product Quantity</th>
+                    <th scope="col">Rreturn Status</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -155,6 +156,7 @@
                         <td>{{ $item['product_size'] }}</td>
                         <td>${{ $item['product_color'] }}</td>
                         <td>{{ $item['product_qty'] }}</td>
+                        <td style="color: red">{{ $item['return_order_status'] ?? 'None' }}</td>
                       </tr>
                     @endforeach
                   
@@ -173,9 +175,6 @@
         <div class="modal-content">
             <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Order Cancel Process</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
             </div>
             <div class="modal-body">
             <label for="">Order Cancel Reason</label>
@@ -198,25 +197,33 @@
 
 <!-- Order Return Modal -->
 <div class="modal fade" id="orderReturn" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <form action="{{ route('order.cancel', $orderDetails['id']) }}" method="post">
+    <form action="{{ route('order.return', $orderDetails['id']) }}" method="post">
         @csrf
         <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content text-center">
             <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Order Return Process</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+            <h5 class="modal-title text-center" id="exampleModalLabel">Order Return Process</h5>
             </div>
-            <div class="modal-body">
-            <label for="">Order Return Reason</label>
-            <select name="returnReason" id="" class="form-select" required>
-                <option value="">Select</option>
-                <option value="Order Created By Mistake">Order Created By Mistake</option>
-                <option value="Item Not Arrive On Time">Item Not Arrive On Time</option>
-                <option value="Shipping Cost Too High">Shipping Cost Too High</option>
-                <option value="Found Cheeper Somewhere Else">Found Cheeper Somewhere Else</option>
-            </select>
+            <div class="modal-body" style="text-align: center;">
+                <label for=""><b>Ordered Products</b></label>
+                <select name="product_info" id="" class="form-select" required>
+                    <option value="" selected disabled>-Select-</option>
+                    @foreach($orderDetails['order_product'] as $item)
+                        @if($item['return_order_status'] != 'Return Request')
+                        <option value="{{$item['product_code']}}-{{$item['product_size']}}">{{$item['product_code']}} -- {{$item['product_size']}}</option>
+                        @endif
+                    @endforeach
+                </select>
+                <label for=""><b>Order Return Reason</b></label>
+                <select name="returnReason" id="" class="form-select" required>
+                    <option value="">Select</option>
+                    <option value="Quality is bad">Quality is bad</option>
+                    <option value="Item Not Arrive Too Late">Item Not Arrive Too Late</option>
+                    <option value="Wrong Item was sent">Wrong Item was sent</option>
+                    <option value="Product Does not Work">Product Does not Work</option>
+                </select>
+                <label for=""><b>Order Return Comment</b></label>
+                <textarea name="comment" id="" cols="30" rows="3"></textarea>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

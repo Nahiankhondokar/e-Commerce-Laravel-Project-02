@@ -95,6 +95,7 @@ class ProductController extends Controller
                 'product_code'      => 'required|regex:/^[a-zA-Z0-9_-]*$/',
                 'category_id'       => 'required',
                 'brand_id'          => 'required',
+                'group_code'        => 'required',
                 'product_price'     => 'required|numeric',
                 'product_weight'    => 'required|regex:/^[0-9]*$/'
             ], [
