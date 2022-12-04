@@ -1,6 +1,7 @@
 @php
 	$section = App\Models\CreateSection::with('getCategory') -> where('status', 1) -> get();
 	// dd($section) -> toArray();
+    use App\Models\Product;
 @endphp
 <div id="sidebar" class="span3">
     <div class="well well-small">
@@ -10,15 +11,18 @@
         <ul id="sideManu" class="nav nav-tabs nav-stacked">
             @foreach($section as $section)
                 @if(count($section -> getCategory) > 0)
-                    <li class="subMenu"><a>{{ ucwords($section -> name) }}</a>
+                    <li class="subMenu"><a>{{ ucwords($section -> name) }} </a>
                         <ul>
                             @foreach($section -> getCategory as $cat)
                             <li>
-                                <a href="{{ url('/'.$cat -> url) }}"><i class="icon-chevron-right"></i><strong>{{ $cat -> category_name }}</strong></a>
+                                @php $productCountOne = Product::productCountForParentCat($cat -> id); @endphp
+                                <a href="{{ url('/'.$cat -> url) }}"><i class="icon-chevron-right"></i><strong>{{ $cat -> category_name }} ({{$productCountOne}})</strong></a>
+                                
                             </li>
                                 @foreach($cat -> subcategories as $subcat)
+                                @php $productCountTwo = Product::productCountForSubCat($subcat -> id); @endphp
                                 <li>
-                                    <a href="{{ url('/'.$subcat -> url) }}"><i class="icon-chevron-right"></i>{{ $subcat -> category_name }}</a>
+                                    <a href="{{ url('/'.$subcat -> url) }}"><i class="icon-chevron-right"></i>{{ $subcat -> category_name }} ({{$productCountTwo}})</a>
                                 </li>
                                 @endforeach
                             @endforeach

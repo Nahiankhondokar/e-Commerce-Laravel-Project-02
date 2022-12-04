@@ -158,6 +158,27 @@ class Product extends Model
     }
 
     
+    // product count fro subcat
+    public static function productCountForSubCat($cat_id){
+
+        $product = Product::where('category_id', $cat_id) -> where('status', 1) -> count();
+        
+        return $product;
+    }
+
+    // product count for parent cat
+    public static function productCountForParentCat($cat_id){
+
+        $catIds = Category::select('id') -> where(['parent_id' => $cat_id]) -> get() -> toArray();
+
+        $catIdsOne = array_flatten($catIds);
+        $catIdsTwo = array($cat_id);
+        $catIds = array_merge($catIdsOne, $catIdsTwo);
+
+        $product = Product::whereIn('category_id', $catIds) -> where('status', 1) -> count();
+        return $product;
+    }
+    
 
           
            
