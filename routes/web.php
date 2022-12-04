@@ -184,8 +184,6 @@ Route::group(['prefix'  => 'admin'], function(){
     Route::get('/delete-order-status/{id}', [BackendOrderController::class, "OrderStatusDeleteAdmin"]) -> name('admin.status.delete');
 
     
-
-
     // order invoice number
     Route::get('/order-invoice/{id}', [BackendOrderController::class, "OrderInvoiceNumver"]) -> name('order.invoice');
 
@@ -246,6 +244,10 @@ Route::group(['prefix'  => 'admin'], function(){
     
     // order coloum bar charts all routes
     Route::get('/order-charts', [BackendOrderController::class, "ViewOrderChart"]) -> name('order.report');
+
+
+    // Return order routes
+    Route::get('/view/return-order', [BackendOrderController::class, "ViewReturnOrder"]) -> name('return.view');
 
 
 });

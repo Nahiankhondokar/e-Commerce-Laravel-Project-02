@@ -169,6 +169,14 @@
               </a>
             </li>
 
+            
+            <li class="nav-item">
+              <a href="{{ route('return.view') }}" class="nav-link {{ ($route == 'return.view') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Return Request</p>
+              </a>
+            </li>
+
           </ul>
         </li>
 

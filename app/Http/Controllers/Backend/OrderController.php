@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderLog;
 use App\Models\OrderStatus;
+use App\Models\ReturnProduct;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -162,6 +163,13 @@ class OrderController extends Controller
         ];
 
         return redirect() -> back() -> with($notify);
+    }
+
+
+    // order return approve or rejected
+    public function ViewReturnOrder(){
+        $return_product = ReturnProduct::get();
+        return view('backend.order.view_return_order', compact('return_product'));
     }
 
 
