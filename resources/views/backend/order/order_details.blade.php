@@ -293,7 +293,9 @@
                             <tr>
                                 <td>{{ $item['order_status'] }}</td>
                                 <td> -- </td>
-                                <td>{{ date('F j, Y', strtotime($item['created_at'])) }}</td>                               
+                                <td>{{ date('F j, Y, g:i a', strtotime($item['created_at'])) }}</td>
+                                <td>{{@$item['reason']}}</td>
+                                <td><a href="{{ route('admin.status.delete', $item['id']) }}" style="color: red;" id="delete"><i class="fa fa-trash"></i></a></td>                              
                             </tr>
                             @endforeach
                         </tbody>

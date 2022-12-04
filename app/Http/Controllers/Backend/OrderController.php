@@ -124,5 +124,17 @@ class OrderController extends Controller
     }
 
 
+    // order status delete
+    public function OrderStatusDeleteAdmin($id){
+        OrderLog::find($id) -> delete();
+        // msg
+        $notify = [
+            'message'       => "Order Status Deleted",
+            'alert-type'    => "info"
+        ];
+
+        return redirect() -> back() -> with($notify);
+    }
+
 
 }

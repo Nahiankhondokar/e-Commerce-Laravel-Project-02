@@ -25,13 +25,25 @@ class OrderController extends Controller
     }
 
     // order cancel
-    public function OrderCancel($id){
-        
+    public function OrderCancel($id, Request $request){
+            // dd($request -> all()); die;
+
+        // validaiton 
+        if($request -> reason == ''){
+            // msg
+            $notify = [
+                'message'       => "Order Cancel Reason Is Required !",
+                'alert-type'    => "error"
+            ];
+            return redirect() -> back() -> with($notify);
+        }
+
         // get logged in user id from Auth
         $user_id_auth = Auth::user() -> id;
 
         // get user id from order table
-        $user_id_order_table = Order::select('user_id') -> where('id', $id) -> first();
+        $user_id_order_table = Order::select('user_id') -> where('id', $id) -> first(); 
+    
 
         // validation or update data
         if($user_id_auth == $user_id_order_table -> user_id){
@@ -40,8 +52,10 @@ class OrderController extends Controller
 
             // order log update
             $order = new OrderLog();
-            $order -> order_id = $id;
-            $order -> order_status = 'Cancel';
+            $order -> order_id      = $id;
+            $order -> order_status  = 'Cancel';
+            $order -> reason        = $request -> reason;
+            $order -> updated_by    = "User";
             $order -> save();
 
             // msg

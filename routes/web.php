@@ -180,6 +180,7 @@ Route::group(['prefix'  => 'admin'], function(){
     Route::get('/order', [BackendOrderController::class, "OrderViewAdmin"]) -> name('admin.order.view');
     Route::get('/order-details/{id}', [BackendOrderController::class, "OrderDetailsAdmin"]) -> name('admin.order.details');
     Route::post('/order-status', [BackendOrderController::class, "OrderStatusUpdateAdmin"]) -> name('order.status.update');
+    Route::get('/delete-order-status/{id}', [BackendOrderController::class, "OrderStatusDeleteAdmin"]) -> name('admin.status.delete');
 
 
     // order invoice number
@@ -342,8 +343,9 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function(){
     Route::get('/order', [OrderController::class, "OrderView"]) -> name('order.view');
     Route::get('/order-details/{id}', [OrderController::class, "OrderDetails"]) -> name('order.details');
 
-    // cancel order route
-    Route::get('/order-cancel/{id}', [OrderController::class, "OrderCancel"]) -> name('order.cancel');
+    // order cancel route
+    Route::post('/order-cancel/{id}', [OrderController::class, "OrderCancel"]) -> name('order.cancel');
+
 
 
     // Paypal payment route
