@@ -48,8 +48,8 @@ class OrderController extends Controller
 
         // order couiere or traking no udpate
         $update = Order::find($request -> order_id);
-        $update -> courier_name = $request -> courier_name;
-        $update -> traking_number = $request -> traking_number;
+        $update -> courier_name = $request -> courier_name ?? '';
+        $update -> traking_number = $request -> traking_number ?? '';
         $update -> update();
 
         
