@@ -19,7 +19,9 @@
             <a href="#" class="btn btn-danger" style="float: right" data-toggle="modal" data-target="#orderCancel">Cancel Order</a>
            
         @endif
-        	
+        @if($orderStatus['order_status'] == 'Delivered' )
+            <a href="#" class="btn btn-danger" style="float: right" data-toggle="modal" data-target="#orderReturn">Return Order</a>
+        @endif
     </h3>
     
 	<hr class="soft"/>
@@ -163,7 +165,7 @@
 </div>
 <!--/ wrapper -->
 
-<!-- Modal -->
+<!-- Order Cancel Modal -->
 <div class="modal fade" id="orderCancel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <form action="{{ route('order.cancel', $orderDetails['id']) }}" method="post">
         @csrf
@@ -192,7 +194,38 @@
         </div>
         </div>
     </form>
-  </div>
+</div>
+
+<!-- Order Return Modal -->
+<div class="modal fade" id="orderReturn" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form action="{{ route('order.cancel', $orderDetails['id']) }}" method="post">
+        @csrf
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Order Return Process</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            <label for="">Order Return Reason</label>
+            <select name="returnReason" id="" class="form-select" required>
+                <option value="">Select</option>
+                <option value="Order Created By Mistake">Order Created By Mistake</option>
+                <option value="Item Not Arrive On Time">Item Not Arrive On Time</option>
+                <option value="Shipping Cost Too High">Shipping Cost Too High</option>
+                <option value="Found Cheeper Somewhere Else">Found Cheeper Somewhere Else</option>
+            </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Confirmed</button>
+            </div>
+        </div>
+        </div>
+    </form>
+</div>
 
 @endsection
 

@@ -509,7 +509,7 @@ class ProductController extends Controller
             $all_currencie = Currencie::where('status', 1) -> get() -> toArray();
             $currencie = '';
             foreach($all_currencie as $item){
-                $currencie .= '<span style="padding-right: 10px">';
+                $currencie .= '<span>';
                 $currencie .= $item['currnecie_code'];
                 $currencie .= round($getDiscount['attrPrice'] -> price / $item['currnecie_rate'], 2);
                 $currencie .= '</span>';

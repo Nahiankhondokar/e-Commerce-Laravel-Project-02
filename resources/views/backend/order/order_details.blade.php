@@ -280,8 +280,8 @@
                                           @endforeach
                                       </select>
                                       <br>
-                                      <input class="form-control" placeholder="Curiere Name" type="text" name="courier_name" id="courier_name" style="display: none"><br>
-                                      <input class="form-control" placeholder="Traking No" type="text" name="traking_number" id="traking_number" style="display: none"><br>
+                                      <input class="form-control" placeholder="Curiere Name" type="text" name="courier_name" id="courier_name" style="display: none" required><br>
+                                      <input class="form-control" placeholder="Traking No" type="text" name="traking_number" id="traking_number" style="display: none" required><br>
                                     </div>
                                     <br>
                                     <input type="submit" value="Update" class="btn btn-primary btn-sm">

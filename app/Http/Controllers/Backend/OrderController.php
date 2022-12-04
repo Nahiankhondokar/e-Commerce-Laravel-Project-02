@@ -42,15 +42,27 @@ class OrderController extends Controller
     // order status update
     public function OrderStatusUpdateAdmin(Request $request){
 
-        // dd($request -> order_id); die;
-        // status update
-        Order::where('id', $request -> order_id) -> update(['order_status' => $request -> status]);
+            // dd($request -> all()); die;
 
         // order couiere or traking no udpate
         $update = Order::find($request -> order_id);
-        $update -> courier_name = $request -> courier_name ?? '';
-        $update -> traking_number = $request -> traking_number ?? '';
+
+        /**
+         * if status is shipped,
+         * have to provide couriere name or tracking numer
+         */
+       if($request -> status == 'Shipped'){
+        $update -> courier_name = $request -> courier_name;
+        $update -> traking_number = $request -> traking_number;
         $update -> update();
+       }else {
+        $update -> courier_name = $request -> courier_name ?? 'None';
+        $update -> traking_number = $request -> traking_number ?? 'None';
+        $update -> update();
+       }
+
+        // status update
+        Order::where('id', $request -> order_id) -> update(['order_status' => $request -> status]);
 
         
         // **send main to customer
@@ -71,6 +83,8 @@ class OrderController extends Controller
         $log = new OrderLog();
         $log -> order_id        = $request -> order_id;
         $log -> order_status    = $request -> status;
+        $log -> reason          = 'No reason';
+        $log -> updated_by      = 'Admin';
         $log -> save();
 
          // msg
