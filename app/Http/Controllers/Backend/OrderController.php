@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderLog;
+use App\Models\OrderProduct;
 use App\Models\OrderStatus;
 use App\Models\ReturnProduct;
 use App\Models\User;
@@ -166,10 +167,48 @@ class OrderController extends Controller
     }
 
 
-    // order return approve or rejected
+    // order return request show
     public function ViewReturnOrder(){
+        // get all return request
         $return_product = ReturnProduct::get();
         return view('backend.order.view_return_order', compact('return_product'));
+    }
+
+
+    // order return request approved or rejected
+    public function UpdateReturnOrder($id, Request $request){
+        // dd($request -> all()); die;
+
+        if($request -> ajax()){
+            // get all return request data
+            $return_details = ReturnProduct::where('id', $id) -> first() -> toArray();
+
+            // order product table status update
+            $return_status = 'Return '.$request -> status;
+            OrderProduct::where(['order_id' => $return_details['order_id'], 'product_size' => $return_details['product_size'], 'product_code' => $return_details['product_code']]) -> update(['return_order_status'=> $return_status]);
+
+            // return product table status update
+            ReturnProduct::where('id', $id) -> update(['return_status' => $request -> status]);
+
+            // get user details
+            $user_details = User::select('id', 'name', 'email') -> where('id', $return_details['user_id']) -> first() -> toArray();
+
+            // send mail to customer
+            // $email = $user_details['email']; 
+            // $messageData = [
+            //     'userDetails'       => $user_details,
+            //     'returnDetails'     => $return_details,
+            //     'return_status'     => $return_status
+
+            // ];
+            // Mail::send('backend.email.return_product', $messageData, function($msg) use($email, $return_status) {
+            //     $msg -> to($email) -> subject('Return '.$return_status);
+            // });
+
+            return $request -> status;
+
+
+        }
     }
 
 

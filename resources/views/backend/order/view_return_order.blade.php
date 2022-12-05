@@ -58,10 +58,12 @@
                         <td>{{ $item -> return_reason }}</td>
                         <td>{{ $item -> comment }}</td>
                         <td>{{ date('d-m-Y', strtotime($item -> created_at)) }}</td>
-                        <td><p class="badge badge-warning">{{ $item -> return_status }}</p></td>
+                        <td><p class="badge badge-warning returnRequestUpdate-{{$item -> id}}">{{ $item -> return_status }}</p></td>
                         <td>
-                            <a title="Edit" href="{{ route('coupon.edit.add', $item -> id) }}" class="badge badge-success">Approved</a>
-                            <a title="Edit" href="{{ route('coupon.edit.add', $item -> id) }}" class="badge badge-danger">Rejected</a>
+                            <a href="#" user_id="{{$item -> user_id}}" order_id="{{$item -> order_id}}" product_size="{{$item -> product_size}}" product_code="{{$item -> product_code}}" return_reason="{{$item -> return_reason}}" comment="{{$item -> comment}}" return_id="{{$item -> id}}" status="Approved" class="badge badge-success returnRequestInfo">Approved</a>
+
+                            <a href="#" user_id="{{$item -> user_id}}" order_id="{{$item -> order_id}}" product_size="{{$item -> product_size}}" product_code="{{$item -> product_code}}" return_reason="{{$item -> return_reason}}" comment="{{$item -> comment}}" return_id="{{$item -> id}}" status="Rejected" class="badge badge-danger returnRequestInfo">Rejected</a>
+                            
                         </td>
                     </tr>
 
