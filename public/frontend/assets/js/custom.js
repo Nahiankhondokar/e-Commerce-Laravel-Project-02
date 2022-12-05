@@ -586,5 +586,33 @@
                 });
             }
         });
+
+        // ============== exhcange product get product sizes Scripts ===============
+        $(document).on("click", "#subscriber_btn", function (e) {
+            // e.preventDefault();
+            const subscriber_email = $("#subscriber_email").val();
+            let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            // alert(regex.test(subscriber_email));
+            // return false;
+
+            if (regex.test(subscriber_email) == true) {
+                $.ajax({
+                    url: "/user/subscriber-email",
+                    type: "post",
+                    data: { subscriber_email },
+                    success: function (data) {
+                        // alert(data);
+                        if (data == "exists") {
+                            swal.fire("Exists Email Address");
+                        } else {
+                            swal.fire("Add Email Address");
+                            $("#subscriber_email").val("");
+                        }
+                    },
+                });
+            } else {
+                swal.fire("Invalid Email Address");
+            }
+        });
     });
 })(jQuery);

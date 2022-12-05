@@ -21,6 +21,7 @@ use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Frontend\MainUserController;
 use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\PaypalController;
+use App\Http\Controllers\Frontend\NewsletterSubscriberController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
 
 use Illuminate\Support\Facades\Route;
@@ -44,6 +45,7 @@ use Illuminate\Support\Facades\Route;
 // category route manage
 use App\Models\Category;
 use App\Models\CMSPage;
+
 $CatsUrl = Category::select('url') -> where('status', 1) -> get() -> pluck('url');
 $CMSUrl = CMSPage::select('url') -> where('status', 1) -> get() -> pluck('url');
 // echo '<pre>'; print_r($CatsUrl); die;
@@ -318,6 +320,9 @@ Route::get('/postal-code/check', [FrontendProductController::class, "PostalCodeC
 Route::post('/add-rating', [RatingController::class, "AddRating"]) -> name('add.rating');
 
 
+// Subcriber email route
+Route::post('/user/subscriber-email', [NewsletterSubscriberController::class, "SubscriberEmailAdd"]);
+
 
 // user details update routes Auth Middleware
 Route::group(['prefix' => 'user', 'middleware' => 'auth'], function(){
@@ -379,6 +384,8 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function(){
     Route::get('/view-wishlist', [FrontendProductController::class, "ViewWishlistProduct"]) -> name('wishlist.view');
 
     Route::get('/delete-wishlist/{id}', [FrontendProductController::class, "DeleteWishlistProduct"]) -> name('wishlist.delete');
+
+
 
 
 

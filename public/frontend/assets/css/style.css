@@ -8,6 +8,16 @@
     background-color: white;
 }
 
+#subscriber_option {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+#subscriber_option input {
+    margin-bottom: 0px !important;
+}
+
 * {
     margin: 0;
     padding: 0;

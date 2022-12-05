@@ -7,7 +7,9 @@
 		<div id="welcomeLine" class="row">
 			<div class="span6">Welcome!<strong> User</strong></div>
 			<div class="span6">
-				<div class="pull-right">
+				<div class="pull-right" id="subscriber_option">
+					<input type="text" name="subscriber_email" id="subscriber_email" placeholder="Enter Email...">
+					<button class="btn btn-sm btn-info" id="subscriber_btn">Subscribe</button>
 					<a href="{{ url('/cart') }}"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ <span class="totalCartItem">{{ totalCartItem() }}</span>  ] Items in your cart </span> </a>
 				</div>
 			</div>
