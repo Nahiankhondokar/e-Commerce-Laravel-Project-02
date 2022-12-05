@@ -177,6 +177,13 @@
               </a>
             </li>
 
+            <li class="nav-item">
+              <a href="{{ route('exchange.view') }}" class="nav-link {{ ($route == 'exchange.view') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Exchange Request</p>
+              </a>
+            </li>
+
           </ul>
         </li>
 

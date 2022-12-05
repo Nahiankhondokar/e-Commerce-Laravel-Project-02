@@ -251,6 +251,10 @@ Route::group(['prefix'  => 'admin'], function(){
     Route::get('/update/return-order-request/{id}', [BackendOrderController::class, "UpdateReturnOrder"]) -> name('return.request.update');
 
 
+    // Exchange Request routes
+    Route::get('/view/exchange-order-request', [BackendOrderController::class, "ViewExchangeRequest"]) -> name('exchange.view');
+
+
 });
 
 

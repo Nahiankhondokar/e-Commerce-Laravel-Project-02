@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\ExchangeProduct;
 use App\Models\Order;
 use App\Models\OrderLog;
 use App\Models\OrderProduct;
@@ -209,6 +210,13 @@ class OrderController extends Controller
 
 
         }
+    }
+
+
+    // Exchange Request view
+    public function ViewExchangeRequest(){
+        $exchange_product = ExchangeProduct::get();
+        return view('backend.order.view_exchange_order', compact('exchange_product'));
     }
 
 
