@@ -62,9 +62,9 @@
                         <td>{{ date('d-m-Y', strtotime($item -> created_at)) }}</td>
                         <td><p class="badge badge-warning ExchangeRequestUpdate-{{$item -> id}}">{{ $item -> exchange_status }}</p></td>
                         <td>
-                            <a href="#" user_id="{{$item -> user_id}}" order_id="{{$item -> order_id}}" product_size="{{$item -> product_size}}" product_code="{{$item -> product_code}}" Exchange_reason="{{$item -> Exchange_reason}}" comment="{{$item -> comment}}" Exchange_id="{{$item -> id}}" status="Approved" class="badge badge-success ExchangeRequestInfo">Approved</a>
+                            <a href="{{route('exchange.request.approved', $item -> id)}}" class="badge badge-success ExchangeRequestInfo">Approved</a>
 
-                            <a href="#" user_id="{{$item -> user_id}}" order_id="{{$item -> order_id}}" product_size="{{$item -> product_size}}" product_code="{{$item -> product_code}}" Exchange_reason="{{$item -> Exchange_reason}}" comment="{{$item -> comment}}" Exchange_id="{{$item -> id}}" status="Rejected" class="badge badge-danger ExchangeRequestInfo">Rejected</a>
+                            <a href="{{route('exchange.request.reject', $item -> id)}}" class="badge badge-danger ExchangeRequestInfo">Rejected</a>
                             
                         </td>
                     </tr>

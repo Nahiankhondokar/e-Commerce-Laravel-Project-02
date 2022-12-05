@@ -254,6 +254,9 @@ Route::group(['prefix'  => 'admin'], function(){
     // Exchange Request routes
     Route::get('/view/exchange-order-request', [BackendOrderController::class, "ViewExchangeRequest"]) -> name('exchange.view');
 
+    Route::get('/approve/exchange-order-request/{id}', [BackendOrderController::class, "ApproveExchangeRequest"]) -> name('exchange.request.approved');
+    Route::get('/reject/exchange-order-request/{id}', [BackendOrderController::class, "RejectExchangeRequest"]) -> name('exchange.request.reject');
+
 
 });
 

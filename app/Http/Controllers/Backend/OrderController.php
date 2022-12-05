@@ -220,4 +220,80 @@ class OrderController extends Controller
     }
 
 
+    // order exchange request approved or rejected
+    public function ApproveExchangeRequest($id){
+        // dd($request -> all()); die;
+
+        // get all exchange request data
+        $exchange_details = ExchangeProduct::where('id', $id) -> first() -> toArray();
+
+        // order product table status update
+        OrderProduct::where(['order_id' => $exchange_details['order_id'], 'product_size' => $exchange_details['product_size'], 'product_code' => $exchange_details['product_code']]) -> update(['return_order_status'=> 'Exchange Approved']);
+
+        // exchange product table status update
+        ExchangeProduct::where('id', $id) -> update(['exchange_status' => 'Exchange Approved']);
+
+        // get user details
+        $user_details = User::select('id', 'name', 'email') -> where('id', $exchange_details['user_id']) -> first() -> toArray();
+
+        // send mail to customer
+        // $email = $user_details['email']; 
+        // $messageData = [
+        //     'userDetails'       => $user_details,
+        //     'returnDetails'     => $exchange_details,
+        //     'exchange_status'   => 'Approved'
+
+        // ];
+        // Mail::send('backend.email.exchange_product', $messageData, function($msg) use($email, $return_status) {
+        //     $msg -> to($email) -> subject('Return '.$return_status);
+        // });
+
+        // msg
+        $notify = [
+            'message'       => "Exchange Request Approved",
+            'alert-type'    => "info"
+        ];
+
+        return redirect() -> back() -> with($notify);
+    }
+
+
+    // order exchange request approved or rejected
+    public function RejectExchangeRequest($id){
+        // dd($request -> all()); die;
+
+        // get all exchange request data
+        $exchange_details = ExchangeProduct::where('id', $id) -> first() -> toArray();
+
+        // order product table status update
+        OrderProduct::where(['order_id' => $exchange_details['order_id'], 'product_size' => $exchange_details['product_size'], 'product_code' => $exchange_details['product_code']]) -> update(['return_order_status'=> 'Exchange Rejected']);
+
+        // exchange product table status update
+        ExchangeProduct::where('id', $id) -> update(['exchange_status' => 'Exchange Rejected']);
+
+        // get user details
+        $user_details = User::select('id', 'name', 'email') -> where('id', $exchange_details['user_id']) -> first() -> toArray();
+
+        // send mail to customer
+        // $email = $user_details['email']; 
+        // $messageData = [
+        //     'userDetails'       => $user_details,
+        //     'returnDetails'     => $exchange_details,
+        //     'exchange_status'   => 'Rejected'
+
+        // ];
+        // Mail::send('backend.email.exchange_product', $messageData, function($msg) use($email, $return_status) {
+        //     $msg -> to($email) -> subject('Return '.$return_status);
+        // });
+
+        // msg
+        $notify = [
+            'message'       => "Exchange Request Rejected",
+            'alert-type'    => "error"
+        ];
+
+        return redirect() -> back() -> with($notify);
+    }
+
+
 }
