@@ -32,7 +32,8 @@ class DatabaseSeeder extends Seeder
         // $this->call([RatingSeeder::class]);
         // $this->call([WishlistSeeder::class]);
         // $this->call([ReturnProductSeeder::class]);
-        $this->call([ExchangeProductSeeder::class]);
+        // $this->call([ExchangeProductSeeder::class]);
+        $this->call([NewsletterSubcriberSeeder::class]);
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
