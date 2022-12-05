@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderLog;
 use App\Models\OrderProduct;
+use App\Models\Product;
+use App\Models\ProductAttribute;
 use App\Models\ReturnProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -137,6 +139,32 @@ class OrderController extends Controller
         }
 
 
+
+    }
+
+    // get product size for exchange
+    public function getProductSizes(Request $request){
+        // dd($request -> all()); die;
+
+        // get product info
+        $product_arr = explode('-', $request -> product_info);
+        $product_code = $product_arr[0];
+        $product_size = $product_arr[1];
+
+        // get product id
+        $product_id = Product::select('id') -> where('product_code', $product_code) -> first() -> toArray();
+        $productId = $product_id['id'];
+
+        //  get product size
+        $productSizes = ProductAttribute::select('size') -> where('product_id', $productId) -> where('size', '!=', $product_size) -> where('stock', '>', 0) -> get() -> toArray();
+
+        // show producdt sizes
+        $appendSizes = '<option value="" disabled>Select Required Size</option>';
+        foreach($productSizes as $key => $item){
+            $appendSizes .= '<option value="'.$item["size"].'">'.$item["size"].'</option>';
+        }
+
+        return $appendSizes;
 
     }
 }

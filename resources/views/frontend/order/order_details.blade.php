@@ -20,7 +20,7 @@
            
         @endif
         @if($orderStatus['order_status'] == 'Delivered' )
-            <a href="#" class="btn btn-danger" style="float: right" data-toggle="modal" data-target="#orderReturn">Return Order</a>
+            <a href="#" class="btn btn-danger" style="float: right" data-toggle="modal" data-target="#orderReturn">Return or Exchange Order</a>
         @endif
     </h3>
     
@@ -202,18 +202,26 @@
         <div class="modal-dialog" role="document">
         <div class="modal-content text-center">
             <div class="modal-header">
-            <h5 class="modal-title text-center" id="exampleModalLabel">Order Return Process</h5>
+            <h5 class="modal-title text-center" id="exampleModalLabel">Order Return or Exchange Process</h5>
             </div>
             <div class="modal-body" style="text-align: center;">
-                <label for=""><b>Ordered Products</b></label>
-                <select name="product_info" id="" class="form-select" required>
+                <label for=""><b>Select Return or Exchange</b></label>
+                <select name="returnOrExchange" id="" class="form-select returnOrExchange" required>
                     <option value="" selected disabled>-Select-</option>
+                    <option value="Return">Return</option>
+                    <option value="Exchange">Exchange</option>
+                </select>
+                
+                <label for=""><b>Ordered Products</b></label>
+                <select name="product_info" id="product_info" class="form-select" required>
+                    <option value="" selected disabled>-Select Product-</option>
                     @foreach($orderDetails['order_product'] as $item)
                         @if($item['return_order_status'] != 'Return Request')
                         <option value="{{$item['product_code']}}-{{$item['product_size']}}">{{$item['product_code']}} -- {{$item['product_size']}}</option>
                         @endif
                     @endforeach
                 </select>
+
                 <label for=""><b>Order Return Reason</b></label>
                 <select name="returnReason" id="" class="form-select" required>
                     <option value="">Select</option>
@@ -222,6 +230,14 @@
                     <option value="Wrong Item was sent">Wrong Item was sent</option>
                     <option value="Product Does not Work">Product Does not Work</option>
                 </select>
+
+                <div class="form-control showRequirdSize" style="display: none">
+                    <label for=""><b>Select Required Size</b></label>
+                    <select name="required_size" id="required_size" class="form-select">
+                        
+                    </select>
+                </div>
+
                 <label for=""><b>Order Return Comment</b></label>
                 <textarea name="comment" id="" cols="30" rows="3"></textarea>
             </div>

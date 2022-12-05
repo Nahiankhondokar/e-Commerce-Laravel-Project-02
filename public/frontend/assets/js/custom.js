@@ -549,5 +549,42 @@
         //         }
         //     });
         // });
+
+        // ============== Exchange product Scripts ===============
+        $(document).on("change", ".returnOrExchange", function (e) {
+            // e.preventDefault();
+            const showRequirdSize = $(this).val();
+            const product_info = $("#product_info").val();
+            // alert(showRequirdSize);
+            // return false;
+
+            if (showRequirdSize == "Exchange") {
+                $(".showRequirdSize").css("display", "block").slideDown();
+            } else {
+                $(".showRequirdSize").css("display", "none");
+            }
+        });
+
+        // ============== exhcange product get product sizes Scripts ===============
+        $(document).on("change", "#product_info", function (e) {
+            // e.preventDefault();
+            const showRequirdSize = $(".returnOrExchange").val();
+            const product_info = $("#product_info").val();
+            // alert(showRequirdSize);
+            // return false;
+
+            if (showRequirdSize == "Exchange") {
+                $.ajax({
+                    url: "/user/exchange-order/product-size",
+                    type: "post",
+                    data: { product_info, showRequirdSize },
+                    success: function (data) {
+                        // alert(data);
+                        $("#required_size").html(data);
+                        // $(".totalWishlistItem").html(data.totalWishlistItem);
+                    },
+                });
+            }
+        });
     });
 })(jQuery);

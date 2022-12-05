@@ -8,6 +8,14 @@
         $("#category").DataTable();
         $("#dataTable").DataTable();
 
+        // ============= Csrf Token Post Type Error Resolve ===========
+        // csrf token will not show any error when we pass POST type data through ajax.
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+        });
+
         //===================== section Scripts =====================
 
         // section status active inactive update script
@@ -689,10 +697,10 @@
                     // alert(data);
                     if (data == "Approved") {
                         swal.fire("Return Request Approved");
-                        $(".returnRequestUpdate-"+return_id).text("Approved");
+                        $(".returnRequestUpdate-" + return_id).text("Approved");
                     } else {
                         swal.fire("Return Request Rejected");
-                        $(".returnRequestUpdate-"+return_id).text("Rejected");
+                        $(".returnRequestUpdate-" + return_id).text("Rejected");
                     }
                 },
             });

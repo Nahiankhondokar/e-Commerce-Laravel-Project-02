@@ -355,6 +355,9 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function(){
     // order return route
     Route::post('/order-return/{id}', [OrderController::class, "OrderReturn"]) -> name('order.return');
 
+    // exchange product routes
+    Route::post('/exchange-order/product-size', [OrderController::class, "getProductSizes"]);
+
 
     // Paypal payment route
     Route::get('/paypal', [PaypalController::class, "ThanksToPaypal"]) -> 
