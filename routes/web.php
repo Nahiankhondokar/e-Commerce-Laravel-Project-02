@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\CMSController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\CurrencieController;
 use App\Http\Controllers\Backend\MainAdminController;
+use App\Http\Controllers\Backend\NewsletterSubscriberController as BackendNewsletterSubscriberController;
 use App\Http\Controllers\Backend\OrderController as BackendOrderController;
 use App\Http\Controllers\Backend\ProductBrandController;
 use App\Http\Controllers\Backend\ProductController;
@@ -260,6 +261,13 @@ Route::group(['prefix'  => 'admin'], function(){
     Route::get('/reject/exchange-order-request/{id}', [BackendOrderController::class, "RejectExchangeRequest"]) -> name('exchange.request.reject');
 
 
+    // Newsletter Subcriber email route
+    Route::get('/view/subscriber-email', [BackendNewsletterSubscriberController::class, "SubscriberEmailView"]) -> name('newsletter.view');
+    Route::get('/subscriber/active-inactive', [BackendNewsletterSubscriberController::class, "SubscriberActiveInactive"]);
+    Route::get('/subscriber/delete/{id}', [BackendNewsletterSubscriberController::class, "SubscriberDelete"]) -> name('subscriber.delete');
+
+
+
 });
 
 
@@ -320,7 +328,7 @@ Route::get('/postal-code/check', [FrontendProductController::class, "PostalCodeC
 Route::post('/add-rating', [RatingController::class, "AddRating"]) -> name('add.rating');
 
 
-// Subcriber email route
+// Newsletter Subcriber email route
 Route::post('/user/subscriber-email', [NewsletterSubscriberController::class, "SubscriberEmailAdd"]);
 
 

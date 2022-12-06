@@ -705,5 +705,31 @@
                 },
             });
         });
+
+        //===================== Currencie Status UPdate Scripts ======================
+        $(document).on("click", ".subscriberAtiveInactive", function () {
+            let subscriber_id = $(this).attr("subscriber_id");
+            // alert(admin_id); return false;
+
+            $.ajax({
+                url: "/admin/subscriber/active-inactive",
+                type: "get",
+                data: { subscriber_id },
+                success: function (data) {
+                    // alert(data);
+                    if (data == "active") {
+                        $("#subscriber-" + subscriber_id).html(
+                            '<a class="badge badge-success"  href="javascript:void(0)"><i class="fa fa-toggle-on" style="font-size : 20px"></i></a>'
+                        );
+                        $("#subscriber_active-btn" + subscriber_id).hide();
+                    } else {
+                        $("#subscriber-" + subscriber_id).html(
+                            '<a class="badge badge-danger" href="javascript:void(0)"><i class="fa fa-toggle-off" style="font-size : 20px"></i></a>'
+                        );
+                        $("#subscriber_inactive-btn" + subscriber_id).hide();
+                    }
+                },
+            });
+        });
     });
 })(jQuery);

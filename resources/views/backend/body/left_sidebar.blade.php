@@ -184,6 +184,15 @@
               </a>
             </li>
 
+            <li class="nav-item">
+              <a href="{{ route('newsletter.view') }}" class="nav-link {{ ($route == 'newsletter.view') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Newsletter Subscriber</p>
+              </a>
+            </li>
+
+            
+
           </ul>
         </li>
 
