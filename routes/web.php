@@ -207,6 +207,8 @@ Route::group(['prefix'  => 'admin'], function(){
     Route::get('/view', [UserController::class, "getAllUser"]) -> name('user.view');
     Route::get('/user/active-inactive', [UserController::class, "UserActiveInactive"]);
 
+    // Export user route (Excel file)
+    Route::get('/user-exports', [UserController::class, "UserExports"]) -> name('user.exports');
 
     // all CMS route
     Route::get('/CMS/View', [CMSController::class, "CMSView"]) -> name('cms.view');

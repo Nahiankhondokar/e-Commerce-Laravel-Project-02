@@ -29,6 +29,7 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">All Newsletter Subscriber</h3>
+                {{-- <a href="#" class="btn btn-info float-right">Excel File</a> --}}
               </div>
               <!-- /.card-header -->
               <div class="card-body">

@@ -7,6 +7,8 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\usersExpport;
 
 class UserController extends Controller
 {
@@ -66,6 +68,10 @@ class UserController extends Controller
         // dd($current_month_user); die;
         return view('backend.user.view_user_countries_chart', compact('userCountryCount'));
     }
-    
+
+    // user exports 
+    public function UserExports(){
+        return Excel::download(new usersExpport, 'users.xlsx');
+    }    
 
 }

@@ -171,7 +171,7 @@ class Product extends Model
 
         $catIds = Category::select('id') -> where(['parent_id' => $cat_id]) -> get() -> toArray();
 
-        $catIdsOne = array_flatten($catIds);
+        $catIdsOne = array_flatten($catIds);  // multiple array to single array
         $catIdsTwo = array($cat_id);
         $catIds = array_merge($catIdsOne, $catIdsTwo);
 
