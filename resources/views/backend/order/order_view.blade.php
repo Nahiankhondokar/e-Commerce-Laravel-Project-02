@@ -25,7 +25,7 @@
       <div class="container-fluid">
         <div class="row">
           <a href="{{ route('order.report') }}" class="btn btn-primary float-right">Order Reports</a> 
-          <a href="{{ route('user.exports') }}" class="btn btn-light float-right mr-1">Export Order</a> 
+          <a href="{{ route('order.exports') }}" class="btn btn-light float-right mr-1">Export Order</a> 
           <br><br>
           <div class="col-md-12">
             <table id="category" class="table table-striped table-bordered">

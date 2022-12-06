@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Exports\orderExpport;
 use App\Http\Controllers\Controller;
 use App\Models\ExchangeProduct;
 use App\Models\Order;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Mail;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OrderController extends Controller
 {
@@ -294,6 +296,14 @@ class OrderController extends Controller
 
         return redirect() -> back() -> with($notify);
     }
+
+
+
+    // order exports 
+    public function OrderExports(){
+        return Excel::download(new orderExpport, 'order.xlsx');
+    }    
+    
 
 
 }
