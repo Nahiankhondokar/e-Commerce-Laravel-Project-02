@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CMSController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\CurrencieController;
+use App\Http\Controllers\Backend\ImportController;
 use App\Http\Controllers\Backend\MainAdminController;
 use App\Http\Controllers\Backend\NewsletterSubscriberController as BackendNewsletterSubscriberController;
 use App\Http\Controllers\Backend\OrderController as BackendOrderController;
@@ -271,7 +272,8 @@ Route::group(['prefix'  => 'admin'], function(){
     Route::get('/subscriber/active-inactive', [BackendNewsletterSubscriberController::class, "SubscriberActiveInactive"]);
     Route::get('/subscriber/delete/{id}', [BackendNewsletterSubscriberController::class, "SubscriberDelete"]) -> name('subscriber.delete');
 
-
+    // update postal code 
+    Route::match(['get', 'post'],'/update-postal-code', [ImportController::class, "UpdatePostalCode"]) -> name('postal.add.edit');
 
 });
 
