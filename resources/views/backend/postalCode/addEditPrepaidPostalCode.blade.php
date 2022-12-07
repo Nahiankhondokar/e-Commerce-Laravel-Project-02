@@ -13,7 +13,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active"> Postal Code</li>
+              <li class="breadcrumb-item active">Prepaid Postal Code</li>
             </ol>
           </div>
         </div>
@@ -39,7 +39,7 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            <form action="{{ route('postal.add.edit', @$edit_data -> id ?? '') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('prepaidpostal.add.edit', @$edit_data -> id ?? '') }}" method="POST" enctype="multipart/form-data">
               @csrf
 
               <div class="row">
@@ -47,7 +47,7 @@
                     <div class="form-group">
                         <label>Import CSV file <small>(id, postal_code, created_at, updated_at)</small></label>
                         <input type="file" class="form-control" name="file">
-                        @error('file')
+                        @error('users')
                             <span class="text-danger">
                                 <strong>{{ $message }}</strong>
                             </span>

@@ -191,7 +191,19 @@
               </a>
             </li>
 
-            
+            <li class="nav-item">
+              <a href="{{ route('postal.add.edit') }}" class="nav-link {{ ($route == 'postal.add.edit') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Update Postal Code</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="{{ route('prepaidpostal.add.edit') }}" class="nav-link {{ ($route == 'prepaidpostal.add.edit') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Update Prepaid Postal Code</p>
+              </a>
+            </li>
 
           </ul>
         </li>

@@ -32,8 +32,8 @@ class ImportController extends Controller
             $latest_postalcode = array();
             foreach($postalcode as $key => $item){
                 $latest_postalcode[$key]['postalcode'] = $item['postalcode'];
-                $latest_postalcode[$key]['created_at'] = date('Y-m-d H:i:m');
-                $latest_postalcode[$key]['updated_at'] = date('Y-m-d H:i:m');
+                $latest_postalcode[$key]['created_at'] = date('Y-m-d H:i:s');
+                $latest_postalcode[$key]['updated_at'] = date('Y-m-d H:i:s');
             }
 
             // inset to database
@@ -42,9 +42,61 @@ class ImportController extends Controller
             DB::table('postal_codes')  -> insert($latest_postalcode);
 
             // dd($postalcode); die;
+            // msg
+            $notify = [
+                'message'       => "Postal Code Inserted",
+                'alert-type'    => "success"
+            ];
+            return redirect() -> back() -> with($notify);
 
         }
         return view('backend.postalCode.addEditPostalCode');
+    }
+
+    // update prepaid postal code
+    public function UpdatePrepaidPostalCode(Request $request){
+        if($request -> isMethod('post')){
+
+            // file upload
+            if($request -> hasFile('file')){
+
+                $img = $request -> file('file');
+                $unique = md5(time() . rand()) . '.' . $img -> getClientOriginalExtension();
+                $img -> move(public_path('media/backend/imports/postalcodes'), $unique);
+                
+                @unlink('media/backend/imports/postalcodes/'.$request -> old_img);
+
+            }else {
+                $unique = $request -> old_img;
+            }
+
+            // get data from folder
+            $file = public_path('media/backend/imports/postalcodes/'.$unique);
+            $postalcode = $this -> csvToArray($file);
+
+            $latest_postalcode = array();
+            foreach($postalcode as $key => $item){
+                $latest_postalcode[$key]['postalcode'] = $item['postalcode'];
+                $latest_postalcode[$key]['created_at'] = date('Y-m-d H:i:s');
+                $latest_postalcode[$key]['updated_at'] = date('Y-m-d H:i:s');
+            }
+
+            // inset to database
+            DB::table('prepaid_postal_codes') -> delete();
+            DB::update('Alter table prepaid_postal_codes AUTO_INCREMENT = 1;');
+            DB::table('prepaid_postal_codes')  -> insert($latest_postalcode);
+
+            // dd($postalcode); die;
+
+             // msg
+            $notify = [
+                'message'       => "Prepaid Postal Code Inserted",
+                'alert-type'    => "success"
+            ];
+            return redirect() -> back() -> with($notify);
+
+        }
+        return view('backend.postalCode.addEditPrepaidPostalCode');
     }
 
     // CSV to Array Function

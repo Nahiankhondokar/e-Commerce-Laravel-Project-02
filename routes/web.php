@@ -275,6 +275,9 @@ Route::group(['prefix'  => 'admin'], function(){
     // update postal code 
     Route::match(['get', 'post'],'/update-postal-code', [ImportController::class, "UpdatePostalCode"]) -> name('postal.add.edit');
 
+    // update prepaid postal code 
+    Route::match(['get', 'post'],'/update-prepaid-postal-code', [ImportController::class, "UpdatePrepaidPostalCode"]) -> name('prepaidpostal.add.edit');
+
 });
 
 
