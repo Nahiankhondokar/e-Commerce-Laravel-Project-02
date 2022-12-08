@@ -30,6 +30,9 @@
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('backend/assets/plugins/summernote/summernote-bs4.min.css') }}">
 
+	<!-- summernote -->
+	<link href="{{asset('backend/assets/plugins/summernote/summernote-bs4.min.css')}}" rel="stylesheet"/>
+
   <!-- DataTables -->
   <link rel="stylesheet" href="{{ asset('backend/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ asset('backend/assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
@@ -112,6 +115,15 @@
 <script src="{{ asset('backend/assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('backend/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('backend/assets/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+
+<!-- Summernote -->
+<script src="{{ asset('backend/assets/plugins/summernote/summernote-bs4.min.js') }}"></script>
+<script>
+  $(function(){
+    $('.textarea').summernote();
+  })
+
+</script>
 
 {{-- // sweet alert file --}}
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

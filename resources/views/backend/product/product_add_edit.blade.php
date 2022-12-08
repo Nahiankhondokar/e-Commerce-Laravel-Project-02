@@ -110,7 +110,7 @@
 
                   <div class="form-group">
                     <label>Product Discription </label><br>
-                    <textarea name="description" id="" style="width: 100%;" rows="2" placeholder="Description. . ." >@if(!empty(@$edit_product -> description)) {{ $edit_product -> description }} @else {{ old('description') }} @endif</textarea>
+                    <textarea class="textarea"  name="description" id="" style="width: 100%;" rows="2" placeholder="Description. . ." >@if(!empty(@$edit_product -> description)) {{ $edit_product -> description }} @else {{ old('description') }} @endif</textarea>
                   </div>
                   <div class="form-group">
                     <label>Meta Keywords</label><br>
@@ -292,7 +292,7 @@
 
                   <div class="form-group">
                     <label>Product Wash</label>
-                    <textarea name="wash_care" style="width: 100%;" rows="2" placeholder="product wash. . ." >@if(!empty(@$edit_product -> wash_care)) {{ $edit_product -> wash_care }} @else {{ old('wash_care') }} @endif </textarea>
+                    <textarea class="textarea" name="wash_care" style="width: 100%;" rows="2" placeholder="product wash. . ." >@if(!empty(@$edit_product -> wash_care)) {{ $edit_product -> wash_care }} @else {{ old('wash_care') }} @endif </textarea>
                   </div>
                   
                   <div class="form-group">
