@@ -543,7 +543,8 @@ class ProductController extends Controller
             }
 
             // get product stock
-            $getStock = ProductAttribute::where('product_id', $request -> product_id) -> where('size', $request -> size) -> first();
+            $getStock = ProductAttribute::where('product_id', $request -> product_id) ->        
+            where('size', $request -> size) -> first();
 
             // stock validation 
             if($getStock -> stock < $productQuantity){
@@ -565,10 +566,12 @@ class ProductController extends Controller
             // check wheather auth is logged in or not
             if(Auth::check()){
                 // user is logged in
-                $countProduct = Cart::where(['product_id' => $request -> product_id, 'size' => $request -> size, 'user_id' => Auth::user() -> id]) -> count();
+                $countProduct = Cart::where(['product_id' => $request -> product_id, 'size' =>      
+                $request -> size, 'user_id' => Auth::user() -> id]) -> count();
             }else{
                 // user is not logged in
-                $countProduct = Cart::where(['product_id' => $request -> product_id, 'size' => $request -> size, 'session_id' => Session::get('session_id')]) -> count();
+                $countProduct = Cart::where(['product_id' => $request -> product_id, 'size' => 
+                $request -> size, 'session_id' => Session::get('session_id')]) -> count();
             }
 
             // if same size already exists
@@ -769,10 +772,20 @@ class ProductController extends Controller
         // total price 
         $totalAmount = 0;
         $product_weight = 0;
+        $total_tax = 0;
         foreach($userCartItems as $item){
             $discount = Product::getAttrDiscountPrice($item['product_id'], $item['size']);
             $totalAmount = $totalAmount + ($discount['attrDiscountPrice'] * $item['quantity']); 
-            $product_weight = $product_weight + ($item['get_product']['product_weight'] * $item['quantity']);
+            $product_weight = $product_weight + ($item['get_product']['product_weight'] * 
+            $item['quantity']);
+
+            $product_total_price = $discount['attrDiscountPrice'] * $item['quantity'];
+            $getTaxPercentage =Product::select('tax') -> where('id', $item['product_id']) ->first();
+            $taxPercent = $getTaxPercentage -> tax;
+
+            $taxAmount = round($product_total_price * $taxPercent/100, 2);
+            $total_tax = $total_tax + $taxAmount;
+            // dd($taxAmount);  die;
         }
         // dd($product_weight);  die;
 
@@ -898,7 +911,7 @@ class ProductController extends Controller
             $ShippingCharge = ShippingCharge::getShippingCharge($product_weight, $deliveryAddress['country']);
            
             // calculate total price with shipping charge
-            $grand_total = $totalAmount + $ShippingCharge - Session::get('couponAmount');
+            $grand_total = $totalAmount + $ShippingCharge + $total_tax - Session::get('couponAmount');
             Session::put('grand_total', $grand_total);
 
             // if there has some isssu, then both tables will be empty.
@@ -918,6 +931,7 @@ class ProductController extends Controller
             $order -> traking_number = 'None';
 
             $order -> shipping_charge   = $ShippingCharge;
+            $order -> tax               = $total_tax;
             $order -> coupon_code       = Session::get('couponCode') ?? null;
             $order -> coupon_amount     = Session::get('couponAmount') ?? 00;
             $order -> order_status      = "New";
@@ -1038,6 +1052,7 @@ class ProductController extends Controller
             $charges = ShippingCharge::getShippingCharge($product_weight, $item['country']); 
             // add new item with previous array
             $deliveryAddress[$key]['shipping_charge'] = $charges;
+            $deliveryAddress[$key]['tax_charge'] = $total_tax;
 
             // valid postal code checking for COD
             $deliveryAddress[$key]['cod_pincode_count'] = DB::table('postal_codes') -> where('postal_code', $item['pincode']) -> count();
@@ -1062,7 +1077,7 @@ class ProductController extends Controller
         // page title change
         $meta_title = 'Checkout';
 
-        return view('frontend.checkout.checkout_view', compact('userCartItems', 'deliveryAddress', 'totalAmount', 'meta_title'));
+        return view('frontend.checkout.checkout_view', compact('userCartItems', 'deliveryAddress', 'totalAmount', 'meta_title', 'total_tax'));
     }
 
 

@@ -34,6 +34,7 @@ return new class extends Migration
             $table->string('sleeve') -> nullable();
             $table->string('fit') -> nullable();
             $table->string('occassion') -> nullable();
+            $table->integer('tax') -> default(0);
             $table->string('meta_title') -> nullable();
             $table->string('meta_desc') -> nullable();
             $table->string('meta_keyword') -> nullable();

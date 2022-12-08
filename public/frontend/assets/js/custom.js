@@ -428,11 +428,12 @@
             },
         });
 
-        // =========== Shipping charges add ============
+        // =========== Shipping or Tax charges add ============
         $('input[name="address_id"]').bind("change", function () {
             const total_price = $(this).attr("total_price");
             const coupon_amount = $(this).attr("coupon_amount");
             const shipping_charge = $(this).attr("shipping_charge");
+            const total_tax = $(this).attr("total_tax");
             const cod_pincode_count = $(this).attr("cod_pincode_count");
             const prepaid_pincode_count = $(this).attr("prepaid_pincode_count");
             // alert(coupon_amount);
@@ -465,7 +466,8 @@
             const grandTotal =
                 parseInt(total_price) +
                 parseInt(shipping_charge) -
-                parseInt(coupon_amount);
+                parseInt(coupon_amount) +
+                parseInt(total_tax);
             // alert( coupon_amount );
             $(".grandTotal").text(`$${grandTotal}`);
         });

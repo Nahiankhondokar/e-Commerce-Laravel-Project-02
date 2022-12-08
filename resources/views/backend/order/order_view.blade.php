@@ -68,6 +68,7 @@
                             <td>{{ date('d-m-Y', strtotime($item['created_at'])) }}</td>
                             <td>{{ $item['order_status'] }}</td>
                             <td style="width: 12%">
+                              
                                 <a title="Order Details" href="{{route('admin.order.details', $item['id'])}}" class="btn btn-sm btn-info"><i class="fa fa-eye" aria-hidden="true"></i>
                                 </a>
                                 @if($item['order_status'] == 'Shipped' || $item['order_status'] == 'Deliverd')

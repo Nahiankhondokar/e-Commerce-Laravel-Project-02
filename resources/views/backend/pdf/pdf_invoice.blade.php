@@ -520,6 +520,11 @@
           </tr>
           <tr>
             <td colspan="2"></td>
+            <td colspan="2">Tax Charge</td>
+            <td>${{ $orderDetails['tax'] ?? 00 }}</td>
+          </tr>
+          <tr>
+            <td colspan="2"></td>
             <td colspan="2">Coupon Discount</td>
             <td>${{ $orderDetails['coupon_amount'] ?? 00 }}</td>
           </tr>

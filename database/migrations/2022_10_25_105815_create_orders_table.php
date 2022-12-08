@@ -23,7 +23,8 @@ return new class extends Migration
             $table->string('phone');
             $table->string('pincode');
             $table->string('email');
-            $table->float('shipping_charge');
+            $table->float('shipping_charge') -> default(0);
+            $table->float('tax') -> default(0);
             $table->string('coupon_code') -> nullable();
             $table->float('coupon_amount') -> nullable();
             $table->string('order_status');

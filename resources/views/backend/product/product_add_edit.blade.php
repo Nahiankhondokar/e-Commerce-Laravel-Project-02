@@ -56,7 +56,7 @@
                   <!-- /.form-group -->
                   <div class="form-group">
                     <label>Product Price</label>
-                    <input type="text" class="form-control" name="product_price" placeholder="product Discount" @if(!empty(@$edit_product -> product_price)) value="{{ $edit_product -> product_price }}" @else value="{{ old('product_price') }}" @endif >
+                    <input type="number" class="form-control" name="product_price" placeholder="product Discount" @if(!empty(@$edit_product -> product_price)) value="{{ $edit_product -> product_price }}" @else value="{{ old('product_price') }}" @endif >
 
                     @error('product_price')
                         <span class="text-danger">
@@ -240,7 +240,7 @@
 
                   <div class="form-group">
                     <label>Product Weight</label>
-                    <input type="text" class="form-control" name="product_weight" placeholder="product weight" @if(!empty(@$edit_product -> product_weight)) value="{{ $edit_product -> product_weight }}" @else value="{{ old('product_weight') }}" @endif>
+                    <input type="number" class="form-control" name="product_weight" placeholder="product weight" @if(!empty(@$edit_product -> product_weight)) value="{{ $edit_product -> product_weight }}" @else value="{{ old('product_weight') }}" @endif>
 
                     @error('product_weight')
                         <span class="text-danger">
@@ -266,6 +266,17 @@
                         <option value="{{ $item }}" @if(!empty(@$edit_product -> occassion) && $edit_product -> occassion == $item) selected @endif>{{ ucwords($item) }}</option>
                         @endforeach
                       </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Product Tax (%)</label>
+                    <input type="number" class="form-control" name="tax" placeholder="Tax" @if(!empty(@$edit_product -> tax)) value="{{ $edit_product -> tax }}" @else value="{{ old('tax') }}" @endif>
+
+                    @error('tax')
+                        <span class="text-danger">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                   </div>
 
                   <div class="form-group">

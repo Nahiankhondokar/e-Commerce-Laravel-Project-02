@@ -115,8 +115,12 @@
                         </tr>
                         <tr>
                             <th>Shipping Charge</th>
-                            <td>{{ $orderDetails['shipping_charge'] }}</td>
+                            <td>Tk {{ $orderDetails['shipping_charge'] }}</td>
                         </tr>
+                        <tr>
+                          <th>Tax Charge</th>
+                          <td>Tk  {{ $orderDetails['tax'] }}</td>
+                      </tr>
                         <tr>
                             <th>Coupon Code</th>
                             <td>{{ $orderDetails['coupon_code'] }}</td>

@@ -155,6 +155,7 @@ class ProductController extends Controller
             $product -> sleeve          = $request -> sleeve;
             $product -> fit             = $request -> fit;
             $product -> occassion       = $request -> occassion;
+            $product -> tax             = $request -> tax;
             $product -> meta_title      = $request -> meta_title;
             $product -> meta_desc       = $request -> meta_desc;
             $product -> meta_keyword    = $request -> meta_keyword;

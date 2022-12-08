@@ -31,7 +31,7 @@ use App\Models\Product;
 					<form class="">
 						<div class="controls">
 							@foreach($deliveryAddress as $item)
-							<input type="radio" name="address_id" id="{{$item['name']}}" style="float: left; margin-right: 5px;" value="{{$item['id']}}" shipping_charge={{$item['shipping_charge']}} coupon_amount="{{ Session::get('couponAmount') ?? 00 }}" total_price="{{$totalAmount}}" cod_pincode_count="{{$item['cod_pincode_count']}}" prepaid_pincode_count="{{$item['prepaid_pincode_count']}}">
+							<input type="radio" name="address_id" id="{{$item['name']}}" style="float: left; margin-right: 5px;" value="{{$item['id']}}" shipping_charge={{$item['shipping_charge']}} coupon_amount="{{ Session::get('couponAmount') ?? 00 }}" total_price="{{$totalAmount}}" total_tax="{{$item['tax_charge']}}" cod_pincode_count="{{$item['cod_pincode_count']}}" prepaid_pincode_count="{{$item['prepaid_pincode_count']}}">
 
 							 <label for="{{$item['name']}}">  {{  $item['name'] }}, {{ $item['address'] }}, {{ $item['city'] }}, {{ $item['country'] }}</label>
 							 <div>
@@ -117,6 +117,10 @@ use App\Models\Product;
 					<td class="shipping_charges">$00</td>
 				</tr>
 				<tr>
+					<td colspan="6" style="text-align:right">Tax Charge:	</td>
+					<td class="tax_charges">${{$total_tax}}</td>
+				</tr>
+				<tr>
 					<td colspan="6" style="text-align:right">
 						<strong>
 							GRAND TOTAL (${{$total}} + 
@@ -127,12 +131,15 @@ use App\Models\Product;
 								${{ Session::get('couponAmount') }}
 								@else 
 								$00
-								@endif</spanc>  ) =
+								@endif</spanc> + 
+								<span class="tax_charges"> 
+									{{$total_tax}}
+								</span> ) =
 						</strong>
 					</td>
 					<td class="label label-important" style="display:block"> 
 						<strong class="grandTotal"> 
-							${{$grand_total = $total - Session::get('couponAmount') }}  
+							${{$grand_total = $total + $total_tax - Session::get('couponAmount') }}  
 							@php 
 								Session::put('grand_total', $grand_total);
 							@endphp
